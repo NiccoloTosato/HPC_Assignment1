@@ -1,0 +1,2 @@
+user : 212.83 system: 4.38 elapsed: 54.44 CPU: 398% CMD: mpirun --mca btl ^openib --map-by core -np 4 ./jacoby3D.x 
+
