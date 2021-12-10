@@ -1,0 +1,203 @@
+loading dependency gnu/9.3.0
+loading dependency numactl/2.0.13
+loading dependency hwloc/2.2.0
+[ct1pg-gnode003][[17967,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003][[17967,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003:09575] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09575] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[18135,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[18135,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09631] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09631] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[18079,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[18079,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09687] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09687] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17745,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17745,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09753] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09753] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17695,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17695,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09815] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09815] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17881,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17881,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09873] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09873] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17794,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17794,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09930] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09930] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17486,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17486,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:09990] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:09990] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17526,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17526,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10046] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10046] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17456,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17456,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10104] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10104] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17649,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17649,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10169] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10169] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[17595,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[17595,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10227] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10227] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19298,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19298,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10282] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10282] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19244,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19244,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10340] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10340] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19415,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19415,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10399] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10399] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19358,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19358,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10454] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10454] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19013,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19013,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10509] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10509] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[18945,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[18945,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10569] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10569] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19136,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19136,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10632] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10632] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[ct1pg-gnode003][[19081,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+[ct1pg-gnode003][[19081,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pg-gnode003
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pg-gnode003:10689] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pg-gnode003:10689] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages

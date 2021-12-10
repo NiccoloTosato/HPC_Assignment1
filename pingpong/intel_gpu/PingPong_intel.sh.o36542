@@ -1,0 +1,165 @@
+make -f Makefile TARGET=MPI1 clean
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+rm -rf build_MPI1 build_MPI1/IMB_2018.o build_MPI1/IMB_utils.o build_MPI1/IMB_declare.o build_MPI1/IMB_init.o build_MPI1/IMB_mem_manager.o build_MPI1/IMB_parse_name_mpi1.o build_MPI1/IMB_benchlist.o build_MPI1/IMB_strgs.o build_MPI1/IMB_err_handler.o build_MPI1/IMB_g_info.o build_MPI1/IMB_warm_up.o build_MPI1/IMB_output.o build_MPI1/IMB_pingpong.o build_MPI1/IMB_pingping.o build_MPI1/IMB_allreduce.o build_MPI1/IMB_reduce_scatter.o build_MPI1/IMB_reduce.o build_MPI1/IMB_exchange.o build_MPI1/IMB_bcast.o build_MPI1/IMB_barrier.o build_MPI1/IMB_allgather.o build_MPI1/IMB_allgatherv.o build_MPI1/IMB_gather.o build_MPI1/IMB_gatherv.o build_MPI1/IMB_scatter.o build_MPI1/IMB_scatterv.o build_MPI1/IMB_alltoall.o build_MPI1/IMB_alltoallv.o build_MPI1/IMB_sendrecv.o build_MPI1/IMB_init_transfer.o build_MPI1/IMB_chk_diff.o build_MPI1/IMB_cpu_exploit.o build_MPI1/IMB_bandwidth.o IMB-MPI1
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=NBC clean
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+rm -rf build_NBC build_NBC/IMB_2018.o build_NBC/IMB_utils.o build_NBC/IMB_declare.o build_NBC/IMB_init.o build_NBC/IMB_mem_manager.o build_NBC/IMB_parse_name_nbc.o build_NBC/IMB_benchlist.o build_NBC/IMB_strgs.o build_NBC/IMB_err_handler.o build_NBC/IMB_g_info.o build_NBC/IMB_warm_up.o build_NBC/IMB_output.o build_NBC/IMB_allreduce.o build_NBC/IMB_reduce_scatter.o build_NBC/IMB_reduce.o build_NBC/IMB_bcast.o build_NBC/IMB_barrier.o build_NBC/IMB_allgather.o build_NBC/IMB_allgatherv.o build_NBC/IMB_gather.o build_NBC/IMB_gatherv.o build_NBC/IMB_scatter.o build_NBC/IMB_scatterv.o build_NBC/IMB_alltoall.o build_NBC/IMB_alltoallv.o build_NBC/IMB_sendrecv.o build_NBC/IMB_init_transfer.o build_NBC/IMB_chk_diff.o build_NBC/IMB_cpu_exploit.o IMB-NBC
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=RMA clean
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+rm -rf build_RMA build_RMA/IMB_2018.o build_RMA/IMB_utils.o build_RMA/IMB_declare.o build_RMA/IMB_init.o build_RMA/IMB_mem_manager.o build_RMA/IMB_benchlist.o build_RMA/IMB_parse_name_rma.o build_RMA/IMB_strgs.o build_RMA/IMB_err_handler.o build_RMA/IMB_g_info.o build_RMA/IMB_warm_up.o build_RMA/IMB_output.o build_RMA/IMB_init_transfer.o build_RMA/IMB_user_set_info.o build_RMA/IMB_chk_diff.o build_RMA/IMB_rma_put.o build_RMA/IMB_cpu_exploit.o build_RMA/IMB_rma_get.o build_RMA/IMB_rma_atomic.o IMB-RMA
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=EXT clean
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+rm -rf build_EXT build_EXT/IMB_2018.o build_EXT/IMB_utils.o build_EXT/IMB_declare.o build_EXT/IMB_init.o build_EXT/IMB_mem_manager.o build_EXT/IMB_benchlist.o build_EXT/IMB_parse_name_ext.o build_EXT/IMB_strgs.o build_EXT/IMB_err_handler.o build_EXT/IMB_g_info.o build_EXT/IMB_warm_up.o build_EXT/IMB_output.o build_EXT/IMB_window.o build_EXT/IMB_ones_unidir.o build_EXT/IMB_ones_bidir.o build_EXT/IMB_ones_accu.o build_EXT/IMB_init_transfer.o build_EXT/IMB_user_set_info.o build_EXT/IMB_chk_diff.o IMB-EXT
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=IO clean
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+rm -rf build_IO build_IO/IMB_2018.o build_IO/IMB_utils.o build_IO/IMB_declare.o build_IO/IMB_init.o build_IO/IMB_mem_manager.o build_IO/IMB_init_file.o build_IO/IMB_user_set_info.o build_IO/IMB_benchlist.o build_IO/IMB_parse_name_io.o build_IO/IMB_strgs.o build_IO/IMB_err_handler.o build_IO/IMB_g_info.o build_IO/IMB_warm_up.o build_IO/IMB_output.o build_IO/IMB_cpu_exploit.o build_IO/IMB_open_close.o build_IO/IMB_write.o build_IO/IMB_read.o build_IO/IMB_init_transfer.o build_IO/IMB_chk_diff.o IMB-IO
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=MPI1
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+mkdir -p build_MPI1
+mpicc  -DMPI1 -DIMB2018 -c IMB_2018.c -o build_MPI1/IMB_2018.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_utils.c -o build_MPI1/IMB_utils.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_declare.c -o build_MPI1/IMB_declare.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_init.c -o build_MPI1/IMB_init.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_mem_manager.c -o build_MPI1/IMB_mem_manager.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_parse_name_mpi1.c -o build_MPI1/IMB_parse_name_mpi1.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_benchlist.c -o build_MPI1/IMB_benchlist.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_strgs.c -o build_MPI1/IMB_strgs.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_err_handler.c -o build_MPI1/IMB_err_handler.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_g_info.c -o build_MPI1/IMB_g_info.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_warm_up.c -o build_MPI1/IMB_warm_up.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_output.c -o build_MPI1/IMB_output.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_pingpong.c -o build_MPI1/IMB_pingpong.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_pingping.c -o build_MPI1/IMB_pingping.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_allreduce.c -o build_MPI1/IMB_allreduce.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_reduce_scatter.c -o build_MPI1/IMB_reduce_scatter.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_reduce.c -o build_MPI1/IMB_reduce.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_exchange.c -o build_MPI1/IMB_exchange.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_bcast.c -o build_MPI1/IMB_bcast.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_barrier.c -o build_MPI1/IMB_barrier.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_allgather.c -o build_MPI1/IMB_allgather.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_allgatherv.c -o build_MPI1/IMB_allgatherv.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_gather.c -o build_MPI1/IMB_gather.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_gatherv.c -o build_MPI1/IMB_gatherv.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_scatter.c -o build_MPI1/IMB_scatter.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_scatterv.c -o build_MPI1/IMB_scatterv.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_alltoall.c -o build_MPI1/IMB_alltoall.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_alltoallv.c -o build_MPI1/IMB_alltoallv.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_sendrecv.c -o build_MPI1/IMB_sendrecv.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_init_transfer.c -o build_MPI1/IMB_init_transfer.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_chk_diff.c -o build_MPI1/IMB_chk_diff.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_cpu_exploit.c -o build_MPI1/IMB_cpu_exploit.o
+mpicc  -DMPI1 -DIMB2018 -c IMB_bandwidth.c -o build_MPI1/IMB_bandwidth.o
+mpicc  build_MPI1/IMB_2018.o build_MPI1/IMB_utils.o build_MPI1/IMB_declare.o build_MPI1/IMB_init.o build_MPI1/IMB_mem_manager.o build_MPI1/IMB_parse_name_mpi1.o build_MPI1/IMB_benchlist.o build_MPI1/IMB_strgs.o build_MPI1/IMB_err_handler.o build_MPI1/IMB_g_info.o build_MPI1/IMB_warm_up.o build_MPI1/IMB_output.o build_MPI1/IMB_pingpong.o build_MPI1/IMB_pingping.o build_MPI1/IMB_allreduce.o build_MPI1/IMB_reduce_scatter.o build_MPI1/IMB_reduce.o build_MPI1/IMB_exchange.o build_MPI1/IMB_bcast.o build_MPI1/IMB_barrier.o build_MPI1/IMB_allgather.o build_MPI1/IMB_allgatherv.o build_MPI1/IMB_gather.o build_MPI1/IMB_gatherv.o build_MPI1/IMB_scatter.o build_MPI1/IMB_scatterv.o build_MPI1/IMB_alltoall.o build_MPI1/IMB_alltoallv.o build_MPI1/IMB_sendrecv.o build_MPI1/IMB_init_transfer.o build_MPI1/IMB_chk_diff.o build_MPI1/IMB_cpu_exploit.o build_MPI1/IMB_bandwidth.o -o IMB-MPI1
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=NBC 
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+mkdir -p build_NBC
+mpicc  -DNBC -DIMB2018 -c IMB_2018.c -o build_NBC/IMB_2018.o
+mpicc  -DNBC -DIMB2018 -c IMB_utils.c -o build_NBC/IMB_utils.o
+mpicc  -DNBC -DIMB2018 -c IMB_declare.c -o build_NBC/IMB_declare.o
+mpicc  -DNBC -DIMB2018 -c IMB_init.c -o build_NBC/IMB_init.o
+mpicc  -DNBC -DIMB2018 -c IMB_mem_manager.c -o build_NBC/IMB_mem_manager.o
+mpicc  -DNBC -DIMB2018 -c IMB_parse_name_nbc.c -o build_NBC/IMB_parse_name_nbc.o
+mpicc  -DNBC -DIMB2018 -c IMB_benchlist.c -o build_NBC/IMB_benchlist.o
+mpicc  -DNBC -DIMB2018 -c IMB_strgs.c -o build_NBC/IMB_strgs.o
+mpicc  -DNBC -DIMB2018 -c IMB_err_handler.c -o build_NBC/IMB_err_handler.o
+mpicc  -DNBC -DIMB2018 -c IMB_g_info.c -o build_NBC/IMB_g_info.o
+mpicc  -DNBC -DIMB2018 -c IMB_warm_up.c -o build_NBC/IMB_warm_up.o
+mpicc  -DNBC -DIMB2018 -c IMB_output.c -o build_NBC/IMB_output.o
+mpicc  -DNBC -DIMB2018 -c IMB_allreduce.c -o build_NBC/IMB_allreduce.o
+mpicc  -DNBC -DIMB2018 -c IMB_reduce_scatter.c -o build_NBC/IMB_reduce_scatter.o
+mpicc  -DNBC -DIMB2018 -c IMB_reduce.c -o build_NBC/IMB_reduce.o
+mpicc  -DNBC -DIMB2018 -c IMB_bcast.c -o build_NBC/IMB_bcast.o
+mpicc  -DNBC -DIMB2018 -c IMB_barrier.c -o build_NBC/IMB_barrier.o
+mpicc  -DNBC -DIMB2018 -c IMB_allgather.c -o build_NBC/IMB_allgather.o
+mpicc  -DNBC -DIMB2018 -c IMB_allgatherv.c -o build_NBC/IMB_allgatherv.o
+mpicc  -DNBC -DIMB2018 -c IMB_gather.c -o build_NBC/IMB_gather.o
+mpicc  -DNBC -DIMB2018 -c IMB_gatherv.c -o build_NBC/IMB_gatherv.o
+mpicc  -DNBC -DIMB2018 -c IMB_scatter.c -o build_NBC/IMB_scatter.o
+mpicc  -DNBC -DIMB2018 -c IMB_scatterv.c -o build_NBC/IMB_scatterv.o
+mpicc  -DNBC -DIMB2018 -c IMB_alltoall.c -o build_NBC/IMB_alltoall.o
+mpicc  -DNBC -DIMB2018 -c IMB_alltoallv.c -o build_NBC/IMB_alltoallv.o
+mpicc  -DNBC -DIMB2018 -c IMB_sendrecv.c -o build_NBC/IMB_sendrecv.o
+mpicc  -DNBC -DIMB2018 -c IMB_init_transfer.c -o build_NBC/IMB_init_transfer.o
+mpicc  -DNBC -DIMB2018 -c IMB_chk_diff.c -o build_NBC/IMB_chk_diff.o
+mpicc  -DNBC -DIMB2018 -c IMB_cpu_exploit.c -o build_NBC/IMB_cpu_exploit.o
+mpicc  build_NBC/IMB_2018.o build_NBC/IMB_utils.o build_NBC/IMB_declare.o build_NBC/IMB_init.o build_NBC/IMB_mem_manager.o build_NBC/IMB_parse_name_nbc.o build_NBC/IMB_benchlist.o build_NBC/IMB_strgs.o build_NBC/IMB_err_handler.o build_NBC/IMB_g_info.o build_NBC/IMB_warm_up.o build_NBC/IMB_output.o build_NBC/IMB_allreduce.o build_NBC/IMB_reduce_scatter.o build_NBC/IMB_reduce.o build_NBC/IMB_bcast.o build_NBC/IMB_barrier.o build_NBC/IMB_allgather.o build_NBC/IMB_allgatherv.o build_NBC/IMB_gather.o build_NBC/IMB_gatherv.o build_NBC/IMB_scatter.o build_NBC/IMB_scatterv.o build_NBC/IMB_alltoall.o build_NBC/IMB_alltoallv.o build_NBC/IMB_sendrecv.o build_NBC/IMB_init_transfer.o build_NBC/IMB_chk_diff.o build_NBC/IMB_cpu_exploit.o -o IMB-NBC
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=RMA 
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+mkdir -p build_RMA
+mpicc  -DRMA -DIMB2018 -c IMB_2018.c -o build_RMA/IMB_2018.o
+mpicc  -DRMA -DIMB2018 -c IMB_utils.c -o build_RMA/IMB_utils.o
+mpicc  -DRMA -DIMB2018 -c IMB_declare.c -o build_RMA/IMB_declare.o
+mpicc  -DRMA -DIMB2018 -c IMB_init.c -o build_RMA/IMB_init.o
+mpicc  -DRMA -DIMB2018 -c IMB_mem_manager.c -o build_RMA/IMB_mem_manager.o
+mpicc  -DRMA -DIMB2018 -c IMB_benchlist.c -o build_RMA/IMB_benchlist.o
+mpicc  -DRMA -DIMB2018 -c IMB_parse_name_rma.c -o build_RMA/IMB_parse_name_rma.o
+mpicc  -DRMA -DIMB2018 -c IMB_strgs.c -o build_RMA/IMB_strgs.o
+mpicc  -DRMA -DIMB2018 -c IMB_err_handler.c -o build_RMA/IMB_err_handler.o
+mpicc  -DRMA -DIMB2018 -c IMB_g_info.c -o build_RMA/IMB_g_info.o
+mpicc  -DRMA -DIMB2018 -c IMB_warm_up.c -o build_RMA/IMB_warm_up.o
+mpicc  -DRMA -DIMB2018 -c IMB_output.c -o build_RMA/IMB_output.o
+mpicc  -DRMA -DIMB2018 -c IMB_init_transfer.c -o build_RMA/IMB_init_transfer.o
+mpicc  -DRMA -DIMB2018 -c IMB_user_set_info.c -o build_RMA/IMB_user_set_info.o
+mpicc  -DRMA -DIMB2018 -c IMB_chk_diff.c -o build_RMA/IMB_chk_diff.o
+mpicc  -DRMA -DIMB2018 -c IMB_rma_put.c -o build_RMA/IMB_rma_put.o
+mpicc  -DRMA -DIMB2018 -c IMB_cpu_exploit.c -o build_RMA/IMB_cpu_exploit.o
+mpicc  -DRMA -DIMB2018 -c IMB_rma_get.c -o build_RMA/IMB_rma_get.o
+mpicc  -DRMA -DIMB2018 -c IMB_rma_atomic.c -o build_RMA/IMB_rma_atomic.o
+mpicc  build_RMA/IMB_2018.o build_RMA/IMB_utils.o build_RMA/IMB_declare.o build_RMA/IMB_init.o build_RMA/IMB_mem_manager.o build_RMA/IMB_benchlist.o build_RMA/IMB_parse_name_rma.o build_RMA/IMB_strgs.o build_RMA/IMB_err_handler.o build_RMA/IMB_g_info.o build_RMA/IMB_warm_up.o build_RMA/IMB_output.o build_RMA/IMB_init_transfer.o build_RMA/IMB_user_set_info.o build_RMA/IMB_chk_diff.o build_RMA/IMB_rma_put.o build_RMA/IMB_cpu_exploit.o build_RMA/IMB_rma_get.o build_RMA/IMB_rma_atomic.o -o IMB-RMA
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=EXT 
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+mkdir -p build_EXT
+mpicc  -DEXT -DIMB2018 -c IMB_2018.c -o build_EXT/IMB_2018.o
+mpicc  -DEXT -DIMB2018 -c IMB_utils.c -o build_EXT/IMB_utils.o
+mpicc  -DEXT -DIMB2018 -c IMB_declare.c -o build_EXT/IMB_declare.o
+mpicc  -DEXT -DIMB2018 -c IMB_init.c -o build_EXT/IMB_init.o
+mpicc  -DEXT -DIMB2018 -c IMB_mem_manager.c -o build_EXT/IMB_mem_manager.o
+mpicc  -DEXT -DIMB2018 -c IMB_benchlist.c -o build_EXT/IMB_benchlist.o
+mpicc  -DEXT -DIMB2018 -c IMB_parse_name_ext.c -o build_EXT/IMB_parse_name_ext.o
+mpicc  -DEXT -DIMB2018 -c IMB_strgs.c -o build_EXT/IMB_strgs.o
+mpicc  -DEXT -DIMB2018 -c IMB_err_handler.c -o build_EXT/IMB_err_handler.o
+mpicc  -DEXT -DIMB2018 -c IMB_g_info.c -o build_EXT/IMB_g_info.o
+mpicc  -DEXT -DIMB2018 -c IMB_warm_up.c -o build_EXT/IMB_warm_up.o
+mpicc  -DEXT -DIMB2018 -c IMB_output.c -o build_EXT/IMB_output.o
+mpicc  -DEXT -DIMB2018 -c IMB_window.c -o build_EXT/IMB_window.o
+mpicc  -DEXT -DIMB2018 -c IMB_ones_unidir.c -o build_EXT/IMB_ones_unidir.o
+mpicc  -DEXT -DIMB2018 -c IMB_ones_bidir.c -o build_EXT/IMB_ones_bidir.o
+mpicc  -DEXT -DIMB2018 -c IMB_ones_accu.c -o build_EXT/IMB_ones_accu.o
+mpicc  -DEXT -DIMB2018 -c IMB_init_transfer.c -o build_EXT/IMB_init_transfer.o
+mpicc  -DEXT -DIMB2018 -c IMB_user_set_info.c -o build_EXT/IMB_user_set_info.o
+mpicc  -DEXT -DIMB2018 -c IMB_chk_diff.c -o build_EXT/IMB_chk_diff.o
+mpicc  build_EXT/IMB_2018.o build_EXT/IMB_utils.o build_EXT/IMB_declare.o build_EXT/IMB_init.o build_EXT/IMB_mem_manager.o build_EXT/IMB_benchlist.o build_EXT/IMB_parse_name_ext.o build_EXT/IMB_strgs.o build_EXT/IMB_err_handler.o build_EXT/IMB_g_info.o build_EXT/IMB_warm_up.o build_EXT/IMB_output.o build_EXT/IMB_window.o build_EXT/IMB_ones_unidir.o build_EXT/IMB_ones_bidir.o build_EXT/IMB_ones_accu.o build_EXT/IMB_init_transfer.o build_EXT/IMB_user_set_info.o build_EXT/IMB_chk_diff.o -o IMB-EXT
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+make -f Makefile TARGET=IO 
+make[1]: Entering directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
+mkdir -p build_IO
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_2018.c -o build_IO/IMB_2018.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_utils.c -o build_IO/IMB_utils.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_declare.c -o build_IO/IMB_declare.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_init.c -o build_IO/IMB_init.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_mem_manager.c -o build_IO/IMB_mem_manager.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_init_file.c -o build_IO/IMB_init_file.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_user_set_info.c -o build_IO/IMB_user_set_info.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_benchlist.c -o build_IO/IMB_benchlist.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_parse_name_io.c -o build_IO/IMB_parse_name_io.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_strgs.c -o build_IO/IMB_strgs.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_err_handler.c -o build_IO/IMB_err_handler.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_g_info.c -o build_IO/IMB_g_info.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_warm_up.c -o build_IO/IMB_warm_up.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_output.c -o build_IO/IMB_output.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_cpu_exploit.c -o build_IO/IMB_cpu_exploit.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_open_close.c -o build_IO/IMB_open_close.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_write.c -o build_IO/IMB_write.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_read.c -o build_IO/IMB_read.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_init_transfer.c -o build_IO/IMB_init_transfer.o
+mpicc -DMPIIO -DIO -DIMB2018 -c IMB_chk_diff.c -o build_IO/IMB_chk_diff.o
+mpicc  build_IO/IMB_2018.o build_IO/IMB_utils.o build_IO/IMB_declare.o build_IO/IMB_init.o build_IO/IMB_mem_manager.o build_IO/IMB_init_file.o build_IO/IMB_user_set_info.o build_IO/IMB_benchlist.o build_IO/IMB_parse_name_io.o build_IO/IMB_strgs.o build_IO/IMB_err_handler.o build_IO/IMB_g_info.o build_IO/IMB_warm_up.o build_IO/IMB_output.o build_IO/IMB_cpu_exploit.o build_IO/IMB_open_close.o build_IO/IMB_write.o build_IO/IMB_read.o build_IO/IMB_init_transfer.o build_IO/IMB_chk_diff.o -o IMB-IO
+make[1]: Leaving directory `/fast/dssc/s271550/mpi-benchmarks/src_c'
