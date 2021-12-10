@@ -1,3 +1,0 @@
-This module provide the environment for a full installation of Intel(R) Parallel Studio XE 2020.4.912 Cluster Edition.
-This module is under testing, and it will __likely__ screw up your environment (once you read this, it may be too late).
-rm: cannot remove ‘task*’: No such file or directory
