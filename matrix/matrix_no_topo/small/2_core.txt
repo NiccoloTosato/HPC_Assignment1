@@ -1,0 +1,420 @@
+Scatter overhead master $0.143361
+parallel time $0.036717
+gather time 0.069526 
+Risultato corretto
+user: 0.31 system: 0.26 elapsed: 0.64 CPU: 89% CMD: mpirun --map-by core --mca btl ^openib -np 1 ./matrix.x 1200 200 100 0 0 0 
+
+Scatter overhead master $0.138593
+parallel time $0.018342
+parallel time $0.019088
+gather time 0.069071 
+Risultato corretto
+user: 0.68 system: 0.35 elapsed: 0.63 CPU: 163% CMD: mpirun --map-by core --mca btl ^openib -np 2 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.012411
+Scatter overhead master $0.143852
+parallel time $0.012009
+parallel time $0.012671
+gather time 0.071791 
+Risultato corretto
+user: 1.03 system: 0.45 elapsed: 0.64 CPU: 233% CMD: mpirun --map-by core --mca btl ^openib -np 3 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.009344
+parallel time $0.009106
+Scatter overhead master $0.147629
+parallel time $0.008755
+parallel time $0.009346
+gather time 0.073503 
+Risultato corretto
+user: 1.42 system: 0.53 elapsed: 0.64 CPU: 301% CMD: mpirun --map-by core --mca btl ^openib -np 4 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.007463
+parallel time $0.007538
+parallel time $0.007505
+Scatter overhead master $0.151374
+parallel time $0.006900
+parallel time $0.007474
+gather time 0.074643 
+Risultato corretto
+user: 1.81 system: 0.60 elapsed: 0.65 CPU: 367% CMD: mpirun --map-by core --mca btl ^openib -np 5 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.006030
+parallel time $0.006009
+parallel time $0.006074
+parallel time $0.006022
+Scatter overhead master $0.153391
+parallel time $0.005751
+parallel time $0.006208
+gather time 0.075726 
+Risultato corretto
+user: 2.20 system: 0.69 elapsed: 0.66 CPU: 433% CMD: mpirun --map-by core --mca btl ^openib -np 6 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.005086
+parallel time $0.005121
+parallel time $0.005117
+parallel time $0.005120
+parallel time $0.005119
+Scatter overhead master $0.154329
+parallel time $0.004896
+parallel time $0.005318
+gather time 0.075555 
+Risultato corretto
+user: 2.58 system: 0.77 elapsed: 0.67 CPU: 500% CMD: mpirun --map-by core --mca btl ^openib -np 7 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.004549
+parallel time $0.004442
+parallel time $0.004564
+parallel time $0.004555
+parallel time $0.004635
+parallel time $0.004623
+Scatter overhead master $0.154288
+parallel time $0.004193
+parallel time $0.004674
+gather time 0.074947 
+Risultato corretto
+user: 2.99 system: 0.81 elapsed: 0.67 CPU: 564% CMD: mpirun --map-by core --mca btl ^openib -np 8 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.003890
+parallel time $0.003862
+parallel time $0.003922
+parallel time $0.003895
+parallel time $0.003951
+parallel time $0.003927
+parallel time $0.003896
+Scatter overhead master $0.165837
+parallel time $0.003685
+parallel time $0.004117
+gather time 0.074129 
+Risultato corretto
+user: 3.43 system: 0.94 elapsed: 0.69 CPU: 634% CMD: mpirun --map-by core --mca btl ^openib -np 9 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.003498
+parallel time $0.003553
+parallel time $0.003616
+parallel time $0.003542
+parallel time $0.003589
+parallel time $0.003623
+parallel time $0.003558
+parallel time $0.003647
+Scatter overhead master $0.153065
+parallel time $0.003294
+parallel time $0.003818
+gather time 0.073392 
+Risultato corretto
+user: 3.78 system: 0.96 elapsed: 0.70 CPU: 677% CMD: mpirun --map-by core --mca btl ^openib -np 10 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.003092
+parallel time $0.003160
+parallel time $0.003189
+parallel time $0.003115
+parallel time $0.003175
+parallel time $0.003211
+parallel time $0.003178
+parallel time $0.003154
+parallel time $0.003150
+Scatter overhead master $0.152535
+parallel time $0.002926
+parallel time $0.003462
+gather time 0.073095 
+Risultato corretto
+user: 4.10 system: 1.08 elapsed: 0.69 CPU: 743% CMD: mpirun --map-by core --mca btl ^openib -np 11 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.002744
+parallel time $0.002823
+parallel time $0.002842
+parallel time $0.002789
+parallel time $0.002848
+parallel time $0.002866
+parallel time $0.002824
+parallel time $0.002846
+parallel time $0.002810
+parallel time $0.002806
+Scatter overhead master $0.152502
+parallel time $0.002649
+parallel time $0.003096
+gather time 0.072482 
+Risultato corretto
+user: 4.49 system: 1.15 elapsed: 0.70 CPU: 797% CMD: mpirun --map-by core --mca btl ^openib -np 12 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.002490
+parallel time $0.002519
+parallel time $0.002510
+parallel time $0.002510
+parallel time $0.002512
+parallel time $0.002492
+parallel time $0.002485
+parallel time $0.002571
+parallel time $0.002509
+parallel time $0.002516
+parallel time $0.002387
+Scatter overhead master $0.141646
+parallel time $0.002209
+parallel time $0.002868
+gather time 0.067223 
+Risultato corretto
+user: 4.71 system: 1.22 elapsed: 0.69 CPU: 853% CMD: mpirun --map-by core --mca btl ^openib -np 13 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.002284
+parallel time $0.002287
+parallel time $0.002273
+parallel time $0.002273
+parallel time $0.002305
+parallel time $0.002307
+parallel time $0.002267
+parallel time $0.002327
+parallel time $0.002286
+parallel time $0.002247
+parallel time $0.002163
+parallel time $0.002226
+Scatter overhead master $0.143852
+parallel time $0.002226
+parallel time $0.002621
+gather time 0.066990 
+Risultato corretto
+user: 5.08 system: 1.36 elapsed: 0.70 CPU: 918% CMD: mpirun --map-by core --mca btl ^openib -np 14 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.002181
+parallel time $0.002166
+parallel time $0.002120
+parallel time $0.002135
+parallel time $0.002173
+parallel time $0.002133
+parallel time $0.002106
+parallel time $0.002142
+parallel time $0.002173
+parallel time $0.002103
+parallel time $0.002035
+parallel time $0.002089
+parallel time $0.002094
+Scatter overhead master $0.146922
+parallel time $0.002045
+parallel time $0.002488
+gather time 0.067832 
+Risultato corretto
+user: 5.50 system: 1.40 elapsed: 0.70 CPU: 978% CMD: mpirun --map-by core --mca btl ^openib -np 15 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.002040
+parallel time $0.001992
+parallel time $0.001990
+parallel time $0.002020
+parallel time $0.001993
+parallel time $0.002022
+parallel time $0.001979
+parallel time $0.002015
+parallel time $0.002016
+parallel time $0.001949
+parallel time $0.001920
+parallel time $0.001936
+parallel time $0.001966
+parallel time $0.001957
+Scatter overhead master $0.144373
+parallel time $0.001888
+parallel time $0.002333
+gather time 0.068387 
+Risultato corretto
+user: 5.82 system: 1.41 elapsed: 0.71 CPU: 1008% CMD: mpirun --map-by core --mca btl ^openib -np 16 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001891
+parallel time $0.001873
+parallel time $0.001827
+parallel time $0.001850
+parallel time $0.001899
+parallel time $0.001872
+parallel time $0.001813
+parallel time $0.001894
+parallel time $0.001870
+parallel time $0.001855
+parallel time $0.001765
+parallel time $0.001832
+parallel time $0.001845
+parallel time $0.001798
+parallel time $0.001858
+Scatter overhead master $0.154903
+parallel time $0.001783
+parallel time $0.002201
+gather time 0.068702 
+Risultato corretto
+user: 6.43 system: 1.58 elapsed: 0.74 CPU: 1078% CMD: mpirun --map-by core --mca btl ^openib -np 17 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001786
+parallel time $0.001772
+parallel time $0.001724
+parallel time $0.001728
+parallel time $0.001771
+parallel time $0.001767
+parallel time $0.001713
+parallel time $0.001729
+parallel time $0.001706
+parallel time $0.001703
+parallel time $0.001661
+parallel time $0.001733
+parallel time $0.001694
+parallel time $0.001691
+parallel time $0.001717
+parallel time $0.001708
+Scatter overhead master $0.147919
+parallel time $0.001707
+parallel time $0.002051
+gather time 0.068455 
+Risultato corretto
+user: 6.59 system: 1.61 elapsed: 0.73 CPU: 1120% CMD: mpirun --map-by core --mca btl ^openib -np 18 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001691
+parallel time $0.001651
+parallel time $0.001607
+parallel time $0.001656
+parallel time $0.001658
+parallel time $0.001675
+parallel time $0.001630
+parallel time $0.001674
+parallel time $0.001656
+parallel time $0.001649
+parallel time $0.001607
+parallel time $0.001621
+parallel time $0.001644
+parallel time $0.001629
+parallel time $0.001648
+parallel time $0.001611
+parallel time $0.001653
+Scatter overhead master $0.149576
+parallel time $0.001590
+parallel time $0.001957
+gather time 0.068715 
+Risultato corretto
+user: 7.03 system: 1.74 elapsed: 0.74 CPU: 1175% CMD: mpirun --map-by core --mca btl ^openib -np 19 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001601
+parallel time $0.001576
+parallel time $0.001528
+parallel time $0.001582
+parallel time $0.001571
+parallel time $0.001568
+parallel time $0.001540
+parallel time $0.001565
+parallel time $0.001535
+parallel time $0.001516
+parallel time $0.001526
+parallel time $0.001537
+parallel time $0.001538
+parallel time $0.001553
+parallel time $0.001555
+parallel time $0.001545
+parallel time $0.001565
+parallel time $0.001563
+Scatter overhead master $0.149513
+parallel time $0.001522
+parallel time $0.001855
+gather time 0.068588 
+Risultato corretto
+user: 7.52 system: 1.84 elapsed: 0.75 CPU: 1237% CMD: mpirun --map-by core --mca btl ^openib -np 20 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001523
+parallel time $0.001489
+parallel time $0.001442
+parallel time $0.001457
+parallel time $0.001480
+parallel time $0.001495
+parallel time $0.001477
+parallel time $0.001469
+parallel time $0.001482
+parallel time $0.001461
+parallel time $0.001420
+parallel time $0.001489
+parallel time $0.001477
+parallel time $0.001463
+parallel time $0.001445
+parallel time $0.001470
+parallel time $0.001469
+parallel time $0.001468
+parallel time $0.001445
+Scatter overhead master $0.161975
+parallel time $0.001424
+parallel time $0.001770
+gather time 0.069154 
+Risultato corretto
+user: 8.18 system: 1.94 elapsed: 0.79 CPU: 1278% CMD: mpirun --map-by core --mca btl ^openib -np 21 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001428
+parallel time $0.001418
+parallel time $0.001379
+parallel time $0.001379
+parallel time $0.001398
+parallel time $0.001402
+parallel time $0.001381
+parallel time $0.001402
+parallel time $0.001403
+parallel time $0.001393
+parallel time $0.001333
+parallel time $0.001393
+parallel time $0.001407
+parallel time $0.001349
+parallel time $0.001391
+parallel time $0.001384
+parallel time $0.001379
+parallel time $0.001391
+parallel time $0.001382
+parallel time $0.001356
+Scatter overhead master $0.156449
+parallel time $0.001380
+parallel time $0.001675
+gather time 0.069239 
+Risultato corretto
+user: 8.45 system: 1.99 elapsed: 0.78 CPU: 1336% CMD: mpirun --map-by core --mca btl ^openib -np 22 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001371
+parallel time $0.001356
+parallel time $0.001318
+parallel time $0.001336
+parallel time $0.001342
+parallel time $0.001357
+parallel time $0.001318
+parallel time $0.001352
+parallel time $0.001330
+parallel time $0.001317
+parallel time $0.001288
+parallel time $0.001333
+parallel time $0.001338
+parallel time $0.001314
+parallel time $0.001334
+parallel time $0.001339
+parallel time $0.001347
+parallel time $0.001343
+parallel time $0.001320
+parallel time $0.001315
+parallel time $0.001309
+Scatter overhead master $0.162956
+parallel time $0.001308
+parallel time $0.001612
+gather time 0.069912 
+Risultato corretto
+user: 9.02 system: 2.08 elapsed: 0.80 CPU: 1386% CMD: mpirun --map-by core --mca btl ^openib -np 23 ./matrix.x 1200 200 100 0 0 0 
+
+parallel time $0.001345
+parallel time $0.001345
+parallel time $0.001266
+parallel time $0.001272
+parallel time $0.001305
+parallel time $0.001304
+parallel time $0.001266
+parallel time $0.001279
+parallel time $0.001300
+parallel time $0.001246
+parallel time $0.001237
+parallel time $0.001266
+parallel time $0.001288
+parallel time $0.001290
+parallel time $0.001274
+parallel time $0.001270
+parallel time $0.001274
+parallel time $0.001268
+parallel time $0.001308
+parallel time $0.001279
+parallel time $0.001275
+parallel time $0.001284
+Scatter overhead master $0.153613
+parallel time $0.001234
+parallel time $0.001567
+gather time 0.069470 
+Risultato corretto
+user: 9.09 system: 2.19 elapsed: 0.81 CPU: 1385% CMD: mpirun --map-by core --mca btl ^openib -np 24 ./matrix.x 1200 200 100 0 0 0 
+

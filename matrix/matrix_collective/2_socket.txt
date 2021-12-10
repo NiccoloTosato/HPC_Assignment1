@@ -1,0 +1,290 @@
+Preparing overhead $33.563126
+Master send time $16.583351
+Computation time $2.586384
+Gather time $62.162387
+Reorder time $7.130226
+RISULTATO CORRETTO!
+user: 36.90 system: 53.70 elapsed: 90.69 CPU: 99% CMD: mpirun --map-by socket --mca btl ^openib -np 1 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.488884
+Slave recv time $62.491181
+Computation time $0.656747
+Slave recv time $64.053687
+Computation time $0.640840
+Master send time $14.020294
+Slave recv time $65.706055
+Computation time $0.651569
+Computation time $0.645872
+Gather time $71.918729
+Gather time $73.451641
+Gather time $75.042439
+Gather time $57.845617
+Reorder time $7.110904
+RISULTATO CORRETTO!
+user: 248.82 system: 70.46 elapsed: 89.41 CPU: 357% CMD: mpirun --map-by socket --mca btl ^openib -np 4 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.445860
+Slave recv time $61.098250
+Computation time $0.321444
+Slave recv time $61.965602
+Computation time $0.322480
+Slave recv time $62.875603
+Computation time $0.318912
+Slave recv time $63.734005
+Computation time $0.316063
+Slave recv time $64.641018
+Computation time $0.317841
+Slave recv time $65.506013
+Computation time $0.321436
+Master send time $14.722222
+Slave recv time $66.427417
+Computation time $0.327072
+Computation time $0.326084
+Gather time $70.674648
+Gather time $71.530565
+Gather time $72.438837
+Gather time $73.302575
+Gather time $74.195874
+Gather time $75.056330
+Gather time $58.682079
+Gather time $75.941373
+Reorder time $7.184435
+RISULTATO CORRETTO!
+user: 541.16 system: 80.33 elapsed: 90.02 CPU: 690% CMD: mpirun --map-by socket --mca btl ^openib -np 8 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.434073
+Slave recv time $60.445096
+Computation time $0.218169
+Slave recv time $61.024234
+Computation time $0.216290
+Slave recv time $61.634474
+Computation time $0.216796
+Slave recv time $62.213461
+Computation time $0.212433
+Slave recv time $62.828487
+Computation time $0.214067
+Slave recv time $63.413223
+Computation time $0.214475
+Slave recv time $64.024413
+Computation time $0.216727
+Slave recv time $64.605731
+Computation time $0.218004
+Slave recv time $65.213675
+Computation time $0.210731
+Slave recv time $65.799684
+Computation time $0.219834
+Master send time $14.722614
+Slave recv time $66.416799
+Computation time $0.211697
+Computation time $0.217643
+Gather time $69.935591
+Gather time $70.505934
+Gather time $71.115866
+Gather time $71.682859
+Gather time $72.303478
+Gather time $72.883015
+Gather time $73.484755
+Gather time $74.060542
+Gather time $74.671748
+Gather time $75.240928
+Gather time $58.583293
+Gather time $75.843360
+Reorder time $7.130863
+RISULTATO CORRETTO!
+user: 830.15 system: 88.43 elapsed: 89.79 CPU: 1022% CMD: mpirun --map-by socket --mca btl ^openib -np 12 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.265325
+Slave recv time $60.333404
+Computation time $0.161896
+Slave recv time $60.804364
+Computation time $0.162686
+Slave recv time $61.307036
+Computation time $0.160056
+Slave recv time $61.773005
+Computation time $0.161204
+Slave recv time $62.264384
+Computation time $0.158647
+Slave recv time $62.727062
+Computation time $0.162827
+Slave recv time $63.228231
+Computation time $0.160868
+Slave recv time $63.630328
+Computation time $0.158193
+Slave recv time $64.151344
+Computation time $0.162951
+Slave recv time $64.618286
+Computation time $0.159045
+Slave recv time $65.114394
+Computation time $0.157462
+Slave recv time $65.580719
+Computation time $0.161365
+Slave recv time $66.077463
+Computation time $0.160478
+Slave recv time $66.540476
+Computation time $0.158878
+Master send time $15.620118
+Slave recv time $67.042599
+Computation time $0.159970
+Computation time $0.159521
+Gather time $68.535431
+Gather time $68.984456
+Gather time $69.477864
+Gather time $69.927693
+Gather time $70.419534
+Gather time $70.870289
+Gather time $71.390413
+Gather time $71.799549
+Gather time $72.309528
+Gather time $72.768708
+Gather time $73.253673
+Gather time $73.702959
+Gather time $74.186360
+Gather time $74.631152
+Gather time $57.976263
+Gather time $75.133389
+Reorder time $6.977661
+RISULTATO CORRETTO!
+user: 1105.92 system: 82.76 elapsed: 89.04 CPU: 1334% CMD: mpirun --map-by socket --mca btl ^openib -np 16 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.655731
+Slave recv time $60.095107
+Computation time $0.127869
+Slave recv time $60.416531
+Computation time $0.130565
+Slave recv time $60.811183
+Computation time $0.129472
+Slave recv time $61.134892
+Computation time $0.131567
+Slave recv time $61.527536
+Computation time $0.128015
+Slave recv time $61.848861
+Computation time $0.129558
+Slave recv time $62.243782
+Computation time $0.126731
+Slave recv time $62.566788
+Computation time $0.130690
+Slave recv time $62.963419
+Computation time $0.127583
+Slave recv time $63.284954
+Computation time $0.126688
+Slave recv time $63.680864
+Computation time $0.127200
+Slave recv time $64.005465
+Computation time $0.128983
+Slave recv time $64.397959
+Computation time $0.128675
+Slave recv time $64.722515
+Computation time $0.128342
+Slave recv time $65.120808
+Computation time $0.128247
+Slave recv time $65.441987
+Computation time $0.126160
+Slave recv time $65.837734
+Computation time $0.129340
+Slave recv time $66.162437
+Computation time $0.131609
+Master send time $14.718314
+Slave recv time $66.560996
+Computation time $0.130040
+Computation time $0.129633
+Gather time $67.815779
+Gather time $68.127359
+Gather time $68.529822
+Gather time $68.841340
+Gather time $69.243866
+Gather time $69.555360
+Gather time $69.958972
+Gather time $70.289299
+Gather time $70.698944
+Gather time $71.028891
+Gather time $71.438082
+Gather time $71.757230
+Gather time $72.152524
+Gather time $72.463865
+Gather time $72.859522
+Gather time $73.170919
+Gather time $73.566170
+Gather time $73.877538
+Gather time $57.085288
+Gather time $74.272207
+Reorder time $7.038940
+RISULTATO CORRETTO!
+user: 1379.50 system: 86.20 elapsed: 88.30 CPU: 1659% CMD: mpirun --map-by socket --mca btl ^openib -np 20 ./matrix.x 1200 2000 700 0 0 0 
+
+Preparing overhead $34.754675
+Slave recv time $60.384261
+Computation time $0.108519
+Slave recv time $60.686894
+Computation time $0.107961
+Slave recv time $61.024507
+Computation time $0.108945
+Slave recv time $61.332454
+Computation time $0.107347
+Slave recv time $61.657959
+Computation time $0.107761
+Slave recv time $61.968711
+Computation time $0.109722
+Slave recv time $62.294937
+Computation time $0.108383
+Slave recv time $62.600462
+Computation time $0.109945
+Slave recv time $62.933581
+Computation time $0.108650
+Slave recv time $63.248879
+Computation time $0.109547
+Slave recv time $63.580555
+Computation time $0.105371
+Slave recv time $63.848986
+Computation time $0.105997
+Slave recv time $64.189721
+Computation time $0.109126
+Slave recv time $64.493938
+Computation time $0.109592
+Slave recv time $64.829224
+Computation time $0.106491
+Slave recv time $65.138965
+Computation time $0.108265
+Slave recv time $65.463570
+Computation time $0.104758
+Slave recv time $65.771645
+Computation time $0.106112
+Slave recv time $66.095363
+Computation time $0.107135
+Slave recv time $66.401320
+Computation time $0.108825
+Slave recv time $66.732252
+Computation time $0.105711
+Slave recv time $67.044933
+Computation time $0.105194
+Master send time $15.522513
+Slave recv time $67.378802
+Computation time $0.106381
+Computation time $0.109610
+Gather time $68.456695
+Gather time $68.758730
+Gather time $69.089747
+Gather time $69.389027
+Gather time $69.722572
+Gather time $70.024062
+Gather time $70.352997
+Gather time $70.654715
+Gather time $71.001169
+Gather time $71.319120
+Gather time $71.668921
+Gather time $71.943942
+Gather time $72.286180
+Gather time $72.588287
+Gather time $72.913955
+Gather time $73.212812
+Gather time $73.541427
+Gather time $73.843114
+Gather time $74.167265
+Gather time $74.464296
+Gather time $74.801132
+Gather time $75.104833
+Gather time $58.341726
+Gather time $75.443112
+Reorder time $7.328999
+RISULTATO CORRETTO!
+user: 1685.84 system: 92.56 elapsed: 89.77 CPU: 1981% CMD: mpirun --map-by socket --mca btl ^openib -np 24 ./matrix.x 1200 2000 700 0 0 0 
+

@@ -1,0 +1,1020 @@
+Preparing overhead $0.534175
+Master send time $0.248906
+Computation time $0.840817
+Gather time $0.974706
+Reorder time $0.097963
+RISULTATO CORRETTO!
+user: 0.62 system: 0.97 elapsed: 1.67 CPU: 95% CMD: mpirun --map-by core --mca btl ^openib -np 1 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.533970
+Master send time $0.227561
+Slave recv time $1.014535
+Computation time $1.033194
+Computation time $0.795889
+Gather time $1.183123
+Gather time $0.930167
+Reorder time $0.097890
+RISULTATO CORRETTO!
+user: 1.73 system: 1.18 elapsed: 1.64 CPU: 176% CMD: mpirun --map-by core --mca btl ^openib -np 2 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.529820
+Slave recv time $0.973501
+Computation time $0.986025
+Master send time $0.227305
+Slave recv time $1.009638
+Computation time $1.021737
+Computation time $0.783240
+Gather time $1.139254
+Gather time $0.920800
+Gather time $1.173272
+Reorder time $0.097032
+RISULTATO CORRETTO!
+user: 2.88 system: 1.35 elapsed: 1.65 CPU: 255% CMD: mpirun --map-by core --mca btl ^openib -np 3 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.545644
+Slave recv time $0.972006
+Computation time $0.981345
+Slave recv time $0.999839
+Computation time $1.009043
+Master send time $0.229623
+Slave recv time $1.027768
+Computation time $1.036737
+Computation time $0.797319
+Gather time $1.137525
+Gather time $1.163753
+Gather time $0.937540
+Gather time $1.190002
+Reorder time $0.115008
+RISULTATO CORRETTO!
+user: 4.11 system: 1.57 elapsed: 1.71 CPU: 331% CMD: mpirun --map-by core --mca btl ^openib -np 4 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.528800
+Slave recv time $0.944443
+Computation time $0.951827
+Slave recv time $0.966915
+Computation time $0.974202
+Slave recv time $0.989412
+Computation time $0.996744
+Master send time $0.230111
+Slave recv time $1.011873
+Computation time $1.018899
+Computation time $0.778488
+Gather time $1.110047
+Gather time $1.131226
+Gather time $1.152412
+Gather time $0.920662
+Gather time $1.173588
+Reorder time $0.096694
+RISULTATO CORRETTO!
+user: 5.25 system: 1.74 elapsed: 1.70 CPU: 411% CMD: mpirun --map-by core --mca btl ^openib -np 5 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.550434
+Slave recv time $0.958275
+Computation time $0.964344
+Slave recv time $0.977142
+Computation time $0.983166
+Slave recv time $0.996116
+Computation time $1.002133
+Slave recv time $1.014947
+Computation time $1.020937
+Master send time $0.230100
+Slave recv time $1.033514
+Computation time $1.039221
+Computation time $0.798466
+Gather time $1.123220
+Gather time $1.140956
+Gather time $1.158710
+Gather time $1.176396
+Gather time $0.941225
+Gather time $1.194164
+Reorder time $0.115031
+RISULTATO CORRETTO!
+user: 6.57 system: 1.93 elapsed: 1.76 CPU: 482% CMD: mpirun --map-by core --mca btl ^openib -np 6 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.456466
+Slave recv time $0.858069
+Computation time $0.863200
+Slave recv time $0.874066
+Computation time $0.879143
+Slave recv time $0.890041
+Computation time $0.895119
+Slave recv time $0.905915
+Computation time $0.910973
+Slave recv time $0.921696
+Computation time $0.926702
+Master send time $0.228592
+Slave recv time $0.937664
+Computation time $0.942546
+Computation time $0.701884
+Gather time $1.021113
+Gather time $1.036343
+Gather time $1.051505
+Gather time $1.066652
+Gather time $1.081767
+Gather time $0.844364
+Gather time $1.096928
+Reorder time $0.098058
+RISULTATO CORRETTO!
+user: 7.14 system: 2.08 elapsed: 1.65 CPU: 558% CMD: mpirun --map-by core --mca btl ^openib -np 7 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.549904
+Slave recv time $0.945344
+Computation time $0.949749
+Slave recv time $0.959348
+Computation time $0.963732
+Slave recv time $0.973310
+Computation time $0.977707
+Slave recv time $0.987247
+Computation time $0.991615
+Slave recv time $1.001079
+Computation time $1.005425
+Slave recv time $1.015156
+Computation time $1.019623
+Master send time $0.226924
+Slave recv time $1.029176
+Computation time $1.033450
+Computation time $0.792719
+Gather time $1.107613
+Gather time $1.120883
+Gather time $1.134098
+Gather time $1.147340
+Gather time $1.160386
+Gather time $1.173257
+Gather time $0.933796
+Gather time $1.186108
+Reorder time $0.117031
+RISULTATO CORRETTO!
+user: 8.98 system: 2.38 elapsed: 1.77 CPU: 639% CMD: mpirun --map-by core --mca btl ^openib -np 8 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.517524
+Slave recv time $0.910070
+Computation time $0.913912
+Slave recv time $0.922434
+Computation time $0.926254
+Slave recv time $0.934924
+Computation time $0.938780
+Slave recv time $0.947416
+Computation time $0.951242
+Slave recv time $0.959609
+Computation time $0.963392
+Slave recv time $0.972129
+Computation time $0.976058
+Slave recv time $0.984677
+Computation time $0.988612
+Master send time $0.224352
+Slave recv time $0.996677
+Computation time $1.000294
+Computation time $0.757067
+Gather time $1.071410
+Gather time $1.083007
+Gather time $1.094833
+Gather time $1.106672
+Gather time $1.118241
+Gather time $1.130064
+Gather time $1.141913
+Gather time $0.898760
+Gather time $1.153518
+Reorder time $0.122637
+RISULTATO CORRETTO!
+user: 9.85 system: 2.60 elapsed: 1.75 CPU: 707% CMD: mpirun --map-by core --mca btl ^openib -np 9 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.539132
+Slave recv time $0.927944
+Computation time $0.931364
+Slave recv time $0.939260
+Computation time $0.942632
+Slave recv time $0.950522
+Computation time $0.953980
+Slave recv time $0.961735
+Computation time $0.965142
+Slave recv time $0.972847
+Computation time $0.976195
+Slave recv time $0.983817
+Computation time $0.987294
+Slave recv time $0.994759
+Computation time $0.998230
+Slave recv time $1.005700
+Computation time $1.009078
+Master send time $0.222102
+Slave recv time $1.016546
+Computation time $1.019795
+Computation time $0.775525
+Gather time $1.087267
+Gather time $1.097510
+Gather time $1.107620
+Gather time $1.117755
+Gather time $1.127934
+Gather time $1.138106
+Gather time $1.148244
+Gather time $1.158392
+Gather time $0.913233
+Gather time $1.168507
+Reorder time $0.110774
+RISULTATO CORRETTO!
+user: 11.06 system: 2.87 elapsed: 1.77 CPU: 787% CMD: mpirun --map-by core --mca btl ^openib -np 10 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.380110
+Slave recv time $0.762822
+Computation time $0.765906
+Slave recv time $0.773075
+Computation time $0.776153
+Slave recv time $0.783064
+Computation time $0.786173
+Slave recv time $0.792923
+Computation time $0.796008
+Slave recv time $0.802697
+Computation time $0.805747
+Slave recv time $0.812670
+Computation time $0.815796
+Slave recv time $0.822573
+Computation time $0.825692
+Slave recv time $0.832478
+Computation time $0.835583
+Slave recv time $0.842282
+Computation time $0.845349
+Master send time $0.219415
+Slave recv time $0.852080
+Computation time $0.855049
+Computation time $0.613054
+Gather time $0.920087
+Gather time $0.929192
+Gather time $0.938351
+Gather time $0.947581
+Gather time $0.956750
+Gather time $0.965890
+Gather time $0.974877
+Gather time $0.983798
+Gather time $0.992762
+Gather time $0.749220
+Gather time $1.001731
+Reorder time $0.094356
+RISULTATO CORRETTO!
+user: 10.54 system: 3.00 elapsed: 1.60 CPU: 846% CMD: mpirun --map-by core --mca btl ^openib -np 11 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.519772
+Slave recv time $0.897371
+Computation time $0.900171
+Slave recv time $0.906477
+Computation time $0.909252
+Slave recv time $0.915597
+Computation time $0.918428
+Slave recv time $0.924653
+Computation time $0.927427
+Slave recv time $0.933609
+Computation time $0.936346
+Slave recv time $0.942713
+Computation time $0.945549
+Slave recv time $0.951816
+Computation time $0.954660
+Slave recv time $0.960903
+Computation time $0.963726
+Slave recv time $0.969889
+Computation time $0.972686
+Slave recv time $0.978874
+Computation time $0.981668
+Master send time $0.215521
+Slave recv time $0.987885
+Computation time $0.990601
+Computation time $0.748103
+Gather time $1.053306
+Gather time $1.061456
+Gather time $1.069562
+Gather time $1.077704
+Gather time $1.085888
+Gather time $1.094038
+Gather time $1.102187
+Gather time $1.110332
+Gather time $1.118473
+Gather time $1.126612
+Gather time $0.882219
+Gather time $1.134761
+Reorder time $0.112122
+RISULTATO CORRETTO!
+user: 13.14 system: 3.44 elapsed: 1.77 CPU: 934% CMD: mpirun --map-by core --mca btl ^openib -np 12 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.401471
+Slave recv time $0.794293
+Computation time $0.796987
+Slave recv time $0.802748
+Computation time $0.805316
+Slave recv time $0.810909
+Computation time $0.813453
+Slave recv time $0.818971
+Computation time $0.821458
+Slave recv time $0.825938
+Computation time $0.828411
+Slave recv time $0.833945
+Computation time $0.836479
+Slave recv time $0.841914
+Computation time $0.844433
+Slave recv time $0.849944
+Computation time $0.852448
+Slave recv time $0.856895
+Computation time $0.859375
+Slave recv time $0.864769
+Computation time $0.867244
+Slave recv time $0.872598
+Computation time $0.875004
+Master send time $0.225427
+Slave recv time $0.882790
+Computation time $0.885117
+Computation time $0.639348
+Gather time $0.914315
+Gather time $0.922550
+Gather time $0.931003
+Gather time $0.939481
+Gather time $0.946961
+Gather time $0.955460
+Gather time $0.963922
+Gather time $0.972427
+Gather time $0.979919
+Gather time $0.988404
+Gather time $0.996875
+Gather time $0.750481
+Gather time $1.006330
+Reorder time $0.095059
+RISULTATO CORRETTO!
+user: 12.55 system: 3.52 elapsed: 1.64 CPU: 975% CMD: mpirun --map-by core --mca btl ^openib -np 13 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.438700
+Slave recv time $0.833980
+Computation time $0.836418
+Slave recv time $0.841800
+Computation time $0.844152
+Slave recv time $0.849531
+Computation time $0.851886
+Slave recv time $0.856971
+Computation time $0.859318
+Slave recv time $0.864404
+Computation time $0.866692
+Slave recv time $0.871714
+Computation time $0.874034
+Slave recv time $0.879130
+Computation time $0.881447
+Slave recv time $0.886483
+Computation time $0.888779
+Slave recv time $0.893713
+Computation time $0.895997
+Slave recv time $0.900865
+Computation time $0.903152
+Slave recv time $0.908018
+Computation time $0.910259
+Slave recv time $0.917134
+Computation time $0.919421
+Master send time $0.231737
+Slave recv time $0.926529
+Computation time $0.928892
+Computation time $0.682409
+Gather time $0.955964
+Gather time $0.963607
+Gather time $0.971533
+Gather time $0.979449
+Gather time $0.987522
+Gather time $0.995418
+Gather time $1.003406
+Gather time $1.011406
+Gather time $1.019328
+Gather time $1.027139
+Gather time $1.035042
+Gather time $1.043945
+Gather time $0.796718
+Gather time $1.052773
+Reorder time $0.108657
+RISULTATO CORRETTO!
+user: 14.19 system: 3.75 elapsed: 1.72 CPU: 1041% CMD: mpirun --map-by core --mca btl ^openib -np 14 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.482793
+Slave recv time $0.873315
+Computation time $0.875572
+Slave recv time $0.880535
+Computation time $0.882707
+Slave recv time $0.886736
+Computation time $0.888913
+Slave recv time $0.893688
+Computation time $0.895837
+Slave recv time $0.900485
+Computation time $0.902602
+Slave recv time $0.906579
+Computation time $0.908769
+Slave recv time $0.913480
+Computation time $0.915654
+Slave recv time $0.920335
+Computation time $0.922445
+Slave recv time $0.926351
+Computation time $0.928497
+Slave recv time $0.933138
+Computation time $0.935267
+Slave recv time $0.939936
+Computation time $0.942019
+Slave recv time $0.947606
+Computation time $0.949772
+Slave recv time $0.955305
+Computation time $0.957419
+Master send time $0.224269
+Slave recv time $0.962786
+Computation time $0.964836
+Computation time $0.719169
+Gather time $0.991172
+Gather time $0.998179
+Gather time $1.004636
+Gather time $1.011973
+Gather time $1.019301
+Gather time $1.025842
+Gather time $1.033178
+Gather time $1.040492
+Gather time $1.047024
+Gather time $1.054374
+Gather time $1.061686
+Gather time $1.068853
+Gather time $1.076853
+Gather time $0.828959
+Gather time $1.084637
+Reorder time $0.118794
+RISULTATO CORRETTO!
+user: 15.81 system: 4.19 elapsed: 1.79 CPU: 1114% CMD: mpirun --map-by core --mca btl ^openib -np 15 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.511698
+Slave recv time $0.902762
+Computation time $0.904892
+Slave recv time $0.909397
+Computation time $0.911441
+Slave recv time $0.915938
+Computation time $0.917980
+Slave recv time $0.922321
+Computation time $0.924326
+Slave recv time $0.928602
+Computation time $0.930582
+Slave recv time $0.935052
+Computation time $0.937063
+Slave recv time $0.941422
+Computation time $0.943430
+Slave recv time $0.947697
+Computation time $0.949703
+Slave recv time $0.954002
+Computation time $0.955991
+Slave recv time $0.960333
+Computation time $0.962319
+Slave recv time $0.966527
+Computation time $0.968477
+Slave recv time $0.974383
+Computation time $0.976392
+Slave recv time $0.981484
+Computation time $0.983458
+Slave recv time $0.988178
+Computation time $0.990142
+Master send time $0.226688
+Slave recv time $0.995050
+Computation time $0.996989
+Computation time $0.749839
+Gather time $1.021695
+Gather time $1.028278
+Gather time $1.035213
+Gather time $1.042141
+Gather time $1.049014
+Gather time $1.056040
+Gather time $1.063014
+Gather time $1.069948
+Gather time $1.076899
+Gather time $1.083939
+Gather time $1.090844
+Gather time $1.098383
+Gather time $1.106149
+Gather time $1.113641
+Gather time $0.864394
+Gather time $1.121011
+Reorder time $0.110887
+RISULTATO CORRETTO!
+user: 17.41 system: 4.43 elapsed: 1.82 CPU: 1196% CMD: mpirun --map-by core --mca btl ^openib -np 16 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.433596
+Slave recv time $0.826849
+Computation time $0.828826
+Slave recv time $0.833238
+Computation time $0.835147
+Slave recv time $0.839373
+Computation time $0.841269
+Slave recv time $0.845500
+Computation time $0.847386
+Slave recv time $0.851569
+Computation time $0.853434
+Slave recv time $0.857618
+Computation time $0.859518
+Slave recv time $0.863810
+Computation time $0.865699
+Slave recv time $0.869780
+Computation time $0.871642
+Slave recv time $0.875865
+Computation time $0.877720
+Slave recv time $0.881728
+Computation time $0.883568
+Slave recv time $0.887604
+Computation time $0.889420
+Slave recv time $0.895374
+Computation time $0.897220
+Slave recv time $0.902784
+Computation time $0.904730
+Slave recv time $0.910403
+Computation time $0.912327
+Slave recv time $0.918049
+Computation time $0.920005
+Master send time $0.235867
+Slave recv time $0.925454
+Computation time $0.927366
+Computation time $0.681049
+Gather time $0.951454
+Gather time $0.957743
+Gather time $0.964219
+Gather time $0.970789
+Gather time $0.977397
+Gather time $0.983907
+Gather time $0.990563
+Gather time $0.997108
+Gather time $1.003791
+Gather time $1.010220
+Gather time $1.016700
+Gather time $1.023781
+Gather time $1.030770
+Gather time $1.037998
+Gather time $1.044956
+Gather time $0.795860
+Gather time $1.051805
+Reorder time $0.094850
+RISULTATO CORRETTO!
+user: 17.43 system: 4.58 elapsed: 1.75 CPU: 1254% CMD: mpirun --map-by core --mca btl ^openib -np 17 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.477632
+Slave recv time $0.866401
+Computation time $0.868260
+Slave recv time $0.872230
+Computation time $0.874024
+Slave recv time $0.877861
+Computation time $0.879651
+Slave recv time $0.883441
+Computation time $0.885179
+Slave recv time $0.888937
+Computation time $0.890673
+Slave recv time $0.893871
+Computation time $0.895657
+Slave recv time $0.899509
+Computation time $0.901285
+Slave recv time $0.905014
+Computation time $0.906794
+Slave recv time $0.910538
+Computation time $0.912284
+Slave recv time $0.915989
+Computation time $0.917709
+Slave recv time $0.921448
+Computation time $0.923161
+Slave recv time $0.927668
+Computation time $0.929458
+Slave recv time $0.934795
+Computation time $0.936651
+Slave recv time $0.941683
+Computation time $0.943512
+Slave recv time $0.948639
+Computation time $0.950522
+Slave recv time $0.955457
+Computation time $0.957272
+Master send time $0.228747
+Slave recv time $0.962303
+Computation time $0.964093
+Computation time $0.717570
+Gather time $0.987143
+Gather time $0.992945
+Gather time $0.999037
+Gather time $1.005134
+Gather time $1.011292
+Gather time $1.016744
+Gather time $1.022973
+Gather time $1.029147
+Gather time $1.035322
+Gather time $1.041426
+Gather time $1.047654
+Gather time $1.053668
+Gather time $1.060350
+Gather time $1.067021
+Gather time $1.073748
+Gather time $1.080454
+Gather time $0.831305
+Gather time $1.087184
+Reorder time $0.120417
+RISULTATO CORRETTO!
+user: 19.12 system: 5.21 elapsed: 1.84 CPU: 1320% CMD: mpirun --map-by core --mca btl ^openib -np 18 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.369312
+Slave recv time $0.758640
+Computation time $0.760455
+Slave recv time $0.763750
+Computation time $0.765474
+Slave recv time $0.768499
+Computation time $0.770171
+Slave recv time $0.773875
+Computation time $0.775532
+Slave recv time $0.779174
+Computation time $0.780812
+Slave recv time $0.784541
+Computation time $0.786228
+Slave recv time $0.789927
+Computation time $0.791599
+Slave recv time $0.795213
+Computation time $0.796876
+Slave recv time $0.800451
+Computation time $0.802107
+Slave recv time $0.805690
+Computation time $0.807335
+Slave recv time $0.810926
+Computation time $0.812546
+Slave recv time $0.817664
+Computation time $0.819317
+Slave recv time $0.824380
+Computation time $0.826119
+Slave recv time $0.831123
+Computation time $0.832842
+Slave recv time $0.837970
+Computation time $0.839728
+Slave recv time $0.844839
+Computation time $0.846561
+Slave recv time $0.851776
+Computation time $0.853482
+Master send time $0.234457
+Slave recv time $0.858781
+Computation time $0.860479
+Computation time $0.615109
+Gather time $0.882322
+Gather time $0.887205
+Gather time $0.892218
+Gather time $0.898125
+Gather time $0.904017
+Gather time $0.909906
+Gather time $0.915750
+Gather time $0.921545
+Gather time $0.927311
+Gather time $0.933152
+Gather time $0.938965
+Gather time $0.945296
+Gather time $0.951566
+Gather time $0.957873
+Gather time $0.964150
+Gather time $0.970484
+Gather time $0.976803
+Gather time $0.728095
+Gather time $0.983055
+Reorder time $0.094731
+RISULTATO CORRETTO!
+user: 18.86 system: 5.48 elapsed: 1.75 CPU: 1385% CMD: mpirun --map-by core --mca btl ^openib -np 19 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.503228
+Slave recv time $0.887003
+Computation time $0.888672
+Slave recv time $0.892286
+Computation time $0.893894
+Slave recv time $0.897389
+Computation time $0.898988
+Slave recv time $0.901800
+Computation time $0.903384
+Slave recv time $0.906778
+Computation time $0.908343
+Slave recv time $0.911797
+Computation time $0.913394
+Slave recv time $0.916843
+Computation time $0.918439
+Slave recv time $0.921231
+Computation time $0.922809
+Slave recv time $0.926214
+Computation time $0.927773
+Slave recv time $0.931139
+Computation time $0.932700
+Slave recv time $0.936093
+Computation time $0.937651
+Slave recv time $0.941663
+Computation time $0.943259
+Slave recv time $0.947900
+Computation time $0.949560
+Slave recv time $0.954100
+Computation time $0.955761
+Slave recv time $0.960413
+Computation time $0.962063
+Slave recv time $0.965977
+Computation time $0.967618
+Slave recv time $0.972134
+Computation time $0.973762
+Slave recv time $0.978321
+Computation time $0.979975
+Master send time $0.226646
+Slave recv time $0.984635
+Computation time $0.986268
+Computation time $0.740723
+Gather time $1.007438
+Gather time $1.012674
+Gather time $1.018119
+Gather time $1.022996
+Gather time $1.028564
+Gather time $1.034114
+Gather time $1.039678
+Gather time $1.044563
+Gather time $1.050136
+Gather time $1.055689
+Gather time $1.061250
+Gather time $1.066626
+Gather time $1.072712
+Gather time $1.078710
+Gather time $1.084716
+Gather time $1.090077
+Gather time $1.096164
+Gather time $1.102128
+Gather time $0.853295
+Gather time $1.108015
+Reorder time $0.109796
+RISULTATO CORRETTO!
+user: 21.61 system: 5.71 elapsed: 1.88 CPU: 1452% CMD: mpirun --map-by core --mca btl ^openib -np 20 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.472506
+Slave recv time $0.862500
+Computation time $0.864117
+Slave recv time $0.867729
+Computation time $0.869356
+Slave recv time $0.872719
+Computation time $0.874363
+Slave recv time $0.877611
+Computation time $0.879230
+Slave recv time $0.882421
+Computation time $0.884014
+Slave recv time $0.887311
+Computation time $0.888956
+Slave recv time $0.892273
+Computation time $0.893917
+Slave recv time $0.897185
+Computation time $0.898778
+Slave recv time $0.901911
+Computation time $0.903517
+Slave recv time $0.906806
+Computation time $0.908400
+Slave recv time $0.911596
+Computation time $0.913157
+Slave recv time $0.917541
+Computation time $0.919065
+Slave recv time $0.922905
+Computation time $0.924395
+Slave recv time $0.928110
+Computation time $0.929570
+Slave recv time $0.933162
+Computation time $0.934671
+Slave recv time $0.938382
+Computation time $0.939848
+Slave recv time $0.943644
+Computation time $0.945081
+Slave recv time $0.948654
+Computation time $0.950132
+Slave recv time $0.953395
+Computation time $0.954899
+Master send time $0.232194
+Slave recv time $0.958567
+Computation time $0.960025
+Computation time $0.715707
+Gather time $0.980912
+Gather time $0.985979
+Gather time $0.991186
+Gather time $0.996510
+Gather time $1.001746
+Gather time $1.007083
+Gather time $1.012422
+Gather time $1.017757
+Gather time $1.023048
+Gather time $1.028426
+Gather time $1.033606
+Gather time $1.039576
+Gather time $1.045294
+Gather time $1.050923
+Gather time $1.056662
+Gather time $1.062377
+Gather time $1.068096
+Gather time $1.073689
+Gather time $1.079557
+Gather time $0.831260
+Gather time $1.085081
+Reorder time $0.117676
+RISULTATO CORRETTO!
+user: 22.23 system: 6.28 elapsed: 1.88 CPU: 1511% CMD: mpirun --map-by core --mca btl ^openib -np 21 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.376164
+Slave recv time $0.765153
+Computation time $0.766675
+Slave recv time $0.769957
+Computation time $0.771408
+Slave recv time $0.774549
+Computation time $0.775997
+Slave recv time $0.779094
+Computation time $0.780543
+Slave recv time $0.783593
+Computation time $0.785009
+Slave recv time $0.788148
+Computation time $0.789604
+Slave recv time $0.792700
+Computation time $0.794143
+Slave recv time $0.797227
+Computation time $0.798662
+Slave recv time $0.801723
+Computation time $0.803140
+Slave recv time $0.806289
+Computation time $0.807701
+Slave recv time $0.810848
+Computation time $0.812243
+Slave recv time $0.816706
+Computation time $0.818164
+Slave recv time $0.821739
+Computation time $0.823160
+Slave recv time $0.826576
+Computation time $0.827969
+Slave recv time $0.831427
+Computation time $0.832844
+Slave recv time $0.836230
+Computation time $0.837631
+Slave recv time $0.840997
+Computation time $0.842398
+Slave recv time $0.845823
+Computation time $0.847226
+Slave recv time $0.850654
+Computation time $0.852069
+Slave recv time $0.855665
+Computation time $0.857090
+Master send time $0.230484
+Slave recv time $0.860625
+Computation time $0.862020
+Computation time $0.617371
+Gather time $0.882072
+Gather time $0.886993
+Gather time $0.891907
+Gather time $0.896905
+Gather time $0.901947
+Gather time $0.906989
+Gather time $0.912005
+Gather time $0.917019
+Gather time $0.922080
+Gather time $0.927162
+Gather time $0.932285
+Gather time $0.937888
+Gather time $0.943471
+Gather time $0.948936
+Gather time $0.954286
+Gather time $0.959685
+Gather time $0.965071
+Gather time $0.970406
+Gather time $0.975709
+Gather time $0.981056
+Gather time $0.732466
+Gather time $0.986394
+Reorder time $0.108526
+RISULTATO CORRETTO!
+user: 21.23 system: 6.51 elapsed: 1.78 CPU: 1552% CMD: mpirun --map-by core --mca btl ^openib -np 22 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.367247
+Slave recv time $0.755481
+Computation time $0.757145
+Slave recv time $0.760300
+Computation time $0.761857
+Slave recv time $0.764923
+Computation time $0.766454
+Slave recv time $0.769379
+Computation time $0.770862
+Slave recv time $0.773743
+Computation time $0.775202
+Slave recv time $0.778185
+Computation time $0.779676
+Slave recv time $0.782055
+Computation time $0.783546
+Slave recv time $0.786449
+Computation time $0.787912
+Slave recv time $0.790802
+Computation time $0.792267
+Slave recv time $0.795159
+Computation time $0.796622
+Slave recv time $0.799009
+Computation time $0.800449
+Slave recv time $0.804619
+Computation time $0.806014
+Slave recv time $0.809558
+Computation time $0.811031
+Slave recv time $0.814275
+Computation time $0.815605
+Slave recv time $0.818472
+Computation time $0.819830
+Slave recv time $0.823277
+Computation time $0.824611
+Slave recv time $0.827960
+Computation time $0.829273
+Slave recv time $0.832686
+Computation time $0.834022
+Slave recv time $0.836843
+Computation time $0.838191
+Slave recv time $0.841639
+Computation time $0.842983
+Slave recv time $0.846349
+Computation time $0.847688
+Master send time $0.230712
+Slave recv time $0.851012
+Computation time $0.852339
+Computation time $0.609276
+Gather time $0.872510
+Gather time $0.877199
+Gather time $0.882025
+Gather time $0.886876
+Gather time $0.891818
+Gather time $0.896684
+Gather time $0.901043
+Gather time $0.905899
+Gather time $0.910728
+Gather time $0.915574
+Gather time $0.919828
+Gather time $0.924973
+Gather time $0.930119
+Gather time $0.935316
+Gather time $0.939899
+Gather time $0.945023
+Gather time $0.950208
+Gather time $0.955452
+Gather time $0.960019
+Gather time $0.965098
+Gather time $0.970208
+Gather time $0.722485
+Gather time $0.975304
+Reorder time $0.095240
+RISULTATO CORRETTO!
+user: 22.33 system: 6.73 elapsed: 1.79 CPU: 1624% CMD: mpirun --map-by core --mca btl ^openib -np 23 ./matrix.x 1200 200 100 0 0 0 
+
+Preparing overhead $0.468709
+Slave recv time $0.857793
+Computation time $0.859361
+Slave recv time $0.862315
+Computation time $0.863793
+Slave recv time $0.866586
+Computation time $0.868036
+Slave recv time $0.870789
+Computation time $0.872202
+Slave recv time $0.874975
+Computation time $0.876379
+Slave recv time $0.879171
+Computation time $0.880611
+Slave recv time $0.883430
+Computation time $0.884879
+Slave recv time $0.887620
+Computation time $0.889036
+Slave recv time $0.891771
+Computation time $0.893175
+Slave recv time $0.895931
+Computation time $0.897323
+Slave recv time $0.900070
+Computation time $0.901439
+Slave recv time $0.905254
+Computation time $0.906772
+Slave recv time $0.909862
+Computation time $0.911300
+Slave recv time $0.914353
+Computation time $0.915756
+Slave recv time $0.918957
+Computation time $0.920266
+Slave recv time $0.923719
+Computation time $0.925151
+Slave recv time $0.928086
+Computation time $0.929462
+Slave recv time $0.932616
+Computation time $0.933922
+Slave recv time $0.937489
+Computation time $0.938802
+Slave recv time $0.942166
+Computation time $0.943474
+Slave recv time $0.946717
+Computation time $0.948019
+Slave recv time $0.951208
+Computation time $0.952470
+Master send time $0.233540
+Slave recv time $0.955563
+Computation time $0.956823
+Computation time $0.713100
+Gather time $0.976368
+Gather time $0.980959
+Gather time $0.985440
+Gather time $0.990178
+Gather time $0.994814
+Gather time $0.999644
+Gather time $1.004286
+Gather time $1.009131
+Gather time $1.013777
+Gather time $1.018497
+Gather time $1.023175
+Gather time $1.028177
+Gather time $1.033120
+Gather time $1.038045
+Gather time $1.043041
+Gather time $1.047979
+Gather time $1.052874
+Gather time $1.057806
+Gather time $1.062824
+Gather time $1.067852
+Gather time $1.072990
+Gather time $1.077967
+Gather time $0.829493
+Gather time $1.082757
+Reorder time $0.119400
+RISULTATO CORRETTO!
+user: 25.65 system: 7.44 elapsed: 1.94 CPU: 1704% CMD: mpirun --map-by core --mca btl ^openib -np 24 ./matrix.x 1200 200 100 0 0 0 
+
