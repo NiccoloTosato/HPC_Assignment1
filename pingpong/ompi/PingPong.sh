@@ -5,9 +5,11 @@
 #PBS -l walltime=1:00:00 
  
 cd /u/dssc/s271550/fast/mpi-benchmarks/src_c
+
 make clean 
 module load openmpi/4.0.3/gnu/9.3.0 
 make 
+
 EXE="/u/dssc/s271550/fast/mpi-benchmarks/src_c/IMB-MPI1"
 
 cd $PBS_O_WORKDIR 
@@ -36,4 +38,5 @@ done
  
  
  
-cat $PBS_NODEFILE >> thin_resources_used.out 
+cat $PBS_NODEFILE >> thin_resources_used
+
