@@ -100,9 +100,9 @@ Across two core we can estimate $t=0.23 \space \mu Sec$
 
 ```{r ring, include=FALSE, echo=FALSE}
 
-ring_core=read.csv("/home/nt/Scrivania/ass2021/ring/core.csv", header = TRUE)
-ring_socket=read.csv("/home/nt/Scrivania/ass2021/ring/socket.csv", header = TRUE)
-ring_node=read.csv("/home/nt/Scrivania/ass2021/ring/node.csv", header = TRUE)
+ring_core=read.csv("./ring/timing/core.csv", header = TRUE)
+ring_socket=read.csv("./ring/timing/socket.csv", header = TRUE)
+ring_node=read.csv("./ring/timing/node.csv", header = TRUE)
 
 ring_model_core=ring_core
 ring_model_socket=ring_socket
@@ -191,34 +191,33 @@ grid.arrange(sp1,sp,nrow=1)
 
 In order to measure MPI point to point performance, the Intel MPI benchmarks is used. By Intel's documentation it works as follow:
 
-![PingPong structure from Intel® MPI Benchmarks User Guide.](/home/nt/Scrivania/en/mpi/imb_user_guide/IMB_Users_Guide_files/image01.png){#id2 .class width=340 height=270px}
+![PingPong structure from Intel® MPI Benchmarks User Guide.](./img/image01.png){#id2 .class width=340 height=270px}
 
 The bandwidth and the latency estimate is done across core, socket and different node, combined with different protocols and hardware devices.
 The **pml** involved in the benchmarks are **OB1** and **UCX**. The **btl** used are **tcp** and **vader**. Across node are selected also different network, with different protocols: $25 \space Gbit$ ethernet and $100 \space Gbit$ Infiniband throught Mellanox network switch. 
 
 ```{r , include=FALSE,echo=FALSE}
-node_ib=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ib.out.csv", header = TRUE)
-node_ob1_tcp=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ob1_selftcp.out.csv", header = TRUE)
-node_ucx_br0=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_br0.out.csv", header = TRUE)
-node_ucx_ib0=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_ib0.out.csv", header = TRUE)
-node_ucx__mlx5=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_mlx5.out.csv", header = TRUE)
+node_ib=read.csv("./pingpong/ompi/node_ib.out.csv", header = TRUE)
+node_ob1_tcp=read.csv("./pingpong/ompi/node_ob1_selftcp.out.csv", header = TRUE)
+node_ucx_br0=read.csv("./pingpong/ompi/node_ucx_br0.out.csv", header = TRUE)
+node_ucx_ib0=read.csv("./pingpong/ompi/node_ucx_ib0.out.csv", header = TRUE)
+node_ucx__mlx5=read.csv("./pingpong/ompi/node_ucx_mlx5.out.csv", header = TRUE)
 
-socket_ib=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/socket_ib.out.csv", header = TRUE)
-socket_ob1_tcp=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/socket_ob1_selftcp.out.csv", header = TRUE)
-socket_ob1_vader=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/socket_ob1_selfvader.out.csv", header = TRUE)
+socket_ib=read.csv("./pingpong/ompi/socket_ib.out.csv", header = TRUE)
+socket_ob1_tcp=read.csv("./pingpong/ompi/socket_ob1_selftcp.out.csv", header = TRUE)
+socket_ob1_vader=read.csv("./pingpong/ompi/socket_ob1_selfvader.out.csv", header = TRUE)
 
-core_ib=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/core_ib.out.csv", header = TRUE)
-core_ob1_tcp=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/core_ob1_selftcp.out.csv", header = TRUE)
-core_ob1_vader=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/core_ob1_selfvader.out.csv", header = TRUE)
+core_ib=read.csv("./pingpong/ompi/core_ib.out.csv", header = TRUE)
+core_ob1_tcp=read.csv("./pingpong/ompi/core_ob1_selftcp.out.csv", header = TRUE)
+core_ob1_vader=read.csv("./pingpong/ompi/core_ob1_selfvader.out.csv", header = TRUE)
 
 
-node_ib_intel=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel/node_ib_intel.out.csv", header = TRUE)
-socket_ib_intel=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel/socket_ib_intel.out.csv", header = TRUE)
-core_ib_intel=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel/core_ib_intel.out.csv", header = TRUE)
+node_ib_intel=read.csv("./pingpong/intel/node_ib_intel.out.csv", header = TRUE)
+socket_ib_intel=read.csv("./pingpong/intel/socket_ib_intel.out.csv", header = TRUE)
+core_ib_intel=read.csv("./pingpong/intel/core_ib_intel.out.csv", header = TRUE)
 ```
 
 ```{r , dpi=600, fig.width=10, fig.height=6,echo=FALSE,include=FALSE}
-#plotting /home/nt/Scrivania/ass2021/PingPong/ompi 
 library(ggplot2)
 
 sp = ggplot(core_ib,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
@@ -256,7 +255,7 @@ sp
 \newpage
 The graph above show the behaviour inside the same node, then mapping the processes in the same core or in the same socket. Mapping the processing in the same socket show of course a better performance The behaviour is strange and show very different performance among different implementation, the cause is the cache. 
 Before analyzing the performance we need to know more about the node topology. 
-![lstopo output on THIN node.](/home/nt/Scrivania/units/hpc/Foundations_of_HPC_2021/lstopo.png){#idasd .class width=390 height=300px align=right}
+![lstopo output on THIN node.](./img/lstopo.png){#idasd .class width=390 height=300px align=right}
 
 The behaviour appear strange before $16 \space MB$ included, after that size, it is stable, the message size is larger than all caches. The larger cache is **L3** with $19 \space MB$. The **L2** effects, become clear after $1 \space MB$, all implementation start loosing bandwidth.
 The **L1** effects is not clearly visibile from the bandwidth due the latency. To infer with more accuracy about the cache effect we can perform some profiling test using hardware counters. 
@@ -381,12 +380,12 @@ From first graph, now Intel implementation behaviour is clear, it has the larges
 Looking at the graph with normalized cache misses respect message size, the **L1** effect become clear, the slope of the curve is positive after $32 \space KB$. 
 
 ```{r,echo=FALSE,include=FALSE}
-node_ib=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ib.out.csv", header = TRUE)
-node_ob1_tcp=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ob1_selftcp.out.csv", header = TRUE)
-node_ucx_br0=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_br0.out.csv", header = TRUE)
-node_ucx_ib0=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_ib0.out.csv", header = TRUE)
-node_ucx__mlx5=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi/node_ucx_mlx5.out.csv", header = TRUE)
-node_ib_intel=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel/node_ib_intel.out.csv", header = TRUE)
+node_ib=read.csv("./pingpong/ompi/node_ib.out.csv", header = TRUE)
+node_ob1_tcp=read.csv("./pingpong/ompi/node_ob1_selftcp.out.csv", header = TRUE)
+node_ucx_br0=read.csv("./pingpong/ompi/node_ucx_br0.out.csv", header = TRUE)
+node_ucx_ib0=read.csv("./pingpong/ompi/node_ucx_ib0.out.csv", header = TRUE)
+node_ucx__mlx5=read.csv("./pingpong/ompi/node_ucx_mlx5.out.csv", header = TRUE)
+node_ib_intel=read.csv("./pingpong/intel/node_ib_intel.out.csv", header = TRUE)
 
 ```
 
@@ -566,15 +565,15 @@ grid.arrange(sp1,sp2,sp3,sp4,sp5,nrow=3)
 
 UCX with InfiniBand show the better performance in terms of latency ad bandwidht, followed by UCX with ib0 device. Similar performance are given by OB1 with TCP, but with higher latency. UCX with TCP (br0) is the slowest. Intel IB show a similar behaviour. The estimated curve is obtained fitting experimentals values with least square method and a linear model. The data are splitted in 2 chunk, the first is used to estimate the intercept i.e the latency, the second half of data is used to estimate the angular coeff i.e the bandwidth. The model is not so accurate due cache effects. 
 ```{r,echo=FALSE}
-socket_ib_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/socket_ib.out.csv", header = TRUE)
-socket_ob1_tcp_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/socket_ob1_selftcp.out.csv", header = TRUE)
-socket_ob1_vader_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/socket_ob1_selfvader.out.csv", header = TRUE)
-socket_ib_intel_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel_gpu/socket_ib_intel.out.csv", header = TRUE)
+socket_ib_gpu=read.csv("./pingpong/ompi_gpu/socket_ib.out.csv", header = TRUE)
+socket_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selftcp.out.csv", header = TRUE)
+socket_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selfvader.out.csv", header = TRUE)
+socket_ib_intel_gpu=read.csv("./pingpong/intel_gpu/socket_ib_intel.out.csv", header = TRUE)
 
-core_ib_intel_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/intel_gpu/core_ib_intel.out.csv", header = TRUE)
-core_ib_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/core_ib.out.csv", header = TRUE)
-core_ob1_tcp_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/core_ob1_selftcp.out.csv", header = TRUE)
-core_ob1_vader_gpu=read.csv("/home/nt/Scrivania/ass2021/PingPong/ompi_gpu/core_ob1_selfvader.out.csv", header = TRUE)
+core_ib_intel_gpu=read.csv("./pingpong/intel_gpu/core_ib_intel.out.csv", header = TRUE)
+core_ib_gpu=read.csv("./pingpong/ompi_gpu/core_ib.out.csv", header = TRUE)
+core_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selftcp.out.csv", header = TRUE)
+core_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selfvader.out.csv", header = TRUE)
 
 ```
 
