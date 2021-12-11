@@ -1,0 +1,127 @@
+[ct1pt-tnode007][[23119,1],0][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   ct1pt-tnode007
+  Local device: mlx5_0
+--------------------------------------------------------------------------
+[ct1pt-tnode007][[23119,1],1][btl_openib_component.c:1704:init_one_device] error obtaining device attributes for mlx5_0 errno says Protocol not supported
+Invalid benchmark name _cache_misses.out
+iteration 1, message size 0,L1 missess 2363 ,L2 missess 1337, L2 total 3647 
+iteration 820, message size 0,L1 missess 28494 ,L2 missess 7633, L2 total 100758 
+iteration 100, message size 0,L1 missess 3420 ,L2 missess 1035, L2 total 12431 
+iteration 1000, message size 0,L1 missess 31429 ,L2 missess 9577, L2 total 120222 
+iteration 1, message size 1,L1 missess 52 ,L2 missess 16, L2 total 259 
+iteration 1000, message size 1,L1 missess 34385 ,L2 missess 9567, L2 total 118779 
+iteration 100, message size 1,L1 missess 3316 ,L2 missess 909, L2 total 11996 
+iteration 1000, message size 1,L1 missess 37109 ,L2 missess 9305, L2 total 122010 
+iteration 1, message size 2,L1 missess 57 ,L2 missess 9, L2 total 217 
+iteration 1000, message size 2,L1 missess 34692 ,L2 missess 9379, L2 total 120681 
+iteration 100, message size 2,L1 missess 3599 ,L2 missess 977, L2 total 12392 
+iteration 1000, message size 2,L1 missess 44975 ,L2 missess 9448, L2 total 132916 
+iteration 1, message size 4,L1 missess 61 ,L2 missess 19, L2 total 230 
+iteration 1000, message size 4,L1 missess 39083 ,L2 missess 9341, L2 total 124287 
+iteration 100, message size 4,L1 missess 4206 ,L2 missess 1008, L2 total 13266 
+iteration 1000, message size 4,L1 missess 36624 ,L2 missess 9356, L2 total 123911 
+iteration 1, message size 8,L1 missess 56 ,L2 missess 27, L2 total 228 
+iteration 1000, message size 8,L1 missess 37099 ,L2 missess 9163, L2 total 122598 
+iteration 100, message size 8,L1 missess 4253 ,L2 missess 936, L2 total 11496 
+iteration 1000, message size 8,L1 missess 38360 ,L2 missess 9509, L2 total 110417 
+iteration 1, message size 16,L1 missess 60 ,L2 missess 17, L2 total 215 
+iteration 1000, message size 16,L1 missess 35502 ,L2 missess 9469, L2 total 110049 
+iteration 100, message size 16,L1 missess 4186 ,L2 missess 886, L2 total 11973 
+iteration 1000, message size 16,L1 missess 40703 ,L2 missess 9631, L2 total 115719 
+iteration 1, message size 32,L1 missess 62 ,L2 missess 14, L2 total 228 
+iteration 1000, message size 32,L1 missess 41971 ,L2 missess 15097, L2 total 113355 
+iteration 100, message size 32,L1 missess 4139 ,L2 missess 1567, L2 total 11391 
+iteration 1000, message size 32,L1 missess 43914 ,L2 missess 15190, L2 total 115967 
+iteration 1, message size 64,L1 missess 77 ,L2 missess 37, L2 total 218 
+iteration 1000, message size 64,L1 missess 42454 ,L2 missess 14953, L2 total 111866 
+iteration 100, message size 64,L1 missess 3984 ,L2 missess 1477, L2 total 11340 
+iteration 1000, message size 64,L1 missess 38258 ,L2 missess 14905, L2 total 109369 
+iteration 1, message size 128,L1 missess 1504 ,L2 missess 995, L2 total 2130 
+iteration 1000, message size 128,L1 missess 49837 ,L2 missess 16134, L2 total 157325 
+iteration 100, message size 128,L1 missess 5322 ,L2 missess 1819, L2 total 16217 
+iteration 1000, message size 128,L1 missess 55132 ,L2 missess 16138, L2 total 162155 
+iteration 1, message size 256,L1 missess 92 ,L2 missess 46, L2 total 390 
+iteration 1000, message size 256,L1 missess 65275 ,L2 missess 21032, L2 total 180690 
+iteration 100, message size 256,L1 missess 6043 ,L2 missess 2262, L2 total 17749 
+iteration 1000, message size 256,L1 missess 64545 ,L2 missess 21116, L2 total 177229 
+iteration 1, message size 512,L1 missess 126 ,L2 missess 38, L2 total 410 
+iteration 1000, message size 512,L1 missess 78657 ,L2 missess 29405, L2 total 188346 
+iteration 100, message size 512,L1 missess 8059 ,L2 missess 2994, L2 total 19306 
+iteration 1000, message size 512,L1 missess 74873 ,L2 missess 29109, L2 total 188776 
+iteration 1, message size 1024,L1 missess 143 ,L2 missess 68, L2 total 417 
+iteration 1000, message size 1024,L1 missess 97112 ,L2 missess 67749, L2 total 195896 
+iteration 100, message size 1024,L1 missess 10191 ,L2 missess 6774, L2 total 20475 
+iteration 1000, message size 1024,L1 missess 93922 ,L2 missess 69612, L2 total 196411 
+iteration 1, message size 2048,L1 missess 204 ,L2 missess 64, L2 total 440 
+iteration 1000, message size 2048,L1 missess 146439 ,L2 missess 50588, L2 total 223942 
+iteration 100, message size 2048,L1 missess 15016 ,L2 missess 5660, L2 total 23447 
+iteration 1000, message size 2048,L1 missess 146040 ,L2 missess 50508, L2 total 225558 
+iteration 1, message size 4096,L1 missess 424 ,L2 missess 132, L2 total 928 
+iteration 1000, message size 4096,L1 missess 263115 ,L2 missess 91693, L2 total 307732 
+iteration 100, message size 4096,L1 missess 26674 ,L2 missess 9825, L2 total 31067 
+iteration 1000, message size 4096,L1 missess 260544 ,L2 missess 90538, L2 total 306133 
+iteration 1, message size 8192,L1 missess 643 ,L2 missess 226, L2 total 846 
+iteration 1000, message size 8192,L1 missess 624806 ,L2 missess 189299, L2 total 602648 
+iteration 100, message size 8192,L1 missess 61929 ,L2 missess 18472, L2 total 60870 
+iteration 1000, message size 8192,L1 missess 614537 ,L2 missess 188407, L2 total 592765 
+iteration 1, message size 16384,L1 missess 2035 ,L2 missess 1450, L2 total 2528 
+iteration 1000, message size 16384,L1 missess 1209542 ,L2 missess 358888, L2 total 1117675 
+iteration 100, message size 16384,L1 missess 120392 ,L2 missess 36076, L2 total 111351 
+iteration 1000, message size 16384,L1 missess 1206808 ,L2 missess 360634, L2 total 1109950 
+iteration 1, message size 32768,L1 missess 2264 ,L2 missess 1141, L2 total 2324 
+iteration 1000, message size 32768,L1 missess 2270877 ,L2 missess 721112, L2 total 1932670 
+iteration 100, message size 32768,L1 missess 227327 ,L2 missess 72240, L2 total 194383 
+iteration 1000, message size 32768,L1 missess 2272376 ,L2 missess 721939, L2 total 1938903 
+iteration 1, message size 65536,L1 missess 4420 ,L2 missess 2632, L2 total 4085 
+iteration 640, message size 65536,L1 missess 2806093 ,L2 missess 882233, L2 total 2325141 
+iteration 64, message size 65536,L1 missess 280185 ,L2 missess 88830, L2 total 232600 
+iteration 640, message size 65536,L1 missess 2801265 ,L2 missess 877487, L2 total 2313423 
+iteration 1, message size 131072,L1 missess 8565 ,L2 missess 4743, L2 total 7056 
+iteration 320, message size 131072,L1 missess 2745043 ,L2 missess 891114, L2 total 2244049 
+iteration 32, message size 131072,L1 missess 274319 ,L2 missess 90011, L2 total 224517 
+iteration 320, message size 131072,L1 missess 2742454 ,L2 missess 891405, L2 total 2246859 
+iteration 1, message size 262144,L1 missess 15366 ,L2 missess 3765, L2 total 18720 
+iteration 160, message size 262144,L1 missess 61024 ,L2 missess 4508, L2 total 155812 
+iteration 16, message size 262144,L1 missess 6025 ,L2 missess 411, L2 total 15921 
+iteration 160, message size 262144,L1 missess 60526 ,L2 missess 4222, L2 total 153893 
+iteration 1, message size 524288,L1 missess 3478 ,L2 missess 1534, L2 total 7248 
+iteration 80, message size 524288,L1 missess 30579 ,L2 missess 4599, L2 total 82981 
+iteration 8, message size 524288,L1 missess 3143 ,L2 missess 475, L2 total 9069 
+iteration 80, message size 524288,L1 missess 30586 ,L2 missess 3532, L2 total 82163 
+iteration 1, message size 1048576,L1 missess 1214 ,L2 missess 441, L2 total 5267 
+iteration 40, message size 1048576,L1 missess 15433 ,L2 missess 5127, L2 total 42700 
+iteration 4, message size 1048576,L1 missess 1581 ,L2 missess 708, L2 total 4827 
+iteration 40, message size 1048576,L1 missess 15504 ,L2 missess 6083, L2 total 42500 
+iteration 1, message size 2097152,L1 missess 1281 ,L2 missess 631, L2 total 5278 
+iteration 20, message size 2097152,L1 missess 9126 ,L2 missess 5989, L2 total 24596 
+iteration 2, message size 2097152,L1 missess 924 ,L2 missess 683, L2 total 3011 
+iteration 20, message size 2097152,L1 missess 9033 ,L2 missess 5686, L2 total 24407 
+iteration 1, message size 4194304,L1 missess 1570 ,L2 missess 853, L2 total 5998 
+iteration 10, message size 4194304,L1 missess 6087 ,L2 missess 4191, L2 total 15027 
+iteration 1, message size 4194304,L1 missess 626 ,L2 missess 418, L2 total 2094 
+iteration 10, message size 4194304,L1 missess 6154 ,L2 missess 4321, L2 total 15341 
+iteration 1, message size 8388608,L1 missess 1911 ,L2 missess 987, L2 total 6473 
+iteration 5, message size 8388608,L1 missess 4727 ,L2 missess 2668, L2 total 10279 
+iteration 1, message size 8388608,L1 missess 935 ,L2 missess 544, L2 total 2383 
+iteration 5, message size 8388608,L1 missess 4628 ,L2 missess 2679, L2 total 10046 
+iteration 1, message size 16777216,L1 missess 2255 ,L2 missess 975, L2 total 6939 
+iteration 2, message size 16777216,L1 missess 2907 ,L2 missess 1074, L2 total 6085 
+iteration 1, message size 16777216,L1 missess 1369 ,L2 missess 512, L2 total 3064 
+iteration 2, message size 16777216,L1 missess 2772 ,L2 missess 1092, L2 total 5480 
+iteration 1, message size 33554432,L1 missess 3427 ,L2 missess 1181, L2 total 8163 
+iteration 0, message size 33554432,L1 missess 0 ,L2 missess 0, L2 total 0 
+iteration 1, message size 33554432,L1 missess 2429 ,L2 missess 433, L2 total 4613 
+iteration 1, message size 67108864,L1 missess 5507 ,L2 missess 1465, L2 total 11145 
+iteration 0, message size 67108864,L1 missess 0 ,L2 missess 0, L2 total 0 
+iteration 1, message size 67108864,L1 missess 4407 ,L2 missess 834, L2 total 6989 
+iteration 1, message size 134217728,L1 missess 9648 ,L2 missess 2156, L2 total 16353 
+iteration 0, message size 134217728,L1 missess 0 ,L2 missess 0, L2 total 0 
+iteration 1, message size 134217728,L1 missess 8457 ,L2 missess 1150, L2 total 11963 
+iteration 1, message size 268435456,L1 missess 17781 ,L2 missess 3029, L2 total 26185 
+iteration 0, message size 268435456,L1 missess 0 ,L2 missess 0, L2 total 0 
+iteration 1, message size 268435456,L1 missess 16118 ,L2 missess 1628, L2 total 21024 
+[ct1pt-tnode007:19945] 1 more process has sent help message help-mpi-btl-openib.txt / error in device init
+[ct1pt-tnode007:19945] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
