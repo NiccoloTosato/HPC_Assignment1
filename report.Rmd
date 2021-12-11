@@ -262,35 +262,43 @@ The **L1** effects is not clearly visibile from the bandwidth due the latency. T
 
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE,include=FALSE}
-ob1_core=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/ob1_core.csv", header = TRUE)
-ob1_socket=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/ob1_socket.csv", header = TRUE)
+ob1_core_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ob1_selftcp_cache_misses.out.csv", header = TRUE)
+ob1_core_tcp$L1=ob1_core_tcp$L1/(ob1_core_tcp$ITER)
+ob1_core_tcp$L2=ob1_core_tcp$L2/(ob1_core_tcp$ITER)
 
-ob1_core$L1=ob1_core$L1/ob1_core$ITER
-ob1_core$L2=ob1_core$L2/ob1_core$ITER
+ob1_core_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ob1_selfvader_cache_misses.out.csv", header = TRUE)
+ob1_core_vader$L1=ob1_core_vader$L1/(ob1_core_vader$ITER)
+ob1_core_vader$L2=ob1_core_vader$L2/(ob1_core_vader$ITER)
 
-ob1_socket$L1=ob1_socket$L1/ob1_socket$ITER
-ob1_socket$L2=ob1_socket$L2/ob1_socket$ITER
+ucx_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ib_cache_misses.out.csv", header = TRUE)
+ucx_core$L1=ucx_core$L1/(ucx_core$ITER)
+ucx_core$L2=ucx_core$L2/(ucx_core$ITER)
+
+ob1_socket_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ob1_selftcp_cache_misses.out.csv", header = TRUE)
+ob1_socket_tcp$L1=ob1_socket_tcp$L1/(ob1_socket_tcp$ITER)
+ob1_socket_tcp$L2=ob1_socket_tcp$L2/(ob1_socket_tcp$ITER)
+
+ob1_socket_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ob1_selfvader_cache_misses.out.csv", header = TRUE)
+ob1_socket_vader$L1=ob1_socket_vader$L1/(ob1_socket_vader$ITER)
+ob1_socket_vader$L2=ob1_socket_vader$L2/(ob1_socket_vader$ITER)
+
+ucx_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ib_cache_misses.out.csv", header = TRUE)
+ucx_socket$L1=ucx_socket$L1/(ucx_socket$ITER)
+ucx_socket$L2=ucx_socket$L2/(ucx_socket$ITER)
 
 
 
-ucx_core=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/ucx_core.csv", header = TRUE)
-ucx_socket=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/ucx_socket.csv", header = TRUE)
 
-ucx_core$L1=ucx_core$L1/ucx_core$ITER
-ucx_core$L2=ucx_core$L2/ucx_core$ITER
-
-ucx_socket$L1=ucx_socket$L1/ucx_socket$ITER
-ucx_socket$L2=ucx_socket$L2/ucx_socket$ITER
-
-
-intel_core=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/intel_core.csv", header = TRUE)
-intel_socket=read.csv("/home/nt/Scrivania/mpi-benchmarks/cache/intel_socket.csv", header = TRUE)
+intel_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/intel_core_cache_misses.out.csv", header = TRUE)
 
 intel_core$L1=intel_core$L1/intel_core$ITER
 intel_core$L2=intel_core$L2/intel_core$ITER
 
+intel_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/intel_socket_cache_misses.out.csv", header = TRUE)
+
 intel_socket$L1=intel_socket$L1/intel_core$ITER
 intel_socket$L2=intel_socket$L2/intel_core$ITER
+
 ```
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=TRUE,include=FALSE}
@@ -301,18 +309,20 @@ gg_color_hue <- function(n) {
 
 library(ggplot2)
 
-sp = ggplot(ob1_core,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype="Core")) +
-  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core$X.SIZE) +
+library(ggplot2)
+
+sp = ggplot(ob1_core_vader,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype="Core")) +
+  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core_vader$X.SIZE) +
   geom_point() +
   geom_line()  +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   scale_y_continuous(trans='log2',name="Log(Cache miss)") +
-  geom_point(data=ob1_core,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1")) +
-  geom_line(data=ob1_core,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1",linetype="Core"))  +
-  geom_point(data=ob1_socket,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1")) +
-  geom_line(data=ob1_socket,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype="Socket")) +  
-  geom_point(data=ob1_socket,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1")) +
-  geom_line(data=ob1_socket,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1",linetype="Socket")) +
+  geom_point(data=ob1_core_vader,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1")) +
+  geom_line(data=ob1_core_vader,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1",linetype="Core"))  +
+  geom_point(data=ob1_socket_vader,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1")) +
+  geom_line(data=ob1_socket_vader,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype="Socket")) +  
+  geom_point(data=ob1_socket_vader,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1")) +
+  geom_line(data=ob1_socket_vader,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss OB1",linetype="Socket")) +
   geom_point(data=ucx_socket,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss UCX"))+
   geom_line(data=ucx_socket,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss UCX",linetype="Socket")) +
   geom_point(data=ucx_socket,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss UCX")) + 
@@ -330,23 +340,20 @@ sp = ggplot(ob1_core,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype="Core
   geom_point(data=intel_socket,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss Intel")) + 
   geom_line(data=intel_socket,aes(x=X.SIZE,y=L2/X.SIZE,color="L2 miss Intel",linetype="Socket"))  +       
   scale_color_manual(name="Protocol", values = c( "#F8766D", "#B79F00" ,"#00BA38", "#00BFC4", "#619CFF" ,"#F564E3"))+
-  scale_linetype_manual(name="Mapping",values=c(1,2)) +
-  theme(axis.text.y=element_blank())+
-  labs(title="Relative cache misses", subtitle="Normalized respect message size")  +
-      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
+  scale_linetype_manual(name="Mapping",values=c(1,2)) 
 
-sp1 = ggplot(ob1_core,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Core")) +
-  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core$X.SIZE) +
+sp1 = ggplot(ob1_core_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Core")) +
+  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core_vader$X.SIZE) +
   geom_point() +
   geom_line()  +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   scale_y_continuous(trans='log2',name="Log(Cache miss)") +
-  geom_point(data=ob1_core,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) +
-  geom_line(data=ob1_core,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Core"))  +
-  geom_point(data=ob1_socket,aes(x=X.SIZE,y=L1,color="L1 miss OB1")) +
-  geom_line(data=ob1_socket,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Socket")) +  
-  geom_point(data=ob1_socket,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) +
-  geom_line(data=ob1_socket,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Socket")) +
+  geom_point(data=ob1_core_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) +
+  geom_line(data=ob1_core_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Core"))  +
+  geom_point(data=ob1_socket_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1")) +
+  geom_line(data=ob1_socket_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Socket")) +  
+  geom_point(data=ob1_socket_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) +
+  geom_line(data=ob1_socket_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Socket")) +
   geom_point(data=ucx_socket,aes(x=X.SIZE,y=L1,color="L1 miss UCX"))+
   geom_line(data=ucx_socket,aes(x=X.SIZE,y=L1,color="L1 miss UCX",linetype="Socket")) +
   geom_point(data=ucx_socket,aes(x=X.SIZE,y=L2,color="L2 miss UCX")) + 
@@ -364,10 +371,7 @@ sp1 = ggplot(ob1_core,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Core")) +
   geom_point(data=intel_socket,aes(x=X.SIZE,y=L2,color="L2 miss Intel")) + 
   geom_line(data=intel_socket,aes(x=X.SIZE,y=L2,color="L2 miss Intel",linetype="Socket"))  +       
   scale_color_manual(name="Protocol", values = c( "#F8766D", "#B79F00" ,"#00BA38", "#00BFC4", "#619CFF" ,"#F564E3"))+
-  scale_linetype_manual(name="Mapping",values=c(1,2)) +
-  theme(axis.text.y=element_blank())+
-  labs(title="Absolute cache misses", subtitle="")  +
-      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
+  scale_linetype_manual(name="Mapping",values=c(1,2)) 
 
 
 ```
