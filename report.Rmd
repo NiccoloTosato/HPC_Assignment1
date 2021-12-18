@@ -1012,13 +1012,14 @@ Several domain decompositions are possible, a priory some of them can be discard
 
 ```{r,echo=FALSE,include=FALSE,eval=TRUE}
 jacobi_model=function(data,Ts,lambda,band,L){
-  data_model=subset(data,select=c("N","Nx","Ny","Nz","k","C_MB","Tc","P_MLUPs","data_MLUPs","ratioP","elapsed"))
+  data_model=subset(data,select=c("N","Nx","Ny","Nz","k","C_MB","Tc","P_MLUPs","data_MLUPs","elapsed","ratioP"))
   data_model$k=rowSums(data_model[,2:4]>1)
   
   data_model$k=rowSums(data_model[,2:4]>1)
   data_model$C_MB=(L^2)*8*data_model$k*4/(1024^2)
   data_model$Tc=data_model$C_MB/band+4*(10^-6)*data_model$k*lambda
   data_model$P_MLUPs=(L^3)*data_model$N*(10^-6)/(data_model$Tc+Ts)
+  data_model$ratioP=data_model$N*data_model$data_MLUPs[1]/data_model$data_MLUPs
   return(data_model)
 }
 
@@ -1032,44 +1033,104 @@ jacobi_thin_node=read.csv("/home/nt/Scrivania/ass2021/jacobi/thin/thin_node_mode
 jacobi_thin_node_model=jacobi_model(data=jacobi_thin_node,Ts=3.05,lambda=1.35,band=12182,L=700)
 
 jacobi_gpu_core=read.csv("/home/nt/Scrivania/ass2021/jacobi/gpu/gpu_core_model.csv",header=TRUE)
-jacobi_thin_core_model=jacobi_model(data=jacobi_thin_core,Ts=3.05,lambda=0.27,band=5652,L=700)
+jacobi_gpu_core_model=jacobi_model(data=jacobi_gpu_core,Ts=4.3,lambda=0.27,band=5652,L=700)
+jacobi_gpu_core_model$data_MLUPs[1]=77.458
+jacobi_gpu_core_model$elapsed[1]=76.52
+
 
 jacobi_gpu_socket=read.csv("/home/nt/Scrivania/ass2021/jacobi/gpu/gpu_soc_model.csv",header=TRUE)
-jacobi_thin_socket_model=jacobi_model(data=jacobi_thin_socket,Ts=3.05,lambda=0.65,band=4615,L=700)
-
+jacobi_gpu_socket_model=jacobi_model(data=jacobi_gpu_socket,Ts=4.3,lambda=0.65,band=4615,L=700)
+jacobi_gpu_socket_model$data_MLUPs[1]=77.458
+jacobi_gpu_socket_model$elapsed[1]=76.52
 
 ```
 
 ### Thin node, core mapping.
 $\lambda=0.24\space[usec]$ and $B=5987[MB/s]$.
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
-kbl(jacobi_thin_core_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+t=kbl(jacobi_thin_core_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
 column_spec(1, bold=T) %>%
-collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle") %>% 
+column_spec(11, color = "white",
+background = spec_color(jacobi_thin_core_model$ratioP, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",jacobi_thin_core_model$ratioP))
 ```
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+t
+```
+
 
 ### Thin node, socket mapping.
 $\lambda=0.6\space[usec]$ and $B=5123[MB/s]$.
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
 
-kbl(jacobi_thin_socket_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+t=kbl(jacobi_thin_socket_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
 column_spec(1, bold=T) %>%
-collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle") %>% 
+column_spec(11, color = "white",
+background = spec_color(jacobi_thin_socket_model$ratioP, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",jacobi_thin_socket_model$ratioP))
 ```
-
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+t
+```
 \newpage
 
 ### Thin node, node mapping.
 $\lambda=1.35\space[usec]$ and $B=12182[MB/s]$.
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
 
-kbl(jacobi_thin_node_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+t=kbl(jacobi_thin_node_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle") %>% 
+column_spec(11, color = "white",
+background = spec_color(jacobi_thin_node_model$ratioP, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",jacobi_thin_node_model$ratioP))
+```
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+t
+```
+Even if this model seems accurate, some comments are required:
+mapping by socket lead a slighty better performance respect core mapping and this is not what expected by theoretical model.
+If socket map on one hand lead to poor communication performance on other hand exploit better the memory allocation. When one socket is filled with 12 processes the entire grid is stored on socket competence LRDIMM, but spreading processes across 2 socket lead to better exploit of bandwidth using different memory controller and then all memory channel available. This solver at each iteration elaborates an huge amount of memory, given $L=1200$ and $12$ worker at least 300 GB of ram are elaborated (half memory LRDIMM are saturated,then all single socket channel are used).
+Also with map-by node option experimentally we obtain better results when several processes are involved.
+The following results report different domain decomposition and binding with $L=1200$, $N=12$ on thin node. Is reported the maximum value over all runs.
+
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
+last=read.csv("./jacobi/various.csv")
+last=last[,c("mapping","nx","ny","nz","perf")]
+kbl(last,booktabs=T,escape=F, col.names = linebreak(c("Mapping","Nx","Ny","Nx","MLUP/s")))%>%
 column_spec(1, bold=T) %>%
 collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
 ```
 
-Even if this model seems accurate, some comments are required:
-mapping by socket lead a slighty better performance respect core mapping and this is not what expected by theoretical model.
-If socket map on one hand lead to poor communication performance on other hand exploit better the memory allocation. When one socket is filled with 12 processes the entire grid is stored on socket competence LRDIMM, but spreading processes across 2 socket lead to better exploit of bandwidth using different memory controller and then all memory channel available. Given that this solver at each iteration elaborate an huge amount of memory, given $L=1200$ at least 300 GB of ram are elaborated (half memory LRDIMM are saturated,then all single socket channel are used).
-Also with map-by node option experimentally we obtain better results when several processes are involved.
-Performance model doesn't take into account the buffering requirement, given a domain decomposition, needed to exchange the halo point and is not possible theoretically infer about same domain decomposition but on different direction.
+Performance model doesn't take into account the buffering requirement, given a domain decomposition, needed to exchange the halo point and is not possible theoretically infer about same domain decomposition but on different direction. Experimentally differences on performance are neglegible but still present.
+\newpage
+
+### Gpu node, core mapping.
+
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE,message=FALSE}
+
+t=kbl(jacobi_gpu_core_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")%>% 
+column_spec(11, color = "white",
+background = spec_color(jacobi_gpu_core_model$ratioP, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",jacobi_gpu_core_model$ratioP))
+```
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+t
+```
+### Gpu node, socket mapping.
+
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+
+kbl(jacobi_gpu_socket_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")%>% 
+column_spec(11, color = "white",
+background = spec_color(jacobi_gpu_socket_model$ratioP, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",jacobi_gpu_socket_model$ratioP))
+
+```
+On gpu node differences on socket and core mapping are even bigger and enhanced, again we can guess the memory as main cause. Gpu node setup even if has higher frequency LDIMM module, doesn't exploit all possible memory channel. When worker number grow over physical core number the real performance, due hyperthreading, goes dramatically down respect the model. Also execution time show poor performance with 48 workder.
