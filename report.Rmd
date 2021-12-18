@@ -292,7 +292,9 @@ sp2 = ggplot(ring_core_big,aes(x=X.SIZE,y=MEAN_MESSAGE,color="Map by core" ))  +
                 color = "red",linetype="dashed", size=0.5)
 
 ```
+
 \newpage
+
 ```{r , dpi=600, fig.width=10, fig.height=8,echo=FALSE,fig.cap="Ring on THIN node up to 96 cores and 4 nodes"}
 
 grid.arrange(sp,sp2,nrow=2)
@@ -308,9 +310,9 @@ Running the ring across 4 node we can recognize the pattern described above. Aft
 
 In order to measure MPI point to point performance, the Intel MPI benchmarks is used. By Intel's documentation it works as follow:
 
-![PingPong structure from Intel® MPI Benchmarks User Guide.](./img/image01.png){#id2 .class width=50% height=50%}
+![PingPong structure from Intel® MPI Benchmarks User Guide.](./img/image01.png){#id2 .class width=50% height=35%}
 
-The bandwidth and the latency estimate is done across *core*, *socket* and different *node*, combined with different protocols and hardware devices.
+The bandwidth and the latency estimate is done across *core*, *socket* and different *node*, combined with differents protocols and hardware devices. Each run is repeated 10 times, **openMPI 4.0.3** is used. Entire node was reserved in order to reduce possible source noise in measurement.
 The **pml** involved in the benchmarks are **OB1** and **UCX**. The **btl** used are **tcp** and **vader**. Across node are selected also different network, with different protocols: $25$ Gbit Ethernet and $100$ Gbit InfiniBand throught Mellanox network switch. 
 
 ```{r , include=FALSE,echo=FALSE}
@@ -337,7 +339,7 @@ core_ib_intel=read.csv("./pingpong/intel/core_ib_intel.out.csv", header = TRUE)
 ```{r , dpi=600, fig.width=10, fig.height=6,echo=FALSE,include=FALSE}
 library(ggplot2)
 
-sp = ggplot(core_ib,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
+sp_thin = ggplot(core_ib,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
   scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=core_ib$X.bytes) +
   geom_point() + geom_line()+scale_y_continuous(breaks = seq(0,25000,1000),name="MB/s") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
@@ -364,7 +366,11 @@ sp = ggplot(core_ib,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
   geom_vline(xintercept=1048576, 
                 color = "black",linetype="dashed", size=0.35)+
   geom_vline(xintercept=19922944, 
-                color = "black",linetype="dashed", size=0.35)
+                color = "black",linetype="dashed", size=0.35)+
+  annotate("text", x=58000, y=24000, label= "L1",color="Black")+
+  annotate("text", x=1800000, y=24000, label= "L2",color="Black")+
+  annotate("text", x=29900000, y=24000, label= "L3",color="Black")
+  
 
 
 ```
@@ -372,60 +378,124 @@ sp = ggplot(core_ib,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
 
 ```{r aa, dpi=600, fig.width=10, fig.height=6,echo=FALSE}
 options(warn=-1)
-sp
+#sp
 
 ```
-\newpage
-The graph above show the behaviour inside the same node, then mapping the processes across two sockets or in the same socket. Mapping the processes in the same socket show of course a better performance. The behaviour before the asymptotic plateau is strange and show very different performance among different implementation, the main cause is the cache. 
+
+```{r,echo=FALSE}
+socket_ib_gpu=read.csv("./pingpong/ompi_gpu/socket_ib.out.csv", header = TRUE)
+socket_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selftcp.out.csv", header = TRUE)
+socket_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selfvader.out.csv", header = TRUE)
+socket_ib_intel_gpu=read.csv("./pingpong/intel_gpu/socket_ib_intel.out.csv", header = TRUE)
+
+core_ib_intel_gpu=read.csv("./pingpong/intel_gpu/core_ib_intel.out.csv", header = TRUE)
+core_ib_gpu=read.csv("./pingpong/ompi_gpu/core_ib.out.csv", header = TRUE)
+core_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selftcp.out.csv", header = TRUE)
+core_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selfvader.out.csv", header = TRUE)
+
+sp_gpu = ggplot(core_ib_gpu,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Core")) +
+  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=core_ib$X.bytes) +
+  geom_point() + geom_line()+scale_y_continuous(breaks = seq(0,22000,1000),name="MB/s") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_point(data=core_ob1_tcp_gpu,aes(x=X.bytes,y=mbs,color="OB1 tcp")) +
+  geom_line(data=core_ob1_tcp_gpu,aes(x=X.bytes,y=mbs,color="OB1 tcp",linetype="Core")) +
+  geom_point(data=core_ob1_vader_gpu,aes(x=X.bytes,y=mbs,color="OB1 vader")) +
+  geom_line(data=core_ob1_vader_gpu,aes(x=X.bytes,y=mbs,color="OB1 vader",linetype="Core")) +
+  geom_point(data=socket_ib_gpu,aes(x=X.bytes,y=mbs,color="UCX IB")) +
+  geom_line(data=socket_ib_gpu,aes(x=X.bytes,y=mbs,color="UCX IB",linetype="Socket")) +
+  geom_point(data=socket_ob1_tcp_gpu,aes(x=X.bytes,y=mbs,color="OB1 tcp")) +
+  geom_line(data=socket_ob1_tcp_gpu,aes(x=X.bytes,y=mbs,color="OB1 tcp",linetype="Socket")) +
+  geom_point(data=socket_ob1_vader_gpu,aes(x=X.bytes,y=mbs,color="OB1 vader")) +
+  geom_line(data=socket_ob1_vader_gpu,aes(x=X.bytes,y=mbs,color="OB1 vader",linetype="Socket")) +
+  geom_point(data=socket_ib_intel_gpu,aes(x=X.bytes,y=mbs,color="Intel IB")) +
+  geom_line(data=socket_ib_intel_gpu,aes(x=X.bytes,y=mbs,color="Intel IB",linetype="Socket")) +
+  geom_point(data=core_ib_intel_gpu,aes(x=X.bytes,y=mbs,color="Intel IB")) +
+  geom_line(data=core_ib_intel_gpu,aes(x=X.bytes,y=mbs,color="Intel IB",linetype="Core"))+
+  scale_color_manual(name="Protocol", values = c("#F8766D", "#7CAE00", "#00BFC4" ,"#C77CFF"))+
+  scale_linetype_manual(name="Mapping",values=c(1,2,3,4))+
+  labs(title="PingPong bandwidth", subtitle="Gpu node,core and socket mapping")  +
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))+
+  geom_vline(xintercept=32768, 
+                color = "black",linetype="dashed", size=0.35)+
+  geom_vline(xintercept=1048576, 
+                color = "black",linetype="dashed", size=0.35)+
+  geom_vline(xintercept=19922944, 
+                color = "black",linetype="dashed", size=0.35)+
+  annotate("text", x=58000, y=20000, label= "L1",color="Black")+
+  annotate("text", x=1800000, y=20000, label= "L2",color="Black")+
+  annotate("text", x=29900000, y=20000, label= "L3",color="Black")
+  
+```
+
+```{r , dpi=600, fig.width=10, fig.height=6,echo=FALSE}
+options(warn=-1)
+#sp
+
+```
+The following graphs show the behaviour inside the same node, i.e mapping the processes across two sockets or in the same socket. Mapping the processes in the same socket show of course often a better performance. The behaviour before the asymptotic plateau is strange and show very different performance among different implementation, the main cause is the cache. 
 Before analyzing the performance we need to know more about the node topology. 
 
-![lstopo output on THIN node.](./img/lstopo.png){#idasd .class width=50% height=50% align=right}
+![lstopo output on THIN node.](./img/lstopo.png){#idasd .class width=50% height=50% align=center}
 
 Cache sizes are reported on graph with vertical black dashed line. 
 The behaviour appear strange before $16$ MB included, after that size, it is stable beacause the message size is larger than all caches. The larger cache is **L3** with $19$ MB.
-
 The **L2** effects, become clear after $1$ MB, then all implementations start loosing bandwidth.
-
-The **L1** effects is not clearly visible from the bandwidth due the latency. To infer with more accuracy about the cache effect we can perform some profiling test using hardware counters. I modified Intel MPI Benchmark PingPong injecting some code in order to inspec L1 data cache misses and L2 cache misses using PAPI. I tracked all cache misses on MPI_Send and MPI_Recv routine. They are reported on absolute value and normalized respect message size.
-
+The **L1** effects is not clearly visible from the bandwidth due the latency. To infer with more accuracy about the cache effect we can perform some profiling test using hardware counters. I modified Intel MPI Benchmark PingPong injecting some code in order to inspect L1 data cache misses and L2 cache misses using PAPI. I tracked all cache misses on MPI_Send and MPI_Recv routine of rank 0,after some cicles of warmup. They are reported on absolute value and normalized respect message size.
 Before $128$ KB UCX shows poor performance respect other protocols, after that size there is an huge speed up. This behave will be explained later. Intel InfiniBand also show poor performance respect UCX implementation, this behaviour is explained with cache too. 
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE,include=FALSE}
-ob1_core_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/core_ob1_selftcp_cache_misses.out.csv", header = TRUE)
-ob1_core_tcp$L1=ob1_core_tcp$L1/(ob1_core_tcp$ITER)
-ob1_core_tcp$L2=ob1_core_tcp$L2/(ob1_core_tcp$ITER)
+ob1_core_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ob1_selftcp_cache_misses.out.csv", header = TRUE)
+ob1_core_tcp$L1=ob1_core_tcp$L1/(ob1_core_tcp$ITERATION)
+ob1_core_tcp$L2=ob1_core_tcp$L2/(ob1_core_tcp$ITERATION)
 
-ob1_core_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/core_ob1_selfvader_cache_misses.out.csv", header = TRUE)
-ob1_core_vader$L1=ob1_core_vader$L1/(ob1_core_vader$ITER)
-ob1_core_vader$L2=ob1_core_vader$L2/(ob1_core_vader$ITER)
+ob1_core_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ob1_selfvader_cache_misses.out.csv", header = TRUE)
+ob1_core_vader$L1=ob1_core_vader$L1/(ob1_core_vader$ITERATION)
+ob1_core_vader$L2=ob1_core_vader$L2/(ob1_core_vader$ITERATION)
 
-ucx_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/core_ib_cache_misses.out.csv", header = TRUE)
-ucx_core$L1=ucx_core$L1/(ucx_core$ITER)
-ucx_core$L2=ucx_core$L2/(ucx_core$ITER)
+ucx_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ib_cache_misses.out.csv", header = TRUE)
+ucx_core$L1=ucx_core$L1/(ucx_core$ITERATION)
+ucx_core$L2=ucx_core$L2/(ucx_core$ITERATION)
 
-ob1_socket_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/socket_ob1_selftcp_cache_misses.out.csv", header = TRUE)
-ob1_socket_tcp$L1=ob1_socket_tcp$L1/(ob1_socket_tcp$ITER)
-ob1_socket_tcp$L2=ob1_socket_tcp$L2/(ob1_socket_tcp$ITER)
+ob1_socket_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ob1_selftcp_cache_misses.out.csv", header = TRUE)
+ob1_socket_tcp$L1=ob1_socket_tcp$L1/(ob1_socket_tcp$ITERATION)
+ob1_socket_tcp$L2=ob1_socket_tcp$L2/(ob1_socket_tcp$ITERATION)
 
-ob1_socket_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/socket_ob1_selfvader_cache_misses.out.csv", header = TRUE)
-ob1_socket_vader$L1=ob1_socket_vader$L1/(ob1_socket_vader$ITER)
-ob1_socket_vader$L2=ob1_socket_vader$L2/(ob1_socket_vader$ITER)
+ob1_socket_vader=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ob1_selfvader_cache_misses.out.csv", header = TRUE)
+ob1_socket_vader$L1=ob1_socket_vader$L1/(ob1_socket_vader$ITERATION)
+ob1_socket_vader$L2=ob1_socket_vader$L2/(ob1_socket_vader$ITERATION)
 
-ucx_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/socket_ib_cache_misses.out.csv", header = TRUE)
-ucx_socket$L1=ucx_socket$L1/(ucx_socket$ITER)
-ucx_socket$L2=ucx_socket$L2/(ucx_socket$ITER)
+ucx_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/socket_ib_cache_misses.out.csv", header = TRUE)
+ucx_socket$L1=ucx_socket$L1/(ucx_socket$ITERATION)
+ucx_socket$L2=ucx_socket$L2/(ucx_socket$ITERATION)
  
-intel_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/intel_core_cache_misses.out.csv", header = TRUE)
+intel_core=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/intel_core_cache_misses.out.csv", header = TRUE)
 
-intel_core$L1=intel_core$L1/intel_core$ITER
-intel_core$L2=intel_core$L2/intel_core$ITER
+intel_core$L1=intel_core$L1/intel_core$ITERATION
+intel_core$L2=intel_core$L2/intel_core$ITERATION
 
-intel_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses_send/intel_socket_cache_misses.out.csv", header = TRUE)
+intel_socket=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/intel_socket_cache_misses.out.csv", header = TRUE)
 
-intel_socket$L1=intel_socket$L1/intel_core$ITER
-intel_socket$L2=intel_socket$L2/intel_core$ITER
+intel_socket$L1=intel_socket$L1/intel_core$ITERATION
+intel_socket$L2=intel_socket$L2/intel_core$ITERATION
+
+
+intel_node=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/intel_node_cache_misses.out.csv", header = TRUE)
+intel_node$L1=intel_node$L1/intel_node$ITERATION
+
+ucx_node_ib=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/node_ib_cache_misses.out.csv", header = TRUE)
+ucx_node_ib$L1=ucx_node_ib$L1/ucx_node_ib$ITERATION
+
+ucx_node_br0=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/node_ucx_br0_cache_misses.out.csv", header = TRUE)
+ucx_node_br0$L1=ucx_node_br0$L1/ucx_node_br0$ITERATION
+
+ucx_node_ib0=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/node_ucx_ib0_cache_misses.out.csv", header = TRUE)
+ucx_node_ib0$L1=ucx_node_ib0$L1/ucx_node_ib0$ITERATION
+
+ob1_node_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/node_ob1_selftcp_cache_misses.out.csv", header = TRUE)
+ob1_node_tcp$L1=ob1_node_tcp$L1/ob1_node_tcp$ITERATION
 
 ```
+
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=TRUE,include=FALSE}
 gg_color_hue <- function(n) {
@@ -470,14 +540,19 @@ sp = ggplot(ob1_core_vader,aes(x=X.SIZE,y=L1/X.SIZE,color="L1 miss OB1",linetype
                 color = "black",linetype="dashed", size=0.35)+
   geom_vline(xintercept=19922944, 
                 color = "black",linetype="dashed", size=0.35)+
-  theme(axis.text.y =element_blank())
+  theme(axis.text.y =element_blank())+
+  annotate("text", x=58000, y=24000, label= "L1",color="Black")+
+  annotate("text", x=1800000, y=24000, label= "L2",color="Black")+
+  annotate("text", x=29900000, y=24000, label= "L3",color="Black")+
+  labs(title="PingPong cache misses", subtitle="Thin node,relative cache misses")  +
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
 
 sp1 = ggplot(ob1_core_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Core")) +
   scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core_vader$X.SIZE) +
   geom_point() +
   geom_line()  +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_y_continuous(trans='log2',name="Log(Cache miss)") +
+  scale_y_continuous(trans='log2',name="Log(Cache misses)") +
   geom_point(data=ob1_core_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) +
   geom_line(data=ob1_core_vader,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Core"))  +
   geom_point(data=ob1_socket_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1")) +
@@ -508,9 +583,61 @@ sp1 = ggplot(ob1_core_vader,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Core
                 color = "black",linetype="dashed", size=0.35)+
   geom_vline(xintercept=19922944, 
                 color = "black",linetype="dashed", size=0.35)+
-  theme(axis.text.y =element_blank())
+  theme(axis.text.y =element_blank())+
+  annotate("text", x=58000, y=24000, label= "L1",color="Black")+
+  annotate("text", x=1800000, y=24000, label= "L2",color="Black")+
+  annotate("text", x=29900000, y=24000, label= "L3",color="Black")+
+  labs(title="PingPong cache misses", subtitle="Thin node,absolute cache misses")  +
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
 
 
+
+
+sp3 = ggplot(intel_node,aes(x=X.SIZE,y=L1,color="L1 miss Intel",linetype="Node")) +
+  scale_x_continuous(trans='log2',name="Message Size Bytes",breaks=ob1_core_vader$X.SIZE) +
+  geom_point() +
+  geom_line()  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(trans='log2',name="Log(Normalized Cache misses)") +
+  geom_point(data=intel_node,aes(x=X.SIZE,y=L2,color="L2 miss Intel")) +
+  geom_line(data=intel_node,aes(x=X.SIZE,y=L2,color="L2 miss Intel",linetype="Node"))  +
+  geom_point(data=ucx_node_ib,aes(x=X.SIZE,y=L1,color="L1 miss UCX")) +
+  geom_line(data=ucx_node_ib,aes(x=X.SIZE,y=L1,color="L1 miss UCX",linetype="Node")) +  
+  geom_point(data=ucx_node_ib,aes(x=X.SIZE,y=L2,color="L2 miss UCX")) +
+  geom_line(data=ucx_node_ib,aes(x=X.SIZE,y=L2,color="L2 miss UCX",linetype="Node")) +
+  geom_point(data=ucx_node_br0,aes(x=X.SIZE,y=L1,color="L1 miss UCX br0"))+
+  geom_line(data=ucx_node_br0,aes(x=X.SIZE,y=L1,color="L1 miss UCX br0",linetype="Node")) +
+  geom_point(data=ucx_node_br0,aes(x=X.SIZE,y=L2,color="L2 miss UCX br0")) + 
+  geom_line(data=ucx_node_br0,aes(x=X.SIZE,y=L2,color="L2 miss UCX br0",linetype="Node")) + 
+  geom_point(data=ucx_node_ib0,aes(x=X.SIZE,y=L2,color="L2 miss UCX ib0")) + 
+  geom_line(data=ucx_node_ib0,aes(x=X.SIZE,y=L2,color="L2 miss UCX ib0",linetype="Node"))+
+  geom_point(data=ucx_node_ib0,aes(x=X.SIZE,y=L1,color="L1 miss UCX ib0")) + 
+  geom_line(data=ucx_node_ib0,aes(x=X.SIZE,y=L1,color="L1 miss UCX ib0",linetype="Node"))  +
+  geom_point(data=ob1_node_tcp,aes(x=X.SIZE,y=L1,color="L1 miss OB1")) + 
+  geom_line(data=ob1_node_tcp,aes(x=X.SIZE,y=L1,color="L1 miss OB1",linetype="Node"))  +
+  geom_point(data=ob1_node_tcp,aes(x=X.SIZE,y=L2,color="L2 miss OB1")) + 
+  geom_line(data=ob1_node_tcp,aes(x=X.SIZE,y=L2,color="L2 miss OB1",linetype="Node"))    + 
+  scale_color_manual(name="Protocol", values = c( "#F8766D", "#D89000", "#A3A500", "#39B600", "#00BF7D", "#00BFC4", "#00B0F6", "#9590FF", "#E76BF3", "#FF62BC"))+
+  scale_linetype_manual(name="Mapping",values=c(1,2)) +
+  geom_vline(xintercept=32768, 
+                color = "black",linetype="dashed", size=0.35)+
+  geom_vline(xintercept=1048576, 
+                color = "black",linetype="dashed", size=0.35)+
+  geom_vline(xintercept=19922944, 
+                color = "black",linetype="dashed", size=0.35)+
+  theme(axis.text.y =element_blank())+
+  annotate("text", x=58000, y=24000, label= "L1",color="Black")+
+  annotate("text", x=1800000, y=24000, label= "L2",color="Black")+
+  annotate("text", x=29900000, y=24000, label= "L3",color="Black")+
+  labs(title="PingPong cache misses", subtitle="Thin node,node mapping")  +
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
+
+
+```
+
+```{r, dpi=600, fig.width=10, fig.height=5.7,echo=FALSE}
+sp_thin
+sp_gpu
 ```
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE}
@@ -518,7 +645,9 @@ sp1
 sp
 ```
 
-From first graph, now Intel implementation behaviour is clear, it has the largest cache misses number among all other configurations. The bandwidth spike of **UCX** after $128 \space KB$, can be explained by **L1** and **L2** drop in terms of cache misses. **OB1** implementation seems be the most cache friendly *PML*. Disclamer: those graphs must used in qualitative way and not in quantitative way. 
+
+From first graph, now Intel implementation behaviour is clear, it has the largest cache misses number among all other configurations. The bandwidth spike of **UCX** after $128$ KB, can be explained by **L1** and **L2** drop in terms of cache misses. **OB1** implementation seems be the most cache friendly *PML*.  Disclamer: those graphs must used in qualitative way and not in quantitative way. 
+
 
 ```{r,echo=FALSE,include=FALSE}
 node_ib=read.csv("./pingpong/ompi/node_ib.out.csv", header = TRUE)
@@ -549,19 +678,16 @@ sp
 ```
 
 This inter-node benchmark reveal the network performance and topology. Two physical network are available, $25$  Gbit Ethernet and $100$ Gbit InfiniBand. 
-The PCI-E devices are visible from lstopo, we can physically see em1, em2, that are bonded togheter, creating the interface bond0. To infer about this we can use ifconfig and ip link command. Is also available IPoIB with the ib0 device.
+The PCI-E devices are visible from lstopo, we can physically see em1, em2, that are bonded togheter, creating the interface bond0. To infer about this we can use ifconfig and ip link command.
 
 \scriptsize
 
 ```{bash, eval=FALSE}
 [s271550@ct1pt-tnode007 etc]$ ifconfig
 bond0: flags=5187<UP,BROADCAST,RUNNING,MASTER,MULTICAST>  mtu 1500
-        inet6 fe80::3680:dff:fe4e:5568  prefixlen 64  scopeid 0x20<link>
         ether 34:80:0d:4e:55:68  txqueuelen 1000  (Ethernet)
 
 br0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 10.128.2.127  netmask 255.255.255.0  broadcast 10.128.2.255
-        inet6 fe80::3680:dff:fe4e:5568  prefixlen 64  scopeid 0x20<link>
         ether 34:80:0d:4e:55:68  txqueuelen 1000  (Ethernet)
 
 em1: flags=6211<UP,BROADCAST,RUNNING,SLAVE,MULTICAST>  mtu 1500
@@ -571,8 +697,6 @@ em2: flags=6211<UP,BROADCAST,RUNNING,SLAVE,MULTICAST>  mtu 1500
         ether 34:80:0d:4e:55:68  txqueuelen 1000  (Ethernet)
 
 ib0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 2044
-        inet 10.128.6.127  netmask 255.255.255.0  broadcast 10.128.6.255
-        inet6 fe80::ba59:9f03:d4:27d6  prefixlen 64  scopeid 0x20<link>
 Infiniband hardware address can be incorrect! Please read BUGS section in ifconfig(8).
         infiniband 00:00:09:07:FE:80:00: ..... txqueuelen 256  (InfiniBand)
 
@@ -585,20 +709,19 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 ```{bash,eval=FALSE}
 [s271550@ct1pt-tnode007 etc]$ ip link 
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+
 2: em1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 1500 qdisc mq master bond0 state UP mode DEFAULT group default qlen 1000
-    link/ether 34:80:0d:4e:55:68 brd ff:ff:ff:ff:ff:ff
+
 3: em2: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 1500 qdisc mq master bond0 state UP mode DEFAULT group default qlen 1000
-    link/ether 34:80:0d:4e:55:68 brd ff:ff:ff:ff:ff:ff
+
 4: ib0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 2044 qdisc mq state UP mode DEFAULT group default qlen 256
-    link/infiniband 00:00:09:07:fe:80:00:00:00:00:00:00:b8:59:9f:03:00:d4:27:d6 brd ......
+    link/infiniband ....
 5: bond0: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 1500 qdisc noqueue master br0 state UP mode DEFAULT group default qlen 1000
-    link/ether 34:80:0d:4e:55:68 brd ff:ff:ff:ff:ff:ff
+
 6: br0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP mode DEFAULT group default qlen 1000
-    link/ether 34:80:0d:4e:55:68 brd ff:ff:ff:ff:ff:ff
 ```
 \normalsize
-
+\newpage
 
 With openMPI implementation and UCX, we can directly select the devices, that lead to a specific protocol as consequence. The devices tested are ib0, br0 and mlx5_0:1. Ib0 is the IPoIB protocol, br0 lead a TCP communication and mlx5_0:1 is a pure native InfiniBand device.
 The theoretical maximum performance are $12.5$ GB/s or $12800$ MB/s for InfiniBand and $3.125$ GB/s or $3200$ MB/s for the Ethernet network. 
@@ -683,7 +806,7 @@ labs(title=mapping, subtitle=mapping_2) +
 ```
 
 
-```{r, dpi=600, fig.width=15, fig.height=13.5,echo=FALSE}
+```{r, dpi=600, fig.width=15, fig.height=13,echo=FALSE}
 
 node_ib_fit=calculate_fit(node_ib)
 sp1=get_plot_fit_legend(node_ib_fit,mapping="Map by node, THIN node",mapping_2="UCX ib")
@@ -699,35 +822,35 @@ sp4=get_plot_fit(node_ucx_ib0_fit,mapping="Map by node, THIN node",mapping_2="UC
 
 node_ib_intel_fit=calculate_fit(node_ib_intel)
 sp5=get_plot_fit(node_ib_intel_fit,mapping="Map by node, THIN node",mapping_2="Intel ib")
+
 grid.arrange(sp1,sp2,sp3,sp4,sp5,nrow=3)
 
-```
 
-
-UCX with InfiniBand show the better performance in terms of latency ad bandwidht, followed by UCX with ib0 device. Similar performance are given by OB1 with TCP, but with higher latency. UCX with TCP (br0) is the slowest. Intel IB show a similar behaviour. The estimated curve is obtained fitting experimentals values with least square method and a linear model. The data are splitted in 2 chunk, the first is used to estimate the intercept i.e the latency, the second half of data is used to estimate the angular coeff i.e the bandwidth. The model is not so accurate due cache effects. 
-```{r,echo=FALSE}
-socket_ib_gpu=read.csv("./pingpong/ompi_gpu/socket_ib.out.csv", header = TRUE)
-socket_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selftcp.out.csv", header = TRUE)
-socket_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/socket_ob1_selfvader.out.csv", header = TRUE)
-socket_ib_intel_gpu=read.csv("./pingpong/intel_gpu/socket_ib_intel.out.csv", header = TRUE)
-
-core_ib_intel_gpu=read.csv("./pingpong/intel_gpu/core_ib_intel.out.csv", header = TRUE)
-core_ib_gpu=read.csv("./pingpong/ompi_gpu/core_ib.out.csv", header = TRUE)
-core_ob1_tcp_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selftcp.out.csv", header = TRUE)
-core_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selfvader.out.csv", header = TRUE)
+df_node=data.frame(name=c("UCX IB","OB1 tcp","UCX br0","UCX ib0","Intel ib"),
+                   latency=c(node_ib_fit$t_est[1],node_ob1_tcp_fit$t_est[1],node_ucx_br0_fit$t_est[1],node_ucx_ib0_fit$t_est[1],node_ib_intel_fit$t_est[1]),
+                   bandwith=c(node_ib_fit$b_est[30],node_ob1_tcp_fit$b_est[30],node_ucx_br0_fit$b_est[30],node_ucx_ib0_fit$b_est[30],node_ib_intel_fit$b_est[30]))
 
 ```
+
+UCX with InfiniBand and Intel show the best performances among over all configurations in terms of latency and bandwidth. UCX overperform a bit Intel latency. No big cache effects are visible thanks to  RDMA that exclude all caches, CPU and kernel action, this explain also the highest possible bandwidth respect core and socket mapping. Real InfiniBand performance is about $95\%$ of theoretical bandwidth, is a very nice result assuming the encoding $64b/66b$.
+
+UCX with br0 and OB1 with tcp show comparable latency, but OB1 gain a better bandwidth. The real maximum performance is about $85\%$ of theoretical bandwidth, this is a good result taking into account the heavier tcp protocol respect InfiniBand (ACK,handshake, encoding...). There is then transport overhead and some inefficency introduced by the cache and CPU (no RDMA available).
+
+IPoIB has a good latency (no Ethernet switch involved) but the bandwidth is not so high as expected. 
+Gpu nodes behave like thin node, no difference are visible, GPU node is a bit slower than thin node, this can be caused by different CPU frequency and node configuration. Cache size are same as thin node, then cache effects are similar. Follow on next page a summary of fitting results on THIN and GPU node.
+
+
 
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE}
-# calculate_fit=function(d){
-#  fit1=lm(data=d[1:15,],formula = t~X.bytes)
-#  fit2=lm(data=d[15:30,],formula = t~X.bytes)
-#  lambda=fit1$coefficients[1]
-#  b=(fit2$coefficients[2]^-1)
-#  d$t_est=lambda+d$X.bytes/b
-#  d$b_est=d$X.bytes/d$t_est
-#  return(d)
-# }
+ calculate_fit=function(d){
+fit1=lm(data=d[1:15,],formula = t~X.bytes)
+  fit2=lm(data=d[15:30,],formula = t~X.bytes)
+  lambda=fit1$coefficients[1]
+  b=(fit2$coefficients[2]^-1)
+  d$t_est=lambda+d$X.bytes/b
+  d$b_est=d$X.bytes/d$t_est
+  return(d)
+ }
 # 
 # plot_fit=function( d,mapping,mapping_2 ){
 #   mapping_2=paste0(mapping_2, " \nlatency=" ,round(d$t_est[1],digits = 2)," uSec\n bandwidth=",round(d$b_est[30],digits = 2)," MB/s")
@@ -750,93 +873,203 @@ core_ob1_vader_gpu=read.csv("./pingpong/ompi_gpu/core_ob1_selfvader.out.csv", he
 #   sp
 # }
 # 
-# core_ib_fit=calculate_fit(core_ib)
+ core_ib_fit=calculate_fit(core_ib)
 # sp1=get_plot_fit_legend(core_ib_fit,mapping="Map by core, THIN node",mapping_2="UCX ib")
 # 
-# core_ob1_tcp_fit=calculate_fit(core_ob1_tcp)
+ core_ob1_tcp_fit=calculate_fit(core_ob1_tcp)
 # sp2=get_plot_fit(core_ob1_tcp_fit,mapping="Map by core, THIN node",mapping_2="OB1 tcp")
 # 
-# core_ob1_vader_fit=calculate_fit(core_ob1_vader)
+ core_ob1_vader_fit=calculate_fit(core_ob1_vader)
 # sp3=get_plot_fit(core_ob1_vader_fit,mapping="Map by core, THIN node",mapping_2="OB1 vader")
 # 
-# core_ib_intel_fit=calculate_fit(core_ib_intel)
+ core_ib_intel_fit=calculate_fit(core_ib_intel)
 # sp4=get_plot_fit(core_ib_intel_fit,mapping="Map by core, THIN node",mapping_2="Intel IB")
 # 
-# core_ib_gpu_fit=calculate_fit(core_ib_gpu)
+ core_ib_gpu_fit=calculate_fit(core_ib_gpu)
 # sp5=get_plot_fit(core_ib_gpu_fit,mapping="Map by core, GPU node",mapping_2="UCX IB")
 # 
-# core_ib_intel_gpu_fit=calculate_fit(core_ib_intel_gpu)
+ core_ib_intel_gpu_fit=calculate_fit(core_ib_intel_gpu)
 # sp6=get_plot_fit(core_ib_intel_gpu_fit,mapping="Map by core, GPU node",mapping_2="Intel IB")
 # 
-# core_ob1_tcp_gpu_fit=calculate_fit(core_ob1_tcp_gpu)
+ core_ob1_tcp_gpu_fit=calculate_fit(core_ob1_tcp_gpu)
 # sp7=get_plot_fit(core_ob1_tcp_gpu_fit,mapping="Map by core, GPU node",mapping_2="OB1 tcp")
 # 
-# core_ob1_vader_gpu_fit=calculate_fit(core_ob1_vader_gpu)
+ core_ob1_vader_gpu_fit=calculate_fit(core_ob1_vader_gpu)
 # sp8=get_plot_fit(core_ob1_vader_gpu_fit,mapping="Map by core, GPU node",mapping_2="OB1 vader")
 # 
 # grid.arrange(sp1,sp2,sp3,sp4,sp5,sp6,sp7,sp8,nrow=4)
+
 
 ```
 
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE}
 
-# socket_ib_fit=calculate_fit(socket_ib)
+ socket_ib_fit=calculate_fit(socket_ib)
 # sp1=get_plot_fit_legend(socket_ib_fit,mapping="Map by socket, THIN node",mapping_2="UCX ib")
 # 
-# socket_ob1_tcp_fit=calculate_fit(socket_ob1_tcp)
+ socket_ob1_tcp_fit=calculate_fit(socket_ob1_tcp)
 # sp2=get_plot_fit(socket_ob1_tcp_fit,mapping="Map by socket, THIN node",mapping_2="OB1 tcp")
 # 
-# socket_ob1_vader_fit=calculate_fit(socket_ob1_vader)
+ socket_ob1_vader_fit=calculate_fit(socket_ob1_vader)
 # sp3=get_plot_fit(socket_ob1_vader_fit,mapping="Map by socket, THIN node",mapping_2="OB1 vader")
 # 
-# socket_ib_intel_fit=calculate_fit(socket_ib_intel)
+ socket_ib_intel_fit=calculate_fit(socket_ib_intel)
 # sp4=get_plot_fit(socket_ib_intel_fit,mapping="Map by socket, THIN node",mapping_2="Intel IB")
 # 
-# socket_ib_gpu_fit=calculate_fit(socket_ib_gpu)
+ socket_ib_gpu_fit=calculate_fit(socket_ib_gpu)
 # sp5=get_plot_fit(socket_ib_gpu_fit,mapping="Map by socket, GPU node",mapping_2="UCX IB")
 # 
-# socket_ib_intel_gpu_fit=calculate_fit(socket_ib_intel_gpu)
+ socket_ib_intel_gpu_fit=calculate_fit(socket_ib_intel_gpu)
 # sp6=get_plot_fit(socket_ib_intel_gpu_fit,mapping="Map by socket, GPU node",mapping_2="Intel IB")
 # 
-# socket_ob1_tcp_gpu_fit=calculate_fit(socket_ob1_tcp_gpu)
+ socket_ob1_tcp_gpu_fit=calculate_fit(socket_ob1_tcp_gpu)
 # sp7=get_plot_fit(socket_ob1_tcp_gpu_fit,mapping="Map by socket, GPU node",mapping_2="OB1 tcp")
 
-#socket_ob1_vader_gpu_fit=calculate_fit(socket_ob1_vader_gpu)
+socket_ob1_vader_gpu_fit=calculate_fit(socket_ob1_vader_gpu)
 #sp8=get_plot_fit(socket_ob1_vader_gpu_fit,mapping="Map by socket, GPU node",mapping_2="OB1 vader")
 #grid.arrange(sp1,sp2,sp3,sp4,sp5,sp6,sp7,sp8,nrow=4)
 
+df_socket=data.frame(name=c("UCX IB","OB1 tcp","OB1 vader","Intel IB"),
+                   latency=c(socket_ib_fit$t_est[1],socket_ob1_tcp_fit$t_est[1],socket_ob1_vader_fit$t_est[1],socket_ib_intel_fit$t_est[1]),
+                   bandwith=c(socket_ib_fit$b_est[30],socket_ob1_tcp_fit$b_est[30],socket_ob1_vader_fit$b_est[30],socket_ib_intel_fit$b_est[30]) )
+
+df_core=data.frame(name=c("UCX IB","OB1 tcp","OB1 vader","Intel IB"),
+                   latency=c(core_ib_fit$t_est[1],core_ob1_tcp_fit$t_est[1],core_ob1_vader_fit$t_est[1],core_ib_intel_fit$t_est[1]),
+                   bandwith=c(core_ib_fit$b_est[30],core_ob1_tcp_fit$b_est[30],core_ob1_vader_fit$b_est[30],core_ib_intel_fit$b_est[30]) )
+
+
+df_core_gpu=data.frame(name=c("UCX IB","OB1 tcp","OB1 vader","Intel IB"),
+                   latency=c(core_ib_gpu_fit$t_est[1],core_ob1_tcp_gpu_fit$t_est[1],core_ob1_vader_gpu_fit$t_est[1],core_ib_intel_gpu_fit$t_est[1]),
+                   bandwith=c(core_ib_gpu_fit$b_est[30],core_ob1_tcp_gpu_fit$b_est[30],core_ob1_vader_gpu_fit$b_est[30],core_ib_intel_gpu_fit$b_est[30]) )
+
+
+df_socket_gpu=data.frame(name=c("UCX IB","OB1 tcp","OB1 vader","Intel IB"),
+                   latency=c(socket_ib_gpu_fit$t_est[1],socket_ob1_tcp_gpu_fit$t_est[1],socket_ob1_vader_gpu_fit$t_est[1],socket_ib_intel_gpu_fit$t_est[1]),
+                   bandwith=c(socket_ib_gpu_fit$b_est[30],socket_ob1_tcp_gpu_fit$b_est[30],socket_ob1_vader_gpu_fit$b_est[30],socket_ib_intel_gpu_fit$b_est[30]) )
+
 ```
 
+```{r ,echo=FALSE,fig.cap="Fitting results"}
+library("kableExtra")
+#knitr::kable(df_core,caption = "PingPong core performance, THIN node ",digits = 3)
+#knitr::kable(df_socket,caption = "PingPong socket performance, THIN node ",digits = 3)
+#knitr::kable(df_node,caption = "PingPong node performance, THIN node ",digits = 3)
+#knitr::kable(df_core_gpu,caption = "PingPong core performance, GPU node ",digits = 3)
+#knitr::kable(df_socket_gpu,caption = "PingPong socket performance, GPU node ",digits = 3)
+df_node=df_node[order(df_node$latency),]
+df_socket=df_socket[order(df_socket$latency),]
+df_core=df_core[order(df_core$latency),]
+df_thin=rbind(df_core,df_socket,df_node)
+
+df_socket_gpu=df_socket_gpu[order(df_socket_gpu$latency),]
+df_core_gpu=df_core_gpu[order(df_core_gpu$latency),]
+df_gpu=rbind(df_core_gpu,df_socket_gpu)
+
+
+
+rownames(df_thin) <- c()
+t1=kbl(df_thin, booktabs = T,escape=F, col.names = linebreak(c("THIN node", "Latency\n uSec","Bandwidth\n MB/s"), align = "c"))   %>% pack_rows("Core mapping", 1, 4) %>% pack_rows("Socket mapping", 5, 9) %>% pack_rows("Node mapping", 10, 13)  %>%
+column_spec(2, color = "white",
+background = spec_color(df_thin$latency, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",df_thin$latency))%>%
+column_spec(3,
+color =  spec_color(log(df_thin$bandwith), end = 0.6,alpha = 0.2,option = "magma",direction = 1),
+popover = paste("am:",df_thin$bandwith))
+
+rownames(df_gpu) <- c()
+t2=kbl(df_gpu, booktabs = T,escape=F, col.names = linebreak(c("GPU node", "Latency\n uSec","Bandwidth\n MB/s"), align = "c"))   %>% pack_rows("Core mapping", 1, 4) %>% pack_rows("Socket mapping", 5, 8) %>% 
+column_spec(2, color = "white",
+background = spec_color(df_gpu$latency, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",df_gpu$latency))%>%
+column_spec(3,
+color =  spec_color(log(df_gpu$bandwith), end = 0.6,alpha = 0.2,option = "magma",direction = 1),
+popover = paste("am:",df_gpu$bandwith))
+knitr::kables(list(t1,t2),caption = "Fitting results")
+```
+
+\newpage
+
 # Section 3 : Jacobi solver
+## Performance model
+In order to predict Jacobi model performance the following model is used:
+$$P(L,N)=\frac{L^3N}{T_s+T_c}\space [MLUP/s]$$
+$L$ represent subdomain size (assuming it as cube), for us it is a costant. $N$ represent the processes number. The $L^3N$ quantity thus is considered the problem size, this amount of work is increased linearly in function of $N$, this is a weak scalability. About measure unit: performance is evaluated using $MLUP/s$, mega lactice update per sec.
 
+$T_s$ is time swept, is constant and can be estimated using the serial output.
 
-```{r,echo=FALSE,include=FALSE}
+$T_c$ represent the communication time in seconds. This quantity can be modeled simple estimating the latency $\lambda$, bandwidth $B$ and messages size $C$.
+
+$$T_c=\frac{C}{B}+4k\lambda\space[seconds]$$
+About $C$,assuming grid point as double:
+$$C=L^2k\cdot2\cdot2\cdot8\space[byte]$$
+About $k$: this quantity represent the number of directions in which the halo exchange occurs, it must be multiplied by $2$ taking into account the bidirectional halo exchange and again by two taking into account the positive and negative direction.
+
+## Domain decomposition
+
+Several domain decompositions are possible, a priory some of them can be discarded assuming poor performance due buffering, as example between $(12,1,1)$ $(1,12,1)$ $(1,1,12)$, the first one is the better and more memory friendly decomposition, it has the lowest buffering needs. This can be proved experimentally, the first configuration behave better than the other in terms of MLUP/s.
+
+## Experimentals results
+
+```{r,echo=FALSE,include=FALSE,eval=TRUE}
 jacobi_model=function(data,Ts,lambda,band,L){
   data_model=subset(data,select=c("N","Nx","Ny","Nz","k","C_MB","Tc","P_MLUPs","data_MLUPs","ratioP","elapsed"))
   data_model$k=rowSums(data_model[,2:4]>1)
   
   data_model$k=rowSums(data_model[,2:4]>1)
-  data_model$C_MB=(L^2)*8*data_model$k*2/(1024^2)
-  data_model$Tc=data_model$C_MB/band+2*(10^-6)*data_model$k*lambda
+  data_model$C_MB=(L^2)*8*data_model$k*4/(1024^2)
+  data_model$Tc=data_model$C_MB/band+4*(10^-6)*data_model$k*lambda
   data_model$P_MLUPs=(L^3)*data_model$N*(10^-6)/(data_model$Tc+Ts)
   return(data_model)
 }
 
 jacobi_thin_core=read.csv("/home/nt/Scrivania/ass2021/jacobi/thin/thin_core_model.csv",header=TRUE)
-jacobi_thin_core_model=jacobi_model(data=jacobi_thin_core,Ts=2.99,lambda=0.24,band=5987,L=700)
+jacobi_thin_core_model=jacobi_model(data=jacobi_thin_core,Ts=3.05,lambda=0.24,band=5987,L=700)
 
 jacobi_thin_socket=read.csv("/home/nt/Scrivania/ass2021/jacobi/thin/thin_socket_model.csv",header=TRUE)
-jacobi_thin_socket_model=jacobi_model(data=jacobi_thin_socket,Ts=2.99,lambda=0.5,band=5123,L=700)
+jacobi_thin_socket_model=jacobi_model(data=jacobi_thin_socket,Ts=3.05,lambda=0.6,band=5123,L=700)
 
 jacobi_thin_node=read.csv("/home/nt/Scrivania/ass2021/jacobi/thin/thin_node_model.csv",header=TRUE)
-jacobi_thin_node_model=jacobi_model(data=jacobi_thin_node,Ts=2.99,lambda=1.35,band=12000,L=700)
+jacobi_thin_node_model=jacobi_model(data=jacobi_thin_node,Ts=3.05,lambda=1.35,band=12182,L=700)
+
+jacobi_gpu_core=read.csv("/home/nt/Scrivania/ass2021/jacobi/gpu/gpu_core_model.csv",header=TRUE)
+jacobi_thin_core_model=jacobi_model(data=jacobi_thin_core,Ts=3.05,lambda=0.27,band=5652,L=700)
+
+jacobi_gpu_socket=read.csv("/home/nt/Scrivania/ass2021/jacobi/gpu/gpu_soc_model.csv",header=TRUE)
+jacobi_thin_socket_model=jacobi_model(data=jacobi_thin_socket,Ts=3.05,lambda=0.65,band=4615,L=700)
+
 
 ```
 
-```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE}
-knitr::kable(jacobi_thin_core_model,caption = "Jacobi core performance model")
-knitr::kable(jacobi_thin_socket_model,caption = "Jacobi socket performance model")
-knitr::kable(jacobi_thin_node_model,caption = "Jacobi node performance model")
-
+### Thin node, core mapping.
+$\lambda=0.24\space[usec]$ and $B=5987[MB/s]$.
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
+kbl(jacobi_thin_core_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
 ```
 
+### Thin node, socket mapping.
+$\lambda=0.6\space[usec]$ and $B=5123[MB/s]$.
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
+
+kbl(jacobi_thin_socket_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
+```
+
+\newpage
+
+### Thin node, node mapping.
+$\lambda=1.35\space[usec]$ and $B=12182[MB/s]$.
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
+
+kbl(jacobi_thin_node_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","++++","Elapsed time\ns"), align = "c")) %>%
+column_spec(1, bold=T) %>%
+collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
+```
+
+Even if this model seems accurate, some comments are required:
+mapping by socket lead a slighty better performance respect core mapping and this is not what expected by theoretical model.
+If socket map on one hand lead to poor communication performance on other hand exploit better the memory allocation. When one socket is filled with 12 processes the entire grid is stored on socket competence LRDIMM, but spreading processes across 2 socket lead to better exploit of bandwidth using different memory controller and then all memory channel available. Given that this solver at each iteration elaborate an huge amount of memory, given $L=1200$ at least 300 GB of ram are elaborated (half memory LRDIMM are saturated,then all single socket channel are used).
+Also with map-by node option experimentally we obtain better results when several processes are involved.
+Performance model doesn't take into account the buffering requirement, given a domain decomposition, needed to exchange the halo point and is not possible theoretically infer about same domain decomposition but on different direction.
