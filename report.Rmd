@@ -16,15 +16,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Section 1: MPI programming
+
 ## Section 1.1: 1D ring
 
 The ring is implemented using non-blocking communication routine and 1D virtual topology with periodic boundary. 
-The non-blocking implementation lead a linear growth of the execution time. The execution time of single iteration can be modelled  roughly as a *double PingPing*. 
+The non-blocking implementation lead a linear growth of the execution time. The execution time of single iteration can be modeled roughly as a *double PingPing*. 
 The real performance will be of course worse than the ideal case, since that the PingPing take into account only 2 processes and does not consider crowded configuration with more than 2 processes. In any case we have a lower bound ideal model to find the expected performance.
 
-## Software stack and measure setup.
+### Software stack and measure setup.
 
-The performance are measured over 10000 iterations, with **UCX** and **InfiniBand**, across *core*, *socket* and *node*. Across two nodes the *mlx5_0*  hardware interface is used. Times for theoretical model come from Intel MPI benchmark PingPing (Figure 1). Program can be compiled by Makefile with differents options. Timings are taken on rank zero process, it is expected to be slower due topology reason. Follow *ldd* on executable to report specific library used.
+The performance are measured over 10000 iterations, with **UCX** and **InfiniBand**, across *core*, *socket* and *node*. Across two nodes the *mlx5_0*  hardware interface is used. Times for theoretical model come from Intel® MPI benchmark PingPing (Figure 1). Program can be compiled by Makefile with differents options. Timings are taken on rank zero process, it is expected to be slower due topology reason. Follow *ldd* on executable to report specific library used.
 
 \scriptsize
 
@@ -40,6 +41,7 @@ The performance are measured over 10000 iterations, with **UCX** and **InfiniBan
 ![PingPing structure from Intel® MPI Benchmarks User Guide.](/home/nt/Scrivania/en/mpi/imb_user_guide/IMB_Users_Guide_files/image02.png){#id .class width=35% height=35%}
 
 ### Map by node model
+
 The network model across two nodes can take into account the latency of the network (dominated by the switch) and the number of processes involved. Each iteration will be lower bounded by the network.
 $$Time=N_{procs} \cdot \lambda_{network}$$
 
@@ -61,7 +63,7 @@ Across two node we can estimate optimistically $\lambda_{network}=1.01 \space \m
 
 ```
 \normalsize
-We expect for each iteration $2 \cdot \lambda_{network}$ time, but experimentally this model doesn't hold, the experimental evidence suggest an iteration time of $\lambda_{network}$. My guess is that 2 consecutive messages are merged into one unique request routed to the switch. This behaviour can be confirmed using again Intel MPI Benchmark **Exchange**, that implement 1D non periodic ring. 
+We expect for each iteration $2 \cdot \lambda_{network}$ time, but experimentally this model doesn't hold, the experimental evidence suggest an iteration time of $\lambda_{network}$. My guess is that 2 consecutive messages are merged into one unique request routed to the switch. This behaviour can be confirmed using again Intel MPI Benchmark **Exchange**, that implement 1D non periodic ring (Figure 2).
 
 \scriptsize
 ```{bash, eval=FALSE}
@@ -100,6 +102,7 @@ Across two socket we can estimate $t=0.49 \space \mu Sec$
             4         1000         0.49         8.18
 ```
 \normalsize
+
 ### Map by core model
 
 Mapping by core the processes we have to take into account how many processes are spawned and where. When $N_{procs}$ is less or equal than the number of core in a single socket, the expected execution time is bounded by the core communication. When the first socket is filled, the first process on the second socket will be the slowest over all process, his neighbors will be placed in the other socket and he will be the slowest in communication. Thus one iteration is long as the slowest process communication time. Experimentally a spike when $N_{procs}=13$ is clearly visible. Counter intuitively the performance increase respect $N_{procs}=13$ when the number of processes increase and other process are spawned in the second socket. 
@@ -132,6 +135,7 @@ Across two core we can estimate $t=0.23 \space \mu Sec$
             4         1000         0.23        17.18
 ```
 \normalsize
+
 ### Experimental results compared with theoretical model
 
 ```{r ring, include=FALSE, echo=FALSE}
@@ -301,9 +305,7 @@ grid.arrange(sp,sp2,nrow=2)
 
 ```
 
-## More Comments
-
-Running the ring across 4 node we can recognize the pattern described above. After 24 processes, when socket or node are saturated the changes on mean iteration time are smaller beacause the communication time between node is the larger and more evident than intra-socket on intra-core, and above 24 processes we have at least one intra-node communication going on.
+Running the ring across 4 node we can recognize the pattern described above. After 24 processes, when socket or node are saturated the changes on mean iteration time are smaller beacause the communication time between node is the larger and more evident than intra-socket on intra-core, and above 24 processes we have at least one intra-node communication going on, the step confirm that.
 
 \newpage
 # Section 2: measure MPI point to point performance
@@ -1133,4 +1135,83 @@ background = spec_color(jacobi_gpu_socket_model$ratioP, end = 0.5,alpha = 0.2,op
 popover = paste("am:",jacobi_gpu_socket_model$ratioP))
 
 ```
-On gpu node differences on socket and core mapping are even bigger and enhanced, again we can guess the memory as main cause. Gpu node setup even if has higher frequency LDIMM module, doesn't exploit all possible memory channel. When worker number grow over physical core number the real performance, due hyperthreading, goes dramatically down respect the model. Also execution time show poor performance with 48 workder.
+On gpu node differences on socket and core mapping are even bigger and enhanced, again we can guess the memory as main cause. Gpu node setup even if has higher frequency LDIMM module, doesn't exploit all possible memory channel. When worker number grow over physical core number the real performance, due hyperthreading, goes dramatically down respect the model. Also execution time show poor performance with 48 worker.
+\newpage
+
+# Matrix sum
+
+Since a 3D array in memory can be represented with a unique linear array, the most effective way to sum it in parallel is using collective operation. The shape of the array doesn't make any difference, also the virtual topology and its relative domain decomposition. We can assume that the problem is not sensible to any topology,since that there is no need of cominication between neighburs. The most efficient way is to use MPI_Scatterv and MPI_Gatherv collective routine. The expectations for this code are not so high in terms of scalability, matrix sum assuming $n$ elements each, require $2n$ memory accesses, a lot of communication and only $n$ floating point operations. Parallel portion of code then is small respect serial one. Using Ahmdal's law we can make a prediction of speed up. Testing the code with $2400\times1000\times700$ matrix using only one processor we can see that the parallel part take only $2.63$ seconds over a total runtime of 49 seconds, representing about $5\%$ of execution time (Elapsed is measured using /usr/bin/time and detailed Scatter and Gather with MPI_Wtime() ). Total execution time is comprensive of matrix initialization and error checking.
+This graph represent then the theoretical maximum speedup supported by Ahmdal's law assuming roughly only $5\%$ of parallel code and communication code and serial code in remaining part and fixed respect processors numbers. This experimentally is a good approximation and catch the trend between [1,24] processes.
+
+
+```{r ,echo=FALSE,message=FALSE}
+core_matrix=read.csv("./matrix/matrix_no_topo/big/1_core.csv")
+socket_matrix=read.csv("./matrix/matrix_no_topo/big/1_socket.csv")
+core_matrix$X.np=core_matrix$X.np+1
+socket_matrix$X.np=socket_matrix$X.np+1
+core_matrix=core_matrix[c(1,4,8,12,16,20,24),]
+socket_matrix=socket_matrix[c(1,4,8,12,16,20,24),]
+rownames(core_matrix)=c()
+rownames(socket_matrix)=c()
+speed_teo=core_matrix
+p=0.13
+s=1-p
+speed_teo$total=1/(s+p/speed_teo$X.np)
+
+t1=kbl(core_matrix, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Scatter","Gather","Parallel","Total"), align = "c")) %>%
+column_spec(1, bold=T) %>% 
+column_spec(4, color = "white",
+background = spec_color(core_matrix$parallel, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",core_matrix$parallel))
+
+t2=kbl(socket_matrix, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Scatter","Gather","Parallel","Total"), align = "c")) %>%
+column_spec(1, bold=T) %>% 
+column_spec(4, color = "white",
+background = spec_color(socket_matrix$parallel, end = 0.5,alpha = 0.2,option = "plasma"),
+popover = paste("am:",socket_matrix$parallel))
+
+knitr::kables(list(t1,t2),caption = "Fitting results,core and socket map")
+
+```
+
+```{r,echo=FALSE}
+sp = ggplot(socket_matrix,aes(x=X.np, y=socket_matrix$total[1]/socket_matrix$total, color="Socket")) +
+  scale_x_continuous(name="N procs",breaks=socket_matrix$X.np)+
+  scale_y_continuous(name="Speedup",breaks = seq(0.9,1.4,by=0.1))  + geom_point() + geom_line()  +
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=1)) + 
+  geom_point(data=speed_teo,aes(x=X.np,y=total,color="Teo")) + geom_line(data=speed_teo,aes(x=X.np,y=total,color="Teo"))+ 
+  geom_point(data=core_matrix,aes(x=X.np,y=core_matrix$total[1]/core_matrix$total,color="Core")) + geom_line(data=core_matrix,aes(x=X.np,y=core_matrix$total[1]/core_matrix$total,color="Core"))+ labs(title="Matrix sum speedup", subtitle="")  +
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
+```
+
+```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE,message=FALSE}
+
+sp
+
+```
+
+I've also implemented a 3D matrix sum program that include a 1D/2D/3D domain decomposition that match virtual topology and as initially requested use collective operation. This program lead to a very high overhead, since that collective operation (in general communication routine) need contiguous memory region to communicate each subdomain to competence worker, to achieve this a unrolling is performed for each subdomain. Once the worker received the subdomain, elaborate it and send back to the master. The master processor need to reordinate the subdomain and assembly the final matrix. Like previous simpler case, this program show a poor performance.
+
+```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
+core_matrix_topo_1=read.csv("./matrix/matrix_collective/big/1_core.csv")
+socket_matrix_topo_1=read.csv("./matrix/matrix_collective/big/1_socket.csv")
+
+core_matrix_topo_2=read.csv("./matrix/matrix_collective/big/2_core.csv")
+socket_matrix_topo_2=read.csv("./matrix/matrix_collective/big/2_socket.csv")
+
+sp = ggplot(core_matrix_topo_1,aes(x=X.np, y=core_matrix_topo_1$total[1]/core_matrix_topo_1$total, color="Core")) +
+  scale_x_continuous(name="N procs",breaks=core_matrix_topo_1$X.np)+
+  scale_y_continuous(name="Speedup",breaks = seq(0.9,1.4,by=0.1))  + geom_point() + geom_line()  +
+  theme(axis.text.x = element_text(angle = 0, vjust = 0.5, hjust=1)) +
+  geom_point(data=socket_matrix_topo_1,aes(x=X.np,y=socket_matrix_topo_1$total[1]/socket_matrix_topo_1$total,color="Socket")) + geom_line(data=socket_matrix_topo_1,aes(x=X.np,y=socket_matrix_topo_1$total[1]/socket_matrix_topo_1$total,color="Socket"))+ labs(title="Matrix sum speedup", subtitle="")   +
+  geom_point(data=socket_matrix_topo_2,aes(x=X.np,y=socket_matrix_topo_2$total[1]/socket_matrix_topo_2$total,color="Socket 2")) + geom_line(data=socket_matrix_topo_2,aes(x=X.np,y=socket_matrix_topo_2$total[1]/socket_matrix_topo_2$total,color="Socket 2"))+
+      theme(plot.title = element_text(size = 13, face = "bold",hjust = 0.5,margin = margin(t = 12)), plot.subtitle = element_text(size = 10, hjust = 0.5, margin = margin(t = 7, b = 10), face = "italic"), axis.title = element_text(face = "bold"), legend.text = element_text(margin = margin(t = 7, b = 7, r=12)), axis.title.x = element_text(margin = margin(t = 10, b=10)), axis.title.y = element_text(margin = margin(r = 10,l=10)), axis.text = element_text(color= "#2f3030", face="bold"))
+
+
+```
+
+```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE,message=FALSE}
+
+sp
+
+```
