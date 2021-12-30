@@ -1,7 +1,6 @@
 ---
 title: "Assignment 1"
 author: "Niccolò Tosato"
-date: "3/12/2021"
 output:
   pdf_document: default
   html_document:
@@ -17,18 +16,19 @@ library(gridExtra)
 library("kableExtra")
 knitr::opts_chunk$set(echo = TRUE)
 ```
+**Repository** with code and scripts: https://github.com/NiccoloTosato/HPC_assignment1 
 
 # Section 1: MPI programming
 
 ## Section 1.1: 1D ring
 
-The ring is implemented using non-blocking communication routine and 1D virtual topology with periodic boundary. 
-The non-blocking implementation lead a linear growth of the execution time. The execution time of single iteration can be modeled roughly as a *double PingPing*. 
-The real performance will be of course worse than the ideal case, since that the PingPing take into account only 2 processes and does not consider crowded configuration with more than 2 processes. In any case we have a lower bound ideal model to find the expected performance.
+The ring has been implemented using non-blocking communication routines and 1D virtual topology with periodic boundaries. 
+The non-blocking implementation leads to a linear growth of the execution time of the program, indeed the execution time of a single iteration can be modeled roughly as a *double PingPing*. 
+The real performance will be of course worse than the ideal one, since the PingPing takes into account only 2 processes and does not consider crowded configuration with more than 2 processes. However, we have a lower bound ideal model to estimate the expected performance.
 
 ### Software stack and measure setup.
 
-The performance are measured over 10000 iterations, with **UCX** and **InfiniBand**, across *core*, *socket* and *node*. Across two nodes the *mlx5_0*  hardware interface is used. Times for theoretical model come from Intel® MPI benchmark PingPing (Figure 1). Program can be compiled by Makefile with differents options. Timings are taken on rank zero process, it is expected to be slower due topology reason. Follow *ldd* on executable to report specific library used.
+The performances of the program are measured over 10000 iterations, using **UCX** and **InfiniBand**, across *core*, *socket* and *node*. Across two nodes the *mlx5_0*  hardware interface is used. Times of theoretical models have been taken from Intel® MPI benchmark PingPing (Figure 1). Program can be compiled by Makefile with differents options. Times have been measured on rank zero process, it is expected to be slower than the other ranks due topology reasons. Using *ldd* on executable it is possible to report specific library used.
 
 \scriptsize
 
@@ -37,7 +37,6 @@ The performance are measured over 10000 iterations, with **UCX** and **InfiniBan
         linux-vdso.so.1 =>  (0x00007ffce79ef000)
         libm.so.6 => /lib64/libm.so.6 (0x00007f9e9dc88000)
         libmpi.so.40 => /opt/area/shared/programs/x86_64/openmpi/4.0.3/gnu/9.3.0/lib/libmpi.so.40 (0x00007f9e9d964000)
-
 ```
 \normalsize
 
@@ -45,12 +44,12 @@ The performance are measured over 10000 iterations, with **UCX** and **InfiniBan
 
 ### Map by node model
 
-The network model across two nodes can take into account the latency of the network (dominated by the switch) and the number of processes involved. Each iteration will be lower bounded by the network.
+The network model across two nodes may take into account the latency of the network (dominated by the switch) and the number of processes involved. Each iteration will be lower bounded by the network.
 $$Time=N_{procs} \cdot \lambda_{network}$$
 
-The estimated latency between two node with the Intel MPI benchmark is a bit less than the one declared by switch constructor. This lower latency hold only when few communications are going on. With multiple processes involved a more realistic declared latency of $1.35$ microseconds lead to a more accurate model, thus the model will be experimentally outperformed when $N_{procs}=2$. When the number of process grow, we can see a slightly slow down of the actual implementation. 
+The estimated latency between two node using the Intel MPI benchmark is a bit lower than the one declared by switch constructor. This lower latency holds only when few communications are going on. With multiple processes involved, a more realistic declared latency of $1.35$ microseconds leads to a more accurate model. Thus the model will be experimentally outperformed when $N_{procs}=2$. When the number of processes grow,it can be seen a slight slowdown of the actual implementation. 
 
-Across two node we can estimate optimistically $\lambda_{network}=1.01 \space \mu Sec$.
+Across two nodes the latency can be estimated optimistically as $\lambda_{network}=1.01 \space \mu Sec$.
 \scriptsize
 
 ```{bash eval=FALSE}
@@ -66,7 +65,7 @@ Across two node we can estimate optimistically $\lambda_{network}=1.01 \space \m
 
 ```
 \normalsize
-We expect for each iteration $2 \cdot \lambda_{network}$ time, but experimentally this model doesn't hold, the experimental evidence suggest an iteration time of $\lambda_{network}$. My guess is that 2 consecutive messages are merged into one unique request routed to the switch. This behaviour can be confirmed using again Intel MPI Benchmark **Exchange**, that implement 1D non periodic ring (Figure 2).
+We expect the time to be $2 \cdot \lambda_{network}$ for each iterations, but experimentally this model doesn't hold. The experimental evidence suggests an iteration time of $\lambda_{network}$. My guess is that 2 consecutive messages are merged into one unique request routed to the switch. This behaviour can be confirmed using Intel MPI Benchmark **Exchange** again, that implements 1D non periodic ring (Figure 2).
 
 \scriptsize
 ```{bash, eval=FALSE}
@@ -89,9 +88,9 @@ We expect for each iteration $2 \cdot \lambda_{network}$ time, but experimentall
 
 With the socket round robin binding selected, we can model the ring behaviour as following, with the usual Intel MPI benchmark estimation.
 $$Time=N_{procs}\cdot \lambda_{socket}\cdot 2$$
-Again when the sockets become crowded the real performance is worse than the model.
+Again when the sockets become crowded the real performance is worse than the expected model.
 
-Across two socket we can estimate $t=0.49 \space \mu Sec$
+Across two sockets the estimated time is $t=0.49 \space \mu Sec$
 \scriptsize
 ```{bash eval=FALSE}
 #---------------------------------------------------
@@ -108,9 +107,9 @@ Across two socket we can estimate $t=0.49 \space \mu Sec$
 
 ### Map by core model
 
-Mapping by core the processes we have to take into account how many processes are spawned and where. When $N_{procs}$ is less or equal than the number of core in a single socket, the expected execution time is bounded by the core communication. When the first socket is filled, the first process on the second socket will be the slowest over all process, his neighbors will be placed in the other socket and he will be the slowest in communication. Thus one iteration is long as the slowest process communication time. Experimentally a spike when $N_{procs}=13$ is clearly visible. Counter intuitively the performance increase respect $N_{procs}=13$ when the number of processes increase and other process are spawned in the second socket. 
+When mapping by core the processes, two factors have to be taken into account: how many processes are spawned and where. When $N_{procs}$ is less or equal than the number of cores in a single socket, the expected execution time is bounded by the core communication. When the first socket is filled, the first process on the second socket will be the slowest among all processes. Indeed its neighbors will be placed in the other socket. One iteration is long as the slowest process communication time. Experimentally a spike when $N_{procs}=13$ is clearly visible. Counterintuitively, the performance increases when the number of processes is greater than $N_{procs}=13$ and other processes are spawned in the other socket. 
 
-The slowest processes now have one neighbor on the same socket and one on the other, so the complessive iteration time for the slowest process is $\lambda_{core}+\lambda_{socket}$. 
+Indeed, the slowest process has one neighbor on the same socket and one on the other socket, thus the overall iteration time for the slowest process is $\lambda_{core}+\lambda_{socket}$. 
 
 
 $$
@@ -124,7 +123,7 @@ $$
 $$
 
 
-Across two core we can estimate $t=0.23 \space \mu Sec$
+Across two sockets the estimated time is $t=0.23 \space \mu Sec$
 \scriptsize
 ```{bash eval=FALSE}
 #---------------------------------------------------
@@ -306,21 +305,19 @@ grid.arrange(sp,sp2,nrow=2)
 
 ```
 
-Running the ring across 4 node we can recognize the pattern described above. After 24 processes, when socket or node are saturated the changes on mean iteration time are smaller beacause the communication time between node is the larger and more evident than intra-socket on intra-core, and above 24 processes we have at least one intra-node communication going on, the step confirm that.
+By running the ring across 4 nodes,the pattern above can been visualized. After 24 processes, when the socket or the node is saturated the changes on the average iteration time are smaller.This is due the fact that the communication time between nodes is the largest and it is more evident than the intra-socket or the intra-core ones.Moreover with more than 24 processes we have at least one intra-node communication going on, the step confirms that.
 
 \newpage
 
 ## Section 1.2: Matrix sum
 
-Since a 3D array in memory can be represented with a unique linear array, the most effective way to sum it in parallel is using collective operation. 
+In memory, a 3D array can be represented as a unique linear array. The most effective way to sum it in parallel is using collective operations. 
 
-The shape of the array doesn't make any difference, also the virtual topology and its relative domain decomposition. We can assume that the problem is not sensible to any topology, since that there is no need of communication between neighbors. The most efficient way is to use MPI_Scatterv and MPI_Gatherv collective routine. 
+The shape of the array doesn't make any difference on how the array is represented in memory. Also the virtual topology and its relative domain decomposition do not have any impact. Indeed, we can assume that the problem is not sensible to any topology, and thus there is no need of communication between neighbors. The most efficient way to communicate and sum between matrices is to use MPI_Scatterv and MPI_Gatherv collective routines. 
 
-The expectations for this code are not so high in terms of scalability, matrix sum assuming $n$ elements each, require $2n$ memory read accesses, $n$ memory write, a lot of communication and **only** $n$ floating point operations (in other words: like Level 1 BLAS operation we can expect to be memory bounded). Parallel portion of code then is small respect serial one. Using Ahmdal's law we can make a prediction of speed up bound.
+The expectations of this code are not so high in terms of scalability:the sum of two matrices containing $n$ elements, requires $2n$ memory read accesses, $n$ memory to write, a lot of communication and **only** $n$ floating point operations (in other words: like Level 1 BLAS operation we can expect matrix sum at least to be memory bounded). Parallel portion of code is smaller with respect to the serial one. Using Ahmdal's law,a prediction of speed up bound can be made.
 
-Testing parallel code with two $2400\times1000\times700$ matrices filled with double and using only one processor we can see that the parallel part take only $2.63$ seconds over a total runtime of $49$ seconds, representing about $5\%$ of execution time (Elapsed is measured using /usr/bin/time and detailed Scatter and Gather with MPI_Wtime() ). Total execution take into account of matrix initialization and error checking.
-
-This graph represent then the theoretical maximum speedup supported by Ahmdal's law assuming roughly only $5\%$ of parallel code and communication code and serial code in remaining part and fixed respect processors numbers. This experimentally is a good approximation and catch the trend between [1,24] processes.
+By testing the parallel code with two $2400\times1000\times700$ matrices  of double values and by using only one processor, it can be seen that the parallel part takes only $2.63$ seconds of the overall runtime of $49$ seconds, representing about $5\%$ of execution time (Elapsed is measured using /usr/bin/time and detailed Scatter and Gather with MPI_Wtime() ). Total execution takes into account the matrix initialization and the error checking.The following graph represents the theoretical maximum speedup supported by Ahmdal's law assuming only $5\%$ roughly of parallel code, while communication and serial code in the remaining part of the program is fixed with respect to the number of processors. The theoretical maximum speedup modelled is a good approximation and it catches the trend between [1,24] processes.
 
 
 ```{r ,echo=FALSE,message=FALSE}
@@ -373,7 +370,7 @@ sp
 
 \newpage
 
-I've also implemented a 3D matrix sum program that include a 1D/2D/3D domain decomposition that match virtual topology and as initially requested use collective operation. This program lead to a very high overhead, since that collective operation (in general communication routine) need contiguous memory region to communicate each subdomain to his worker, to achieve this a unrolling is performed for each subdomain. Once the worker received the subdomain, elaborate it and send back to the master. The master processor need to reordinate the subdomain and assembly the final matrix. Like previous simpler case, this program show even a poor performance. Now the problem show some changes in function of matrices shape and domain decomposition, but this is due matrix preparation overhead (buffering of subdomain before scatter it) and not due communication routine.
+Moreover I've implemented a 3D matrix sum program that includes a 1D/2D/3D domain decomposition that matches virtual topology and that uses collective operations, as initially requested. This program leads to a very high overhead, since a collective operation (in general communication routine) needs contiguous memory region to communicate each subdomain to its worker. To achieve this an unrolling is performed for each subdomain. Once the worker has received the subdomain, it elaborates the array and sends back the summed array to the master processor. The master processor needs to reordinate the subdomains and to assemble the final matrix. Like in the first program, this code show an even lower performance.In this latter case we have some changes in performances with respect to matrices shape and domain decomposition, but this is due to matrix preparation overhead (buffering of subdomains before scatter it) and it is not due communication routine.
 
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,message=FALSE}
 core_matrix_topo_1=read.csv("./matrix/matrix_collective/big/1_core.csv")
@@ -408,12 +405,12 @@ sp
 
 # Section 2: MPI point to point performance
 
-In order to measure MPI point to point performance, the Intel MPI benchmarks is used. By Intel's documentation it works as follow:
+In order to measure MPI point to point performance, the Intel MPI benchmarks is used. By looking to Intel's documentation benchmark works as follow:
 
 ![PingPong structure from Intel® MPI Benchmarks User Guide.](./img/image01.png){#id2 .class width=50% height=35%}
 
-The bandwidth and the latency estimate is done across *core*, *socket* and different *node*, combined with differents protocols and hardware devices. Each run is repeated 10 times, **openMPI 4.0.3** is used. Entire node was reserved in order to reduce possible source noise in measurement.
-The **pml** involved in the benchmarks are **OB1** and **UCX**. The **btl** used are **tcp** and **vader**. Across node are selected also different network, with different protocols: $25$ Gbit Ethernet and $100$ Gbit InfiniBand throught Mellanox network switch. 
+The bandwidth and the latency estimates are computed across *core*, *socket* and different *nodes*, combined with different protocols and hardware devices.Each of the different setup of the program has been runned 10 times and **openMPI 4.0.3** has been used. One entire node was reserved in order to reduce possible sources of noise in the measurements.
+The **pml** involved in the benchmarks are **OB1** and **UCX**. The **btl** used are **tcp** and **vader**. When the measurements across nodes were performed also different network with different protocols have been selected: $25$ Gbit Ethernet and $100$ Gbit InfiniBand throught Mellanox network switch. 
 
 ```{r , include=FALSE,echo=FALSE}
 node_ib=read.csv("./pingpong/ompi/node_ib.out.csv", header = TRUE)
@@ -532,16 +529,18 @@ options(warn=-1)
 #sp
 
 ```
-The following graphs show the behaviour inside the same node, i.e mapping the processes across two sockets or in the same socket. Mapping the processes in the same socket show of course often a better performance. The behaviour before the asymptotic plateau is strange and show very different performance among different implementation, the main cause is the cache. 
-Before analyzing the performance we need to know more about the node topology. 
+The following graphs show the behaviour inside the same node, i.e mapping the processes across two sockets or in the same socket. Mapping the processes in the same socket shows often a better performance,as expected. The behaviour before the asymptotic plateau is strange and shows very different performances among different implementations, the main cause of that is due to the cache. 
+Before analyzing the performance we need to know more about the node topology, as explained in figure 6. 
 
 ![lstopo output on THIN node.](./img/lstopo.png){#idasd .class width=50% height=50% align=center}
 
-Cache sizes are reported on graph with vertical black dashed line. 
-The behaviour appear strange before $16$ MB included, after that size, it is stable beacause the message size is larger than all caches. The larger cache is **L3** with $19$ MB.
-The **L2** effects, become clear after $1$ MB, then all implementations start loosing bandwidth.
-The **L1** effects is not clearly visible from the bandwidth due the latency. To infer with more accuracy about the cache effect we can perform some profiling test using hardware counters. I modified Intel MPI Benchmark PingPong injecting some code in order to inspect L1 data cache misses and L2 cache misses using PAPI. I tracked all cache misses on MPI_Send and MPI_Recv routine of rank 0,after some cicles of warmup. They are reported on absolute value and normalized respect message size.
-Before $128$ KB UCX shows poor performance respect other protocols, after that size there is an huge speed up. This behave will be explained later. Intel InfiniBand also show poor performance respect UCX implementation, this behaviour is explained with cache too. 
+Cache sizes are reported on the following graphs with vertical black dashed lines. 
+As it can be noticed in the following two graphs, the bandwidth behaviour appears strange before $16$ MB included. After that point, the behaviour is stable beacause the message size is larger than all the caches. The larger cache is **L3** with $19$ MB.
+The effect of **L2** becomes clear after $1$ MB, after it all implementations start loosing bandwidth.
+The effect of **L1**  is not clearly visible from the bandwidth due to the latency. To infer with more accuracy about the cache effect we can perform some profiling test using hardware counters. I have modified Intel MPI Benchmark PingPong injecting some code in order to inspect L1 data cache misses and L2 cache misses through PAPI. I tracked all cache misses on MPI_Send and MPI_Recv routine of rank 0,after some cicles of warmup.
+The code is available here https://github.com/NiccoloTosato/HPC_assignment1/tree/main/mpi-benchmarks_mod
+The cache misses are reported on absolute value and normalized with respect to the  message size.
+Before $128$ KB UCX shows poor performance with respect to other protocols,while after that size an huge speed up is present. This fact  will be explained later. Intel InfiniBand also shows poor performance with respect to UCX implementation, this behaviour is explained with cache too. 
 
 ```{r, dpi=600, fig.width=10, fig.height=6,echo=FALSE,include=FALSE}
 ob1_core_tcp=read.csv("./mpi-benchmarks_mod/src_c/cache_misses/core_ob1_selftcp_cache_misses.out.csv", header = TRUE)
@@ -746,7 +745,7 @@ sp
 ```
 
 
-From first graph, now Intel implementation behaviour is clear, it has the largest cache misses number among all other configurations. The bandwidth spike of **UCX** after $128$ KB, can be explained by **L1** and **L2** drop in terms of cache misses. **OB1** implementation seems be the most cache friendly *PML*.  Disclamer: those graphs must used in qualitative way and not in quantitative way. 
+The behaviour of  Intel implementation can be seen in a clearer way. It has the largest cache misses number among all other configurations. The bandwidth spike of **UCX** after $128$ KB, can be explained by **L1** and **L2** drop in terms of cache misses. **OB1** implementation seems to be the most cache friendly *PML*. Disclaimer: those graphs must be used in a qualitative way and not in a quantitative way. 
 
 
 ```{r,echo=FALSE,include=FALSE}
@@ -777,8 +776,8 @@ sp = ggplot(node_ib,aes(x=X.bytes,y=mbs,color="UCX IB")) +
 sp 
 ```
 
-This inter-node benchmark reveal the network performance and topology. Two physical network are available, $25$  Gbit Ethernet and $100$ Gbit InfiniBand. 
-The PCI-E devices are visible from lstopo, we can physically see em1, em2, that are bonded togheter, creating the interface bond0. To infer about this we can use ifconfig and ip link command.
+Inter-node benchmark point out the network performance and topology. Two physical networks are available, $25$  Gbit Ethernet and $100$ Gbit InfiniBand. 
+The PCI-E devices are visible from lstopo. We can physically see that em1, em2  are bonded togheter, creating the interface bond0. To infer this configurations we can use ifconfig and ip link command.
 
 \scriptsize
 
@@ -823,8 +822,8 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 \normalsize
 \newpage
 
-With openMPI implementation and UCX, we can directly select the devices, that lead to a specific protocol as consequence. The devices tested are ib0, br0 and mlx5_0:1. Ib0 is the IPoIB protocol, br0 lead a TCP communication and mlx5_0:1 is a pure native InfiniBand device.
-The theoretical maximum performance are $12.5$ GB/s or $12800$ MB/s for InfiniBand and $3.125$ GB/s or $3200$ MB/s for the Ethernet network. 
+With openMPI implementation and UCX, we can directly select the devices that lead to a specific protocol. The devices tested are ib0, br0 and mlx5_0:1. Ib0 is the IPoIB protocol, br0 leads a TCP communication and mlx5_0:1 is a pure native InfiniBand device.
+The theoretical maximum performances are $12.5$ GB/s or $12800$ MB/s for InfiniBand and $3.125$ GB/s or $3200$ MB/s for the Ethernet network. 
 
 The experimental asymptotic bandwidth measured are: 
 ```{r,include=FALSE,echo=FALSE}
@@ -906,7 +905,7 @@ labs(title=mapping, subtitle=mapping_2) +
 ```
 
 
-```{r, dpi=600, fig.width=15, fig.height=13,echo=FALSE}
+```{r, dpi=600, fig.width=15, fig.height=12.5,echo=FALSE}
 
 node_ib_fit=calculate_fit(node_ib)
 sp1=get_plot_fit_legend(node_ib_fit,mapping="Map by node, THIN node",mapping_2="UCX ib")
@@ -932,12 +931,12 @@ df_node=data.frame(name=c("UCX IB","OB1 tcp","UCX br0","UCX ib0","Intel ib"),
 
 ```
 
-UCX with InfiniBand and Intel show the best performances among over all configurations in terms of latency and bandwidth. UCX overperform a bit Intel latency. No big cache effects are visible thanks to  RDMA that exclude all caches, CPU and kernel action, this explain also the highest possible bandwidth respect core and socket mapping. Real InfiniBand performance is about $95\%$ of theoretical bandwidth, is a very nice result assuming the encoding $64b/66b$.
+UCX with InfiniBand and Intel shows the best performances among all the configurations both in terms of latency and bandwidth. UCX overperforms a bit Intel latency. No big cache effects are visible, thanks to  RDMA that exclude all caches, CPU and kernel action. This explain also the highest bandwidth with respect to core and socket mapping. Real InfiniBand performance is about $95\%$ of theoretical bandwidth,this is a very nice result assuming the encoding $64b/66b$.
 
-UCX with br0 and OB1 with tcp show comparable latency, but OB1 gain a better bandwidth. The real maximum performance is about $85\%$ of theoretical bandwidth, this is a good result taking into account the heavier tcp protocol respect InfiniBand (ACK,handshake, encoding...). There is then transport overhead and some inefficency introduced by the cache and CPU (no RDMA available).
+UCX with br0 and OB1 with tcp show comparable latency, but OB1 gains a better bandwidth. The real maximum performance is about $85\%$ of theoretical bandwidth, this is a good result taking into account the heavier tcp protocol with respect to InfiniBand (ACK,handshake, encoding...). Moreover, transport overhead and some inefficency introduced by the cache and CPU (no RDMA available)  are present .
 
 IPoIB has a good latency (no Ethernet switch involved) but the bandwidth is not so high as expected. 
-Gpu nodes behave like thin node, no difference are visible, GPU node is a bit slower than thin node, this can be caused by different CPU frequency and node configuration. Cache size are same as thin node, then cache effects are similar. Follow on next page a summary of fitting results on THIN and GPU node.
+Gpu nodes behave like thin nodes,and thus no difference can be seen, GPU node is only a bit slower than thin node. This can be due to different CPU frequency and node configuration. Cache sizes are the same of thin nodes, and this cache effects are similar. The summary of fitting results on THIN and GPU node is presented in the next page.
 
 
 
@@ -1090,22 +1089,22 @@ knitr::kables(list(t1,t2),caption = "Fitting results")
 
 # Section 3 : Jacobi solver
 ## Performance model
-In order to predict Jacobi model performance the following model is used:
+In order to predict Jacobi model performance the following model has been used:
 $$P(L,N)=\frac{L^3N}{T_s+T_c}\space [MLUP/s]$$
-$L$ represent subdomain size (assuming it as cube), for us it is a costant. $N$ represent the processes number. The $L^3N$ quantity thus is considered the problem size, this amount of work is increased linearly in function of $N$, this is a weak scalability. About measure unit: performance is evaluated using $MLUP/s$, mega lactice update per sec.
+$L$ represent the subdomain size (assuming it has cube shape), in out case it is costant. $N$ represent the number of processes. The problem's size is $L^3N$. This amount of work increases linearly as a function of $N$, producing a weak scalability. The performance is evaluated using $MLUP/s$, mega lactice update per sec.
 
-$T_s$ is time swept, is constant and can be estimated using the serial output.
+$T_s$ is the time swept, is constant and it can be estimated using the serial output. For Thin node $T_s=3.05$ and for Gpu node $T_s=4.3$.
 
-$T_c$ represent the communication time in seconds. This quantity can be modeled simple estimating the latency $\lambda$, bandwidth $B$ and messages size $C$.
+$T_c$ represents the communication time in seconds. This quantity can be modeled by estimating the latency $\lambda$, bandwidth $B$ and the sizes of messages$C$.
 
 $$T_c=\frac{C}{B}+4k\lambda\space[seconds]$$
-About $C$,assuming grid point as double:
+Regarding $C$, we assume grid point as double:
 $$C=L^2k\cdot2\cdot2\cdot8\space[byte]$$
-About $k$: this quantity represent the number of directions in which the halo exchange occurs, it must be multiplied by $2$ taking into account the bidirectional halo exchange and again by two taking into account the positive and negative direction.
+$k$ represents the number of directions in which the halo exchange occurs, it must be multiplied by $2$ taking into account the bidirectional halo exchange and again it must be multiplied by two taking into account the positive and the negative directions.
 
 ## Domain decomposition
 
-Several domain decompositions are possible, a priory some of them can be discarded assuming poor performance due buffering, as example between $(12,1,1)$ $(1,12,1)$ $(1,1,12)$, the first one is the better and more memory friendly decomposition, it has the lowest buffering needs. This can be proved experimentally, the first configuration behave better than the other in terms of MLUP/s.
+Several domain decompositions are possible,  some of them can be discarded a priori assuming poor performance due to buffering. For example between $(12,1,1)$ $(1,12,1)$ $(1,1,12)$, the first one is the best and more memory friendly decomposition. Moreover, it has the lowest buffering needs. The latter exapme can be proved experimentally: the first configuration behave better than the other in terms of MLUP/s.
 
 ## Experimentals results
 
@@ -1145,7 +1144,7 @@ jacobi_gpu_socket_model$elapsed[1]=76.52
 ```
 
 ### Thin node, core mapping.
-$\lambda=0.24\space[usec]$ and $B=5987[MB/s]$.
+$\lambda=0.24\space[usec]$ and $B=5987[MB/s]$. 
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE,message=FALSE}
 t=kbl(jacobi_thin_core_model, booktabs = T, align = "c",escape=F, col.names = linebreak(c("N° procs", "Nx","Ny","Nz","k","C\nMB","Tc\ns","Theo perf\nMLUP/s","Real perf\nMLUP/s","Elapsed time\ns","NP(1)/P(N)"), align = "c")) %>%
 column_spec(1, bold=T) %>%
@@ -1190,10 +1189,10 @@ popover = paste("am:",jacobi_thin_node_model$ratioP))
 t
 ```
 Even if this model seems accurate, some comments are required:
-mapping by socket lead a slighty better performance respect core mapping and this is not what expected by theoretical model.
-If socket map on one hand lead to poor communication performance on other hand exploit better the memory allocation. When one socket is filled with 12 processes the entire grid is stored on socket competence LRDIMM, but spreading processes across 2 socket lead to better exploit of bandwidth using different memory controller and then all memory channel available. This solver at each iteration elaborates an huge amount of memory, given $L=1200$ and $12$ worker at least 300 GB of ram are elaborated (half memory LRDIMM are saturated,then all single socket channel are used).
-Also with map-by node option experimentally we obtain better results when several processes are involved.
-The following results report different domain decomposition and binding with $L=1200$, $N=12$ on thin node. Is reported the maximum value over all runs.
+mapping by socket leads to a slighty better performance with respect to core mapping and this is not what we expected considering the theoretical model.
+If, on one hand socket map lead to poor communication performance, on other hand it exploits better the memory allocation. When one socket is filled with 12 processes the entire grid is stored on socket competence LRDIMM, but spreading processes across 2 sockets lead to a better exploit of bandwidth using different memory controller and then all memory channels available. At each iteration, this solver elaborates huge amount of memory: given $L=1200$ and $12$ workers at least 300 GB of ram are elaborated (half LRDIMMs are saturated, then all single socket channels are used).
+Also with map-by node option we obtain better results when several processes are involved.
+The following results report different domain decompositions and binding with $L=1200$, $N=12$ on thin nodes. Is reported the maximum value among all runs.
 
 ```{r, dpi=600, fig.width=14, fig.height=20,echo=FALSE,eval=TRUE}
 last=read.csv("./jacobi/various.csv")
@@ -1203,7 +1202,7 @@ column_spec(1, bold=T) %>%
 collapse_rows(columns = 1:1, latex_hline = "major", valign = "middle")
 ```
 
-Performance model doesn't take into account the buffering requirement, given a domain decomposition, needed to exchange the halo point and is not possible theoretically infer about same domain decomposition but on different direction. Experimentally differences on performance are negligible but still present.
+Performance model doesn't take into account the buffering requirement, given a domain decomposition, needed to exchange the halo point. It is not possible to infer theoretically using same domain decomposition but on different direction. Experimentally differences on performance are negligible but still present.
 \newpage
 
 ### Gpu node, core mapping.
@@ -1232,8 +1231,8 @@ background = spec_color(jacobi_gpu_socket_model$ratioP, end = 0.5,alpha = 0.2,op
 popover = paste("am:",jacobi_gpu_socket_model$ratioP))
 
 ```
-On gpu node differences on socket and core mapping are even bigger and enhanced, again we can guess the memory as main cause. Gpu node setup even if has higher frequency LDIMM module, doesn't exploit all possible memory channel. When worker number grow over physical core number the real performance, due hyperthreading, goes dramatically down respect the model. Also execution time show poor performance with 48 worker.
-
+On gpu node differences on socket and core mapping are even bigger and enhanced, again we can guess the memory is the main cause. Even if has higher frequency LDIMMs modules, Gpu node setup doesn't exploit all possible memory channel. When worker number grow over physical core number, the real performance goes dramatically down respect the model due hyperthreading. Also the execution time show poor performance with 48 workers.
+All materials, scripts, bash code, tools and machinery developed to achieve assignment goals are available on thi github repository https://github.com/NiccoloTosato/HPC_assignment1 
 \newpage
 ```{r,echo=FALSE,eval=FALSE,include=FALSE}
 write.table(jacobi_gpu_socket_model,file = "jacobi_gpu_socket_model.csv",row.names = FALSE)
