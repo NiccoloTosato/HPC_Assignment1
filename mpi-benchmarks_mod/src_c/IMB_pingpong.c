@@ -75,7 +75,7 @@ For more documentation than found here, see
         fprintf(stderr, "PAPI error %d: %s\n", e, PAPI_strerror(e)); \
         return e;                                                    \
     }
-#define NEVENTS 4
+#define NEVENTS 3
 
 /*************************************************************************/
 
@@ -127,7 +127,7 @@ Output variables:
     long long PAPI_accumulator[NEVENTS] = {0};
     int PAPI_EventSet = PAPI_NULL;
     int retval;
-    int PAPI_myevents[NEVENTS] = {PAPI_TOT_CYC, PAPI_L1_DCM, PAPI_L2_DCM, PAPI_L2_DCA};
+    int PAPI_myevents[NEVENTS] = {PAPI_TOT_CYC, PAPI_L1_DCM, PAPI_L2_DCM};
     int PAPI_acc[NEVENTS] = {0};
     retval = PAPI_library_init(PAPI_VER_CURRENT);
 
@@ -217,7 +217,7 @@ Output variables:
         *time += MPI_Wtime();
 
         //fprintf(stderr,"iteration %d, message size %d,L1 missess %ld ,L2 missess %ld, L2 total %ld \n",ITERATIONS->n_sample,r_num,PAPI_val[1],PAPI_val[2],PAPI_val[3]);
-        fprintf(stderr, "iteration %d, message size %d,L1 missess %ld ,L2 missess %ld, L2 total %ld \n", ITERATIONS->n_sample, r_num, PAPI_accumulator[1], PAPI_accumulator[2], PAPI_accumulator[3]);
+        fprintf(stderr, "iteration %d, message size %d,L1 missess %ld ,L2 missess %ld\n", ITERATIONS->n_sample, r_num, PAPI_accumulator[1], PAPI_accumulator[2]);
 
     } else if (c_info->rank == c_info->pair1) {
         dest = c_info->pair0;
