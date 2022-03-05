@@ -1,4 +1,7 @@
-"X.bytes","repetitions","t","mbs","t_est","b_est"
+#header_line 1: mpirun --map-by node -np 2 --mca pml ob1 --mca btl self,tcp ./IMB-MPI1 PingPong -msglog 28 
+#header_line 2: ct1pt-tnode009.hpc, ct1pt-tnode010.hpc
+#header_line 3: ,16.4297089805011 , 2729.66640850697
+#header: #bytes ,#repetitions , t[usec]  , Mbytes/sec,    t[usec] (computed) , Mbytes/sec (computed)
 0,1000,15.387,0,16.4297089805011,0
 1,1000,15.5,0.063,16.4300752644273,0.0608639938591817
 2,1000,15.501,0.13,16.4304415483536,0.121725274035645

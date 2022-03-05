@@ -63,8 +63,8 @@ For more documentation than found here, see
  IMB_pingpong;
 
  ***************************************************************************/
-
-#include "/u/dssc/s271550/fast/papi_library/include/papi.h"
+#include <papi.h>
+//#include "/u/dssc/s271550/fast/papi_library/include/papi.h"
 #include "IMB_benchmark.h"
 #include "IMB_declare.h"
 #include "IMB_prototypes.h"

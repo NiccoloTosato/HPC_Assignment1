@@ -1,4 +1,7 @@
-"X.bytes","repetitions","t","mbs","t_est","b_est"
+#header_line 1:  mpirun --map-by core --mca pml ob1 --mca btl self,vader  ./IMB-MPI1 PingPong -msglog 28 
+#header_line 2: ct1pt-tnode010.hpc,ct1pt-tnode009.hpc
+#header_line 3: ,0.365868018471616, 3866.45582106896
+#header: #bytes ,#repetitions , t[usec]  , Mbytes/sec,    t[usec] (computed) , Mbytes/sec (computed)
 0,1000,0.269,0,0.365868018471616,0
 1,1000,0.3,3.326,0.366126651901412,2.73129529032285
 2,1000,0.301,6.653,0.366385285331208,5.45873450728793

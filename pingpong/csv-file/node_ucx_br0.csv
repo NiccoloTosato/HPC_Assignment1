@@ -1,4 +1,7 @@
-"X.bytes","repetitions","t","mbs","t_est","b_est"
+#header_line 1:  mpirun --map-by node --mca pml ucx -mca btl ^uct -x UCX_NET_DEVICES=br0  ./IMB-MPI1 PingPong -msglog 28 
+#header_line 2: ct1pt-tnode010.hpc,ct1pt-tnode009.hpc
+#header_line 3: ,15.8550522209677, 2433.24063507186
+#header: #bytes ,#repetitions , t[usec]  , Mbytes/sec,    t[usec] (computed) , Mbytes/sec (computed)
 0,1000,15.963,0,15.8550522209677,0
 1,1000,15.932,0.062,15.8554631364633,0.0630697439357838
 2,1000,15.974,0.128,15.8558740519589,0.126136218883052
